@@ -44,13 +44,21 @@ public class MainController {
  
         return "index";
     }
- 
+  
     @RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
     public String personList(Model model) {
  
         model.addAttribute("persons", persons);
  
         return "personList";
+    }
+    
+    @RequestMapping(value = { "/consultation" }, method = RequestMethod.GET)
+    public String consultation(Model model) {
+ 
+        model.addAttribute("persons", persons);
+ 
+        return "consultation";
     }
  
     @RequestMapping(value = { "/addPerson" }, method = RequestMethod.GET)
