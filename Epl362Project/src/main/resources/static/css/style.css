@@ -113,7 +113,7 @@ form.login a:hover{
 .consultation-form{
   margin-left: auto;
   margin-right: auto;
-  margin-top: 13%;
+  margin-top: 10%;
 }
 .case-history{
 
@@ -213,6 +213,21 @@ form.login a:hover{
 	color: gray;
     font-size: 1.1em;
 }
+
+.form-group{
+  position: relative;
+}
+
+.fa-pencil-alt{
+	position: absolute;
+    top: 9px;
+    right: -20px;
+    cursor: pointer;
+}
+textarea{
+	margin-top:10px !important;
+}
+
 
 
 /*consultation page-------------------------------------------------------------------*/
