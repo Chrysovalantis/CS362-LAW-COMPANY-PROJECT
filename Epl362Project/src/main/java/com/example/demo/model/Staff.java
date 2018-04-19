@@ -7,6 +7,10 @@ import javax.persistence.Id;
 
 @Entity
 public class Staff extends MyModel {
+	public static final String LEGAL_OFFICE = "1";
+	public static final String RECEPTIONIST = "2";
+	public static final String LEGAL_STAFF = "3";
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;

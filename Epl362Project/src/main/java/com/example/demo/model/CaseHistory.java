@@ -11,7 +11,9 @@ public class CaseHistory extends MyModel{
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
-    private Long caseId;
+    private Long staffId;
+    
+	private Long caseId;
     
     private Long recomandationId;
     
@@ -67,6 +69,14 @@ public class CaseHistory extends MyModel{
 
 	public void setLegalOpinionDetails(String legalOpinionDetails) {
 		this.legalOpinionDetails = legalOpinionDetails;
+	}
+	
+	public Long getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(Long staffId) {
+		this.staffId = staffId;
 	}
    
 	
