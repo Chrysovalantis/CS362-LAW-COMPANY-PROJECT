@@ -39,10 +39,8 @@
                  <div class="form-group">
 
                    <select class="form-control" id="legalRecommendation"  >
-                    <option>Select Recommendation</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option>Select Legal Opinion</option>
+                    <option th:each ="recommendation : ${recommendations}" th:utext="${recommendation.id}"></option>
                   </select>
                    <div id="pencilRec"><i class="fas fa-pencil-alt"></i></div>
 
@@ -52,9 +50,8 @@
                  <div class="form-group">
                    <select class="form-control" id="legalOpinion">
                     <option>Select Legal Opinion</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option th:each ="legalOpinions : ${legalOpinions}" th:utext="${legalOpinions.id}"></option>
+   
                   </select>
                   <div id="pencilLeg"><i  class="fas fa-pencil-alt"></i></div>
                    <textarea id="opinionDescription" class="form-control" type="textarea" placeholder="Legal Opinion"  rows="7" ></textarea>

@@ -10,6 +10,7 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.form.PersonForm;
 import com.example.demo.model.Person;
- 
+import com.example.demo.model.repositorys.LegalOpinionRepository;
+import com.example.demo.model.repositorys.RecomentationsRepository;
+
 @Controller
 public class MainController {
- 
+    @Autowired
+    private LegalOpinionRepository legal;
+    
+    @Autowired
+    private RecomentationsRepository recom;
+    
     private static List<Person> persons = new ArrayList<Person>();
  
     static {
@@ -47,16 +55,16 @@ public class MainController {
   
     @RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
     public String personList(Model model) {
- 
-        model.addAttribute("persons", persons);
- 
+  
+        
         return "personList";
     }
     
     @RequestMapping(value = { "/consultation" }, method = RequestMethod.GET)
     public String consultation(Model model) {
- 
-        model.addAttribute("persons", persons);
+    	
+    	model.addAttribute("legalOpinions", legal.findAll());
+    	model.addAttribute("recommendations", recom.findAll());
  
         return "consultation";
     }
