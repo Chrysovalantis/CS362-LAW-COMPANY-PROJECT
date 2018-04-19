@@ -231,3 +231,22 @@ textarea{
 
 
 /*consultation page-------------------------------------------------------------------*/
+
+
+/*receptionist_-------------------------------------------------------------------------*/
+
+.tabs{
+	color:black;
+	margin-left:15px;
+	font-size:20px;
+}
+
+.tabs:hover{
+	text-decoration:none;
+}
+
+.active{
+	color:orangered !important;
+}
+
+

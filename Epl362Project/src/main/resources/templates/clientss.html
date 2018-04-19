@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<!-- xmlns:th="http://www.thymeleaf.org" -->
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultation</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	crossorigin="anonymous"></script>
+</head>
+<body id="temp">
+	<section id="header">
+		<nav class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">LAW <span>Company</span></a> <i
+						class="fas fa-gavel"></i>
+				</div>
+				<div class="navbar nav">
+					<a th:href="@{receptionist}" class="nav-item tabs">Home</a> <a
+						class="nav-item tabs active">Clients</a> <a class="nav-item tabs"
+						href="#">Recommendations</a>
+				</div>
+			</div>
+		</nav>
+	</section>
+	<section id="consultation-form">
+		<div class="container">
+			<div class="col-md-5 consultation-form">
+				<div class="form-area">
+					<form role="form">
+						<h3 class="form-title">Client Form</h3>
+
+						<div class="form-group">
+							<input type="text" class="form-control" id="name" name="name"
+								placeholder="Name" required>
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" id="surname"
+								name="surname" placeholder="Surname" required>
+						</div>
+
+						<div class="form-group">
+							<label class="checkbox"> <input type="checkbox"
+								id="locked" name="locked" required>Locked
+							</label>
+						</div>
+
+						<div class="form-group">
+							<label for="potentialMoneyLaundring"> <input
+								type="checkbox" id="potentialMoneyLaundring"
+								name="potentialMoneyLaundring" required>Potential Money
+								Laundring
+							</label>
+						</div>
+
+
+						<button type="button" id="submit" name="submit"
+							class="btn btn-primary pull-right">Submit Form</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="case-history">
+		<div class="row">
+			<div class="case-history col-md-7">
+				<div class="row history-header">
+					<div class="history-title col-md-6">Clients</div>
+					<div class="history-number col-md-6"
+						th:utext="'Total Clients : ' + ${clientsNumber}"></div>
+				</div>
+				<hr>
+				<div class="history-list">
+					<div class="list-item" th:each="client : ${clients}">
+						<div class="head row">
+							<div class="col-sm-6">
+								<h4 th:utext="'Client #'+ ${client.id}"></h4>
+							</div>
+							<div class="col-sm-6 date"
+								th:utext="'Locked : ' + ${client.locked}"></div>
+						</div>
+						<p
+							th:utext="'First Name : ' + ${client.name == null ? 'No Name Available' : client.name}">...</p>
+
+						<p th:utext="'Surname : '+ ${client.surname}"></p>
+
+						<p
+							th:utext="'Potential Money Laundring  : '+ ${client.potentialMoneyLaundring}"></p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

@@ -22,6 +22,8 @@ import com.example.demo.form.PersonForm;
 import com.example.demo.model.Person;
 import com.example.demo.model.repositorys.LegalOpinionRepository;
 import com.example.demo.model.repositorys.RecomentationsRepository;
+import com.example.demo.model.repositorys.ApointmentRepository;
+import com.example.demo.model.repositorys.ClientRepository;
 
 @Controller
 public class MainController {
@@ -30,6 +32,12 @@ public class MainController {
     
     @Autowired
     private RecomentationsRepository recom;
+    
+    @Autowired
+    private ApointmentRepository appts;
+    
+    @Autowired
+    private ClientRepository clients;
     
     private static List<Person> persons = new ArrayList<Person>();
  
@@ -67,6 +75,24 @@ public class MainController {
     	model.addAttribute("recommendations", recom.findAll());
  
         return "consultation";
+    }
+    
+    @RequestMapping(value = { "/receptionist" }, method = RequestMethod.GET)
+    public String receptionist(Model model) {
+    	
+    	model.addAttribute("appointments", appts.findAll());
+    	model.addAttribute("appointmentsNumber", appts.count());
+   
+        return "receptionist";
+    }
+    
+    @RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
+    public String clientss(Model model) {
+    	
+    	model.addAttribute("clients", clients.findAll());
+    	model.addAttribute("clientsNumber", clients.count());
+   
+        return "clientss";
     }
  
     @RequestMapping(value = { "/addPerson" }, method = RequestMethod.GET)
