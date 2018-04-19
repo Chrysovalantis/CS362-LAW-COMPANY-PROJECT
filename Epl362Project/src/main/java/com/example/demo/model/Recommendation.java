@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Recomentation extends MyModel {
+public class Recommendation extends MyModel {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;

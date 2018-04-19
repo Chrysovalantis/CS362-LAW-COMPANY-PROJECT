@@ -10,16 +10,17 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.demo.form.PersonForm;
 import com.example.demo.model.Person;
+<<<<<<< HEAD
 import com.example.demo.model.repositorys.LegalOpinionRepository;
 import com.example.demo.model.repositorys.RecomentationsRepository;
 import com.example.demo.model.repositorys.ApointmentRepository;
@@ -39,6 +40,12 @@ public class MainController {
     @Autowired
     private ClientRepository clients;
     
+=======
+import com.example.demo.model.Staff;
+@Controller
+public class MainController extends AllRepositories{
+        
+>>>>>>> e737b8ee5f6f3f737d6bbe100023fd61614d9be6
     private static List<Person> persons = new ArrayList<Person>();
  
     static {
@@ -71,8 +78,8 @@ public class MainController {
     @RequestMapping(value = { "/consultation" }, method = RequestMethod.GET)
     public String consultation(Model model) {
     	
-    	model.addAttribute("legalOpinions", legal.findAll());
-    	model.addAttribute("recommendations", recom.findAll());
+    	model.addAttribute("legalOpinions", legalRep.findAll());
+    	model.addAttribute("recommendations", recomRep.findAll());
  
         return "consultation";
     }
@@ -121,6 +128,39 @@ public class MainController {
  
         model.addAttribute("errorMessage", errorMessage);
         return "addPerson";
+    } 
+    
+    
+    @RequestMapping(value = { "/login" }, method = RequestMethod.POST)
+    public RedirectView login(String username ,String password) {
+    	Iterable<Staff> users = staffRep.findAll();
+    	for(Staff user : users) {
+    		System.out.println(user);
+    		String uUsername = user.getUsername();
+    		String uPassword = user.getPassword();
+    		if(uUsername == null || uPassword == null) {
+    			continue;
+    		}
+    		if(uUsername.equals(username)&&uPassword.equals(password)) {
+    			String role = user.getRole();
+    			if(role==null) {
+    				continue;
+    			}
+    			if(role.compareTo(Staff.LEGAL_OFFICE)==0) {
+    				return new RedirectView("consultation");
+    			}
+				if(role.compareTo(Staff.LEGAL_STAFF)==0) {
+					return new RedirectView("consultation");				
+				    			}
+				if(role.compareTo(Staff.RECEPTIONIST)==0) {
+					return new RedirectView("consultation");
+				}
+    		}
+    	}
+    	 
+    	
+    	// TODO add error
+    	return new RedirectView("");
+    	
     }
- 
 }

@@ -19,11 +19,11 @@
                <div class="wrap">
                    <p class="form-title">
                        Welcome</p>
-                   <form class="login"  method="POST">
+                   <form class="login" action="/login"  method="POST">
                      <!-- th:action="@{/login}" th:object="${personForm}" -->
-                     <input type="text" placeholder="Username"  />
+                     <input name="username" type="text" placeholder="Username"  />
                      <!-- th:field="*{username}" -->
-                     <input type="password" placeholder="password"  />
+                     <input name="password" type="password" placeholder="password"  />
                      <!-- th:field="*{password}" -->
                      <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
                    </form>
