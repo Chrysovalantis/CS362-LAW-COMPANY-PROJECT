@@ -59,6 +59,7 @@ public class MainController extends AllRepositories{
     	
     	model.addAttribute("legalOpinions", legalRep.findAll());
     	model.addAttribute("recommendations", recomRep.findAll());
+    	model.addAttribute("caseHistory", caseHistoryRep.findAll());
  
         return "consultation";
     }

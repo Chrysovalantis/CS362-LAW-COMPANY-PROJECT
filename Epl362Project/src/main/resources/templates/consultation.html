@@ -44,14 +44,14 @@
                   </select>
                    <div id="pencilRec"><i class="fas fa-pencil-alt"></i></div>
 
-                   
+
                   <textarea  id="recDescription" class="form-control" type="textarea" placeholder="Recommendation Description"  rows="7" ></textarea>
                  </div>
                  <div class="form-group">
                    <select class="form-control" id="legalOpinion">
                     <option>Select Legal Opinion</option>
                     <option th:each ="legalOpinions : ${legalOpinions}" th:utext="${legalOpinions.id}"></option>
-   
+
                   </select>
                   <div id="pencilLeg"><i  class="fas fa-pencil-alt"></i></div>
                    <textarea id="opinionDescription" class="form-control" type="textarea" placeholder="Legal Opinion"  rows="7" ></textarea>
@@ -76,39 +76,21 @@
            </div>
 		       <hr>
            <div class="history-list">
-             <div class="list-item">
+             <div th:each="case : ${caseHistory}"class="list-item">
                <div class="head row">
                  <div class="col-sm-6">
-                   <h4>Staff id</h4>
+                   <h4 th:utext="${case.staffId}"></h4>
                  </div>
                  <div class="col-sm-6 date">
                    13/02/13
                  </div>
 
                </div>
-               <p>Recommendation: </p>
-               <p>Consultation asdasdd ddd ddd ddddd ddd dd dddddd d  d d dddd ddd ddddas
-               asdddddd d dddddddddd dddddddd ddd dddddd ddddd dddd ddddd dddddddd dddasd
-               asdd dddddd dddd dddddd dddddddddddddddd ddddd ddddd dd d dddd dd dddddd</p>
+               <p><strong>Recommendation:</strong>
+               <p th:utext="${case.recomantationDetails}"></p>
 
-             </div>
-              <div class="list-item">
-               <div class="head row">
-                 <div class="col-sm-6">
-                   <h4>Staff id</h4>
-                 </div>
-                 <div class="col-sm-6 date">
-                   13/02/13
-                 </div>
-
-               </div>
-
-               <p>Recommendation: </p>
-               <p>Consultation asdasdd ddd ddd ddddd ddd dd dddddd d  d d dddd ddd ddddas
-               asdddddd d dddddddddd dddddddd ddd dddddd ddddd dddd ddddd dddddddd dddasd
-               asdd dddddd dddd dddddd dddddddddddddddd ddddd ddddd dd d dddd dd dddddd</p>
-
-             </div>
+               <p><strong>Legal Opinion:</strong></p>
+               <p th:utext="${case.legalOpinionDetails}"></p>
            </div>
            <!-- <div class="row history-list">
 
