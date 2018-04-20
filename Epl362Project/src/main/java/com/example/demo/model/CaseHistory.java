@@ -1,9 +1,12 @@
 package com.example.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 
 @Entity
 public class CaseHistory extends MyModel{
@@ -13,7 +16,7 @@ public class CaseHistory extends MyModel{
     
     private Long staffId;
     
-	private Long caseId;
+   	private Long caseId;
     
     private Long recomandationId;
     
@@ -21,7 +24,9 @@ public class CaseHistory extends MyModel{
     
     private Long legalOpinionId;
     
-    private String legalOpinionDetails;
+	private String legalOpinionDetails;
+    
+    private Date date=new Date();
 
 	public Long getId() {
 		return id;
@@ -79,5 +84,12 @@ public class CaseHistory extends MyModel{
 		this.staffId = staffId;
 	}
    
-	
+	 
+    public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }

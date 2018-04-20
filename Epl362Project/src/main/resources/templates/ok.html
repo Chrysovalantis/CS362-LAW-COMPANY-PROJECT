@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>OK</title>
+   </head>
+   <body>
+      <h1>OK</h1>  
+      <div th:each="print : ${prints}">
+      	<p th:utext="${print}"></p>
+      </div>
+   </body>
+</html>

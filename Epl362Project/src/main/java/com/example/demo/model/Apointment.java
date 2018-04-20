@@ -19,11 +19,11 @@ public class Apointment extends MyModel {
     
     private Date date;
     
-    private String withWhoStaffId;
+    private Long withWhoStaffId;
     
-    private String branchID;
+    private Long branchID;
     
-    private String caseId;
+    private Long caseId;
     
     private boolean dropin =false;
     
@@ -66,27 +66,27 @@ public class Apointment extends MyModel {
 		this.date = date;
 	}
 
-	public String getWithWhoStaffId() {
+	public Long getWithWhoStaffId() {
 		return withWhoStaffId;
 	}
 
-	public void setWithWhoStaffId(String withWhoStaffId) {
+	public void setWithWhoStaffId(Long withWhoStaffId) {
 		this.withWhoStaffId = withWhoStaffId;
 	}
 
-	public String getBranchID() {
+	public Long getBranchID() {
 		return branchID;
 	}
 
-	public void setBranchID(String branchID) {
+	public void setBranchID(Long branchID) {
 		this.branchID = branchID;
 	}
 
-	public String getCaseId() {
+	public Long getCaseId() {
 		return caseId;
 	}
 
-	public void setCaseId(String caseId) {
+	public void setCaseId(Long caseId) {
 		this.caseId = caseId;
 	}
 

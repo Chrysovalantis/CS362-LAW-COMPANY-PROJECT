@@ -16,16 +16,23 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.demo.form.CaseHistoryForm;
 import com.example.demo.form.ChangeRequestForm;
 import com.example.demo.form.PersonForm;
+import com.example.demo.model.Apointment;
+import com.example.demo.model.Branch;
+import com.example.demo.model.CaseHistory;
 import com.example.demo.model.ChangeRequest;
 import com.example.demo.model.Client;
+import com.example.demo.model.ClientCase;
 import com.example.demo.model.Person;
 
 import com.example.demo.model.Staff;
@@ -56,18 +63,59 @@ public class MainController extends AllRepositories{
   
     @RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
     public String personList(Model model) {
-  
+    	
         
         return "personList";
     }
     
-    @RequestMapping(value = { "/consultation" }, method = RequestMethod.GET)
-    public String consultation(Model model) {
+    @GetMapping(value = { "/loadDefaults" })
+    public String loadDefaults(Model model) {
+    	model.addAttribute("prints",loadDef());
+        return "ok";
+    }
+    
+    
+    @RequestMapping(value = { "/consultation/{apointmentId}" }, method = RequestMethod.GET)
+    public String consultation(Model model,@PathVariable(value = "apointmentId") Long apointmentId) {
+    	Apointment apoi = null;
+    	try {
+    	apoi = apointmentsRep.findById(apointmentId).get();
+    	}
+    	catch (Exception e) {
+			return "index";
+		}
+    	Long caseId = apoi.getCaseId();
+    	Long branchId = apoi.getBranchID();
+    	Long staffId = apoi.getWithWhoStaffId();
     	
+    	ClientCase cs = clientCaseRep.findById(caseId).get();
+    	Client cl = clientRep.findById(cs.getClientId()).get();
+    	
+    	Branch br = branchRep.findById(branchId).get();
+    	Staff st = staffRep.findById(staffId).get();
+    	
+    	ArrayList<CaseHistoryForm> caseH = new ArrayList<>();
+    	for(CaseHistory ch: caseHistoryRep.findAll()) {
+    		if(ch!=null && ch.getCaseId()!=null && ch.getCaseId().equals(caseId)) {
+    			Staff s = staffRep.findById(ch.getStaffId()).get();
+    			caseH.add(new CaseHistoryForm(ch,s));
+    		}
+    	}
+    	
+    	model.addAttribute("staffName", st.getName());
+    	model.addAttribute("staffId", staffId);
+    	model.addAttribute("caseHistory", caseH);
+    	model.addAttribute("caseHistoryNumber", caseH.size());
+    	model.addAttribute("caseId", caseId);
+    	model.addAttribute("apoiDateCreated",apoi.getDateCreated());
+    	model.addAttribute("apoiDate", apoi.getDate());
+    	model.addAttribute("branchName", br.getName());
+    	model.addAttribute("apoiDate", apoi.getDate());
     	model.addAttribute("legalOpinions", legalRep.findAll());
     	model.addAttribute("recommendations", recomRep.findAll());
-    	model.addAttribute("caseHistory", caseHistoryRep.findAll());
- 
+    	model.addAttribute("clientName", cl.getName()+" "+cl.getSurname());
+
+    	
         return "consultation";
     }
     

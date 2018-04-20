@@ -1,109 +1,163 @@
 <!DOCTYPE HTML>
 <!-- xmlns:th="http://www.thymeleaf.org" -->
-<html >
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Consultation</title>
-      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultation</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
-      <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-   </head>
-   <body id="temp">
-     <section id="header">
-      <nav class="navbar navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">LAW <span>Company</span></a>
-            <i class="fas fa-gavel"></i>
-          </div>
- 		</div>
-      </nav>
-     </section>
-     <section id="consultation-form">
-       <div class="container">
-         <div class="col-md-5 consultation-form">
-             <div class="form-area">
-               <form role="form">
-                <h3 class="form-title">Consultation Form</h3>
-             		<div class="form-group">
-         					<input type="text" class="form-control" id="name" name="name" placeholder="Staff Name" required>
-         				</div>
-         				<div class="form-group">
-         					<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-         				</div>
-                 <div class="form-group">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	crossorigin="anonymous"></script>
+</head>
+<body id="temp">
+	<section id="header">
+		<nav class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">LAW <span>Company</span></a> <i
+						class="fas fa-gavel"></i>
+				</div>
+			</div>
+		</nav>
+	</section>
+	<section id="consultation-form">
+		<div class="container">
+			<div class="col-md-8 consultation-form">
+				<div class="form-area">
+					<form role="form">
+						<h3 class="form-title">Consultation Form</h3>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label" for="caseId">Case
+								Id:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="caseId"
+									name="caseId" th:value="${caseId}" readonly>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label" for="branchName">Branch
+								Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="branchName"
+									name="branchName" th:value="${branchName}" readonly>
+							</div>
+						</div>
 
-                   <select class="form-control" id="legalRecommendation"  >
-                    <option>Select Legal Opinion</option>
-                    <option th:each ="recommendation : ${recommendations}" th:utext="${recommendation.id}"></option>
-                  </select>
-                   <div id="pencilRec"><i class="fas fa-pencil-alt"></i></div>
+
+						<input type="text" id="staffId" name="staffId"
+							th:value="${staffId}" hidden>
 
 
-                  <textarea  id="recDescription" class="form-control" type="textarea" placeholder="Recommendation Description"  rows="7" ></textarea>
-                 </div>
-                 <div class="form-group">
-                   <select class="form-control" id="legalOpinion">
-                    <option>Select Legal Opinion</option>
-                    <option th:each ="legalOpinions : ${legalOpinions}" th:utext="${legalOpinions.id}"></option>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label" for="name">Staff
+								Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="name" name="name"
+									th:value="${staffName}" readonly>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label" for="name">
+								Client Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="clientName" name="clientName"
+									th:value="${clientName}" readonly>
+							</div>
+						</div>
 
-                  </select>
-                  <div id="pencilLeg"><i  class="fas fa-pencil-alt"></i></div>
-                   <textarea id="opinionDescription" class="form-control" type="textarea" placeholder="Legal Opinion"  rows="7" ></textarea>
-                 </div>
 
-                 <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
-               </form>
-             </div>
-         </div>
-       </div>
-     </section>
-     <section id="case-history">
-       <div class="row">
-         <div class="case-history col-md-7">
-           <div class="row history-header">
-             <div class="history-title col-md-5">
-               Case History
-             </div>
-             <div class="history-number col-md-7">
-               23 consultations
-             </div>
-           </div>
-		       <hr>
-           <div class="history-list">
-             <div th:each="case : ${caseHistory}"class="list-item">
-               <div class="head row">
-                 <div class="col-sm-6">
-                   <h4 th:utext="${case.staffId}"></h4>
-                 </div>
-                 <div class="col-sm-6 date">
-                   13/02/13
-                 </div>
+						<div class="form-group">
 
-               </div>
-               <p><strong>Recommendation:</strong>
-               <p th:utext="${case.recomantationDetails}"></p>
+							<select class="form-control" id="recomandationId" name="recomandationId">
+								<option>Select Recommendation</option>
+								<option th:each="recommendation : ${recommendations}"
+									th:value="${recommendation.id}"
+									th:utext="${recommendation.type}"></option>
+							</select>
+							<div id="pencilRec">
+								<i class="fas fa-pencil-alt"></i>
+							</div>
 
-               <p><strong>Legal Opinion:</strong></p>
-               <p th:utext="${case.legalOpinionDetails}"></p>
-           </div>
-           <!-- <div class="row history-list">
+
+							<textarea id="recomantationDetails" name="recomantationDetails" class="form-control"
+								type="textarea" placeholder="Recommendation Description"
+								rows="7"></textarea>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="legalOpinionId" name="legalOpinionId">
+								<option>Select Legal Opinion</option>
+								<option th:each="legalOpinions : ${legalOpinions}"
+									th:value="${legalOpinions.id}"
+									th:utext="${legalOpinions.type}"></option>
+
+							</select>
+							<div id="pencilLeg">
+								<i class="fas fa-pencil-alt"></i>
+							</div>
+							<textarea id="legalOpinionDetails" name="legalOpinionDetails" class="form-control"
+								type="textarea" placeholder="Legal Opinion" rows="7"></textarea>
+						</div>
+
+						<button type="button" id="submit" name="submit"
+							class="btn btn-primary pull-right">Submit Form</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="case-history">
+		<div class="row">
+			<div class="case-history col-md-7">
+				<div class="row history-header">
+					<div class="history-title col-md-5">Case History</div>
+					<div class="history-number col-md-7"
+						th:utext="${caseHistoryNumber}+' consultations'"></div>
+				</div>
+				<hr>
+				<div class="history-list">
+					<div th:each="case : ${caseHistory}" class="list-item">
+						<div class="head row">
+							<div class="col-sm-6">
+								<h4 th:utext="${case.name}+' '+${case.surname}+' staffId: '+${case.staffId}"></h4>
+							</div>
+							<div class="col-sm-6 date" th:utext="${case.date}"></div>
+
+						</div>
+						<p>
+							<strong>Recommendation:</strong>
+						<p th:utext="${case.recomantationDetails}"></p>
+
+						<p>
+							<strong>Legal Opinion:</strong>
+						</p>
+						<p th:utext="${case.legalOpinionDetails}"></p>
+					</div>
+					<!-- <div class="row history-list">
 
            </div> -->
 
-         </div>
-       </div>
-     </section>
+				</div>
+			</div>
+	</section>
 
-      <!-- <h1>Welcome</h1>
+	<!-- <h1>Welcome</h1>
       <h2 th:utext="${message}">..!..</h2> -->
 
-      <!--
+	<!--
 
          In Thymeleaf the equivalent of
          JSP's ${pageContext.request.contextPath}/edit.html
@@ -111,8 +165,8 @@
 
          -->
 
-      <!-- <a th:href="@{/personList}">Person List</a> -->
-   <script type="text/javascript" th:src="@{/javaScript/content.js}"></script>
-   </body>
+	<!-- <a th:href="@{/personList}">Person List</a> -->
+	<script type="text/javascript" th:src="@{/javaScript/content.js}"></script>
+</body>
 
 </html>
