@@ -131,10 +131,19 @@ public class MainController extends AllRepositories{
     @RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
     public String clientss(Model model) {
     	
-    	model.addAttribute("clients", clientRep.findAll());
+    	model.addAttribute("client", clientRep.findAll());
     	model.addAttribute("clientsNumber", clientRep.count());
    
         return "clientss";
+    }
+
+    @RequestMapping(value = { "/recommendations" }, method = RequestMethod.GET)
+    public String recommendations(Model model) {
+    	
+    	model.addAttribute("recommendationss", recomRep.findAll());
+    	// model.addAttribute("clientsNumber", clientRep.count());
+   
+        return "recommendations";
     }
  
     @RequestMapping(value = { "/addPerson" }, method = RequestMethod.GET)

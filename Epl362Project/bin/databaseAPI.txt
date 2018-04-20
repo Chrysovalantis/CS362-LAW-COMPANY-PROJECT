@@ -1,0 +1,101 @@
+http://localhost:8080/{table} // get all records [GET]
+http://localhost:8080/{table}/{id} // get records with id [GET]
+http://localhost:8080/{table}/deleteAll // deleteAll records gia testing parapano [DELETE]
+http://localhost:8080/{table}/delete/{id} // delete record me id(epistrefi to id if ok) [DELETE]
+http://localhost:8080/{table}/addNew // create an new record with null(epistrefi to json tu kenurgiu) gia testing parapano [POST]
+http://localhost:8080/{table}/add // create a record from json (epistrefi to id if ok) [POST]
+http://localhost:8080/{table}/update // update a recort from json (epistrefi to id if ok) [PUT]
+
+{table} ena apo 
+{staffs,
+recomentations,
+legalOpinions,
+desagrements,
+clients,
+clientCases,
+changeRequests,
+caseTypes,
+casesHistorys,
+branches,
+apointments}
+
+///////////
+//CONTNET//
+///////////
+
+staffs:
+
+id
+username
+password
+name
+surname
+role
+
+recomentations:
+
+id
+type
+
+legalOpinions:
+
+id
+type
+
+desagrements:
+
+id
+clientId
+recomandationId
+overruledByStaffId
+overruled = false
+clients:
+id
+name
+surname
+locked=false
+potentialMoneyLaundring = false
+
+clientCases:
+
+id
+caseTypeId
+clientId
+changeRequests:
+
+id
+// true for delete
+// false for edit
+deleted =false
+clientId
+description
+caseTypes:
+id
+type
+id
+type
+
+casesHistorys:
+
+id
+caseId
+recomandationId
+recomantationDetails
+legalOpinionId
+legalOpinionDetails
+
+branches:
+
+id
+name
+
+apointments:
+
+id
+dateCreated= new Date()
+attented = false
+date
+withWhoStaffId
+branchID
+caseId
+dropin =false
