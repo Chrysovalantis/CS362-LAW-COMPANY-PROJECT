@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<!-- xmlns:th="http://www.thymeleaf.org" -->
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Record</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	crossorigin="anonymous"></script>
+</head>
+<body id="temp">
+
+	<section id="header">
+		<nav class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">LAW <span>Company</span></a> <i
+						class="fas fa-gavel"></i>
+				</div>
+			
+		
+		<div class="navbar nav">
+					<a th:href="@{changeRequestLO}" class="nav-item tabs">Home</a> <a
+						href="#" class="nav-item tabs active">Change Requests</a> 
+						<a th:href="@{reports}" class="nav-item tabs">Reports</a>
+		</div>
+		</div>
+		</nav>
+	</section>
+	
+	<div class="tabcontent" id="ChangeRequests">
+		<section id="change-requests">
+			<div class="row">
+				<div class="case-history col-md-7">
+					<div class="row history-header">
+						<div class="history-title col-md-8">Change Requests</div>
+
+					</div>
+					<hr>
+					<div class="history-list">
+						<div th:each="changeRequest : ${changeRequests}">
+							<div class="list-item">
+								<h4>Description:</h4>
+								<p th:utext="${changeRequest.description}"></p>
+								<h4>Changes:</h4>
+								<p
+									th:utext="'Name: '+${changeRequest.name}+' -> '+${changeRequest.newName}"></p>
+								<p
+									th:utext="'Surname: '+${changeRequest.surname}+' -> '+${changeRequest.newSurname}"></p>
+								<p
+									th:utext="'Locked: '+${changeRequest.locked}+' -> '+${changeRequest.deleted}"></p>
+								<p
+									th:utext="'Money Laundring: '+${changeRequest.potentialMoneyLaundring}+' -> '+${changeRequest.newPotentialMoneyLaundring}"></p>
+
+								<form action="/processRequest" method="POST">
+									<input type="hidden" name="id" th:value="${changeRequest.id}">
+									<input class="btn btn-success btn-sm" name="button"
+										type="submit" value="Aprove"> <input
+										class="btn btn-danger btn-sm" name="button" type="submit"
+										value="Reject">
+								</form>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="tabcontent" id="Reports"></div>
+
+</body>
+
+</html>

@@ -9,16 +9,23 @@ package com.example.demo.controller;
  */
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.demo.form.ChangeRequestForm;
 import com.example.demo.form.PersonForm;
+import com.example.demo.model.ChangeRequest;
+import com.example.demo.model.Client;
 import com.example.demo.model.Person;
 
 import com.example.demo.model.Staff;
@@ -151,5 +158,53 @@ public class MainController extends AllRepositories{
     	// TODO add error
     	return new RedirectView("");
     	
+    }
+    
+
+    @RequestMapping(value = { "/changeRequestLO" }, method = RequestMethod.GET)
+    public String changeRequest(Model model) {
+    	Iterable<ChangeRequest> chrs = changeRequestRepository.findAll();
+    	ArrayList<ChangeRequestForm> chReqs = new ArrayList<>();
+    	for(ChangeRequest chr : chrs ) {
+    		if(chr!=null && chr.getState() !=null && chr.getState().equals(ChangeRequest.UNPROSESED)) {
+    			Client cl = clientRep.findById(chr.getClientId()).get();
+    			ChangeRequestForm nChrForm = new ChangeRequestForm(chr,cl);
+    			chReqs.add(nChrForm);
+    			
+    		}
+    	}
+    	model.addAttribute("changeRequests", chReqs);
+        return "changeRequests";
+    }
+    
+    @RequestMapping(value = { "/processRequest"}, method = RequestMethod.POST,
+    		consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public RedirectView processRequest(@RequestParam MultiValueMap<String, String> paramMap) {
+    	for(String val : paramMap.keySet()) {
+    		System.out.println("Key: "+val+" Value: "+paramMap.get(val));
+    	}
+    	Optional<ChangeRequest> temp = changeRequestRepository.findById(Long.parseLong(paramMap.get("id").get(0)));
+    	ChangeRequest chr = temp.get();
+
+    	if(paramMap.get("button").toString().equals("Aprove")) {
+    		Client updatedClient = clientRep.findById(chr.getClientId()).get();
+    		if(chr.isDeleted()) {
+    			updatedClient.setLocked(true);
+    		}
+    		updatedClient.setName(chr.getNewName());
+    		updatedClient.setPotentialMoneyLaundring(chr.isNewPotentialMoneyLaundring());
+    		updatedClient.setSurname(chr.getNewSurname());
+    		clientRep.save(updatedClient);
+    	}
+    	
+		chr.setState(ChangeRequest.PROSESED);
+		changeRequestRepository.save(chr);
+    	return new RedirectView("/legalRecords");
+    }
+    
+    @RequestMapping(value = { "/reports" }, method = RequestMethod.GET)
+    public String reports(Model model) {
+    	
+        return "reports";
     }
 }
