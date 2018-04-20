@@ -20,32 +20,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.demo.form.PersonForm;
 import com.example.demo.model.Person;
-<<<<<<< HEAD
-import com.example.demo.model.repositorys.LegalOpinionRepository;
-import com.example.demo.model.repositorys.RecomentationsRepository;
-import com.example.demo.model.repositorys.ApointmentRepository;
-import com.example.demo.model.repositorys.ClientRepository;
 
-@Controller
-public class MainController {
-    @Autowired
-    private LegalOpinionRepository legal;
-    
-    @Autowired
-    private RecomentationsRepository recom;
-    
-    @Autowired
-    private ApointmentRepository appts;
-    
-    @Autowired
-    private ClientRepository clients;
-    
-=======
 import com.example.demo.model.Staff;
 @Controller
 public class MainController extends AllRepositories{
         
->>>>>>> e737b8ee5f6f3f737d6bbe100023fd61614d9be6
     private static List<Person> persons = new ArrayList<Person>();
  
     static {
@@ -87,8 +66,8 @@ public class MainController extends AllRepositories{
     @RequestMapping(value = { "/receptionist" }, method = RequestMethod.GET)
     public String receptionist(Model model) {
     	
-    	model.addAttribute("appointments", appts.findAll());
-    	model.addAttribute("appointmentsNumber", appts.count());
+    	model.addAttribute("appointments", apointmentsRep.findAll());
+    	model.addAttribute("appointmentsNumber", apointmentsRep.count());
    
         return "receptionist";
     }
@@ -96,8 +75,8 @@ public class MainController extends AllRepositories{
     @RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
     public String clientss(Model model) {
     	
-    	model.addAttribute("clients", clients.findAll());
-    	model.addAttribute("clientsNumber", clients.count());
+    	model.addAttribute("clients", clientRep.findAll());
+    	model.addAttribute("clientsNumber", clientRep.count());
    
         return "clientss";
     }
