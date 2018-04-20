@@ -9,7 +9,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ChangeRequest")
 public class ChangeRequest extends MyModel {
-    @Id
+	public static final String UNPROSESED = "1";
+	public static final String PROSESED = "2";
+    
+	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
@@ -19,7 +22,23 @@ public class ChangeRequest extends MyModel {
 	
     private Long clientId;
     
-    private String description;
+    private String newName;
+    
+    private String newSurname;
+    
+    private boolean newPotentialMoneyLaundring = false;
+    
+	private String description;
+    
+    private String state = UNPROSESED;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public Long getId() {
 		return id;
@@ -51,6 +70,31 @@ public class ChangeRequest extends MyModel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getNewName() {
+		return newName;
+	}
+
+	public void setNewName(String newName) {
+		this.newName = newName;
+	}
+
+	public String getNewSurname() {
+		return newSurname;
+	}
+
+	public void setNewSurname(String newSurname) {
+		this.newSurname = newSurname;
+	}
+
+
+	public boolean isNewPotentialMoneyLaundring() {
+		return newPotentialMoneyLaundring;
+	}
+
+	public void setNewPotentialMoneyLaundring(boolean newPotentialMoneyLaundring) {
+		this.newPotentialMoneyLaundring = newPotentialMoneyLaundring;
 	}
     
 	

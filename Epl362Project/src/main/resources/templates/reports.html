@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<!-- xmlns:th="http://www.thymeleaf.org" -->
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal Record</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	crossorigin="anonymous"></script>
+</head>
+<body id="temp">
+
+	<section id="header">
+		<nav class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">LAW <span>Company</span></a> <i
+						class="fas fa-gavel"></i>
+				</div>
+
+
+				<div class="navbar nav">
+					<a th:href="@{changeRequestLO}" class="nav-item tabs">Home</a> 
+					<a th:href="@{changeRequestLO}" class="nav-item tabs">Change Requests</a> 
+					<a href="#" class="nav-item tabs active">Reports</a>
+				</div>
+			</div>
+		</nav>
+	</section>
+
+
+
+
+</body>
+
+</html>
