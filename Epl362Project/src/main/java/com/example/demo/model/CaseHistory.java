@@ -16,7 +16,17 @@ public class CaseHistory extends MyModel{
     
     private Long staffId;
     
-   	private Long caseId;
+    private Long apointmentId;
+    
+   	public Long getApointmentId() {
+		return apointmentId;
+	}
+
+	public void setApointmentId(Long apointmentId) {
+		this.apointmentId = apointmentId;
+	}
+
+	private Long caseId;
     
     private Long recomandationId;
     

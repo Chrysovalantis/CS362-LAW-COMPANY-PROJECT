@@ -111,11 +111,15 @@ public class MainController extends AllRepositories{
     	model.addAttribute("apoiDate", apoi.getDate());
     	model.addAttribute("branchName", br.getName());
     	model.addAttribute("apoiDate", apoi.getDate());
+    	// TODO if desagriment
     	model.addAttribute("legalOpinions", legalRep.findAll());
-    	model.addAttribute("recommendations", recomRep.findAll());
-    	model.addAttribute("clientName", cl.getName()+" "+cl.getSurname());
+    	model.addAttribute("apointmentId", apointmentId);
+    	// TODO if desagriment
 
-    	
+    	model.addAttribute("recommendations", recomRep.findAll());
+    	// TODO if dangerus
+    	model.addAttribute("clientName", cl.getName()+" "+cl.getSurname());
+    	    	
         return "consultation";
     }
     
@@ -199,6 +203,9 @@ public class MainController extends AllRepositories{
 				if(role.compareTo(Staff.RECEPTIONIST)==0) {
 					return new RedirectView("consultation");
 				}
+				if(role.compareTo(Staff.HEAD_OFFICE)==0) {
+					return new RedirectView("consultation");
+				}
     		}
     	}
     	 
@@ -247,7 +254,7 @@ public class MainController extends AllRepositories{
     	
 		chr.setState(ChangeRequest.PROSESED);
 		changeRequestRepository.save(chr);
-    	return new RedirectView("/legalRecords");
+    	return new RedirectView("/changeRequestLO");
     }
     
     @RequestMapping(value = { "/reports" }, method = RequestMethod.GET)

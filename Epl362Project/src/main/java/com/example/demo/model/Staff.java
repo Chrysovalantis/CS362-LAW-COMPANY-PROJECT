@@ -10,6 +10,7 @@ public class Staff extends MyModel {
 	public static final String LEGAL_OFFICE = "1";
 	public static final String RECEPTIONIST = "2";
 	public static final String LEGAL_STAFF = "3";
+	public static final String HEAD_OFFICE = "4";
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
