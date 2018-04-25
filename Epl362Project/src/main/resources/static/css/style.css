@@ -335,4 +335,60 @@ textarea{
   transform: rotate(-90deg);
 }
 
+/*receptionist_-------------------------------------------------------------------------*/
 
+/*legal_app-----------------------------------------------------------------------------*/
+
+.app-btn{
+	text-align:right;
+	margin-top: 80px;
+
+}
+
+/*legal_app-----------------------------------------------------------------------------*/
+
+/*head_office---------------------------------------------------------------------------*/
+.filterable {
+    margin-top: 10px;
+    padding: 20px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+.table th{
+  border-top: none !important;
+}
+
+reports >.row{
+  margin-top: 50px;
+}
+.buttons{
+  padding: 20px;
+  text-align: center;
+}
+.col-md-3{
+  max-width: 80%!important;
+}
+.report-header{
+  text-align: center;
+  color: #b11b1b;
+  margin-bottom: 30px;
+}
+/*head_office---------------------------------------------------------------------------*/
