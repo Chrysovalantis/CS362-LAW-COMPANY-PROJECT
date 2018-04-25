@@ -55,11 +55,11 @@
 								<h4 th:utext="'Appointment #'+ ${appointment.id}"></h4>
 							</div>
 							<div class="col-sm-6 date"
-								th:utext="'Created on : ' + ${appointment.dateCreated}"></div>
+								th:utext="'Date : ' + ${appointment.date}"></div>
 
 						</div>
 						<p
-							th:utext="'Date : ' + ${appointment.date == null ? 'No Summary Available' : appointment.date}">...</p>
+							th:utext="'Created οn : ' + ${appointment.dateCreated == null ? 'No Summary Available' : appointment.dateCreated}">...</p>
 
 						<p th:utext="'Attended : '+ ${appointment.attented}"></p>
 

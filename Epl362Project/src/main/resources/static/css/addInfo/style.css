@@ -325,3 +325,7 @@ textarea {
 .addInfoForm{
     margin-top: 5% !important;
 }
+
+a.tabs.active{
+	color:orangered !important;
+}
