@@ -141,7 +141,11 @@ public class MainController extends AllRepositories{
 	@RequestMapping(value = { "/addInfo" }, method = RequestMethod.GET)
     public String addInfo(Model model) {
 
-    	//model.addAttribute("recommendationss", recomRep.findAll());
+    	model.addAttribute("recommendations", recomRep.findAll());
+    	model.addAttribute("branches", recomRep.findAll());
+    	model.addAttribute("caseTypes", caseTypeRep.findAll());
+    	model.addAttribute("clients", clientRep.findAll());
+    	model.addAttribute("legalOpinions", legalRep.findAll());
     	
         return "addInfo";
     }
@@ -149,7 +153,7 @@ public class MainController extends AllRepositories{
     @RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
     public String clientss(Model model) {
     	
-    	model.addAttribute("client", clientRep.findAll());
+    	model.addAttribute("customers", clientRep.findAll());
     	model.addAttribute("clientsNumber", clientRep.count());
 		
         return "clientss";
