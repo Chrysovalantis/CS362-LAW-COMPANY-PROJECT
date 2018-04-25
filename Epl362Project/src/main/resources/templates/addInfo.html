@@ -92,18 +92,18 @@
 								</div>
 								<div class="tab-pane" id="tab2">
 									<div class="container">
-										<div class="col-md-5 consultation-form">
+										<div class="col-md-5 consultation-form addInfoForm">
 											<div class="form-area">
 												<form role="form">
 													<h3 class="form-title">New Recommendation</h3>
-
+<!-- 
 													<div class="form-group">
 														<label for="availRecoms">Current Recommendations</label>
 														<select id="availRecoms" class="form-control">
 															<option th:each="recommendation : ${recommendations}" th:utext="${recommendation.type}" th:value="${recommendation.id}">
 															</option>
 														</select>
-													</div>
+													</div> -->
 
 													<div class="form-group">
 														<input type="text" class="form-control" id="surname" name="surname" placeholder="New Recommendation" required>
@@ -113,22 +113,43 @@
 												</form>
 											</div>
 										</div>
+										<div class="col-md-12" id="legalOpinionsList">
+
+												<div class="col-md-12" id="legalList">
+													<div class="row history-header">
+														<div class="history-title col-md-6">Current Recommendations</div>
+													</div>
+													<hr>
+													<div class="history-list">
+														<div class="list-item" th:each="recommendation : ${recommendations}">
+															<div class="row">
+																<div class="col-sm-6">
+																	<h4 th:utext="'Recommendation #'+ ${recommendation.id}"></h4>
+																</div>
+															</div>
+															<p th:utext="${recommendation.type}"></p>
+	
+														</div>
+													</div>
+												</div>
+	
+											</div>
 									</div>
 								</div>
 								<div class="tab-pane" id="tab3">
 									<div class="container">
-										<div class="col-md-5 consultation-form">
+										<div class="col-md-5 consultation-form addInfoForm">
 											<div class="form-area">
 												<form role="form">
 													<h3 class="form-title">New Branch</h3>
-
+<!-- 
 													<div class="form-group">
 														<label for="availBranch">Current Branches</label>
 														<select id="availBranch" class="form-control">
 															<option th:each="branch : ${branches}" th:utext="${branch.id}" th:value="${branch.id}">
 															</option>
 														</select>
-													</div>
+													</div> -->
 
 													<div class="form-group">
 														<input type="text" class="form-control" id="surname" name="branch_name" placeholder="New Branch" required>
@@ -138,22 +159,43 @@
 												</form>
 											</div>
 										</div>
+										<div class="col-md-12" id="legalOpinionsList">
+
+											<div class="col-md-12" id="legalList">
+												<div class="row history-header">
+													<div class="history-title col-md-6">Current Branches</div>
+												</div>
+												<hr>
+												<div class="history-list">
+													<div class="list-item" th:each="branch : ${branches}">
+														<div class="row">
+															<div class="col-sm-6">
+																<h4 th:utext="'Branch #'+ ${branch.id}"></h4>
+															</div>
+														</div>
+														<p th:utext="${branch.id}"></p>
+
+													</div>
+												</div>
+											</div>
+
+										</div>
 									</div>
 								</div>
 								<div class="tab-pane" id="tab4">
 									<div class="container">
-										<div class="col-md-5 consultation-form">
+										<div class="col-md-5 consultation-form addInfoForm">
 											<div class="form-area">
 												<form role="form">
 													<h3 class="form-title">New Case Type</h3>
 
-													<div class="form-group">
+													<!-- <div class="form-group">
 														<label for="availCaseType">Current Case Types</label>
 														<select id="availCaseType" class="form-control">
 															<option th:each="caseType : ${caseTypes}" th:utext="${caseType.id}" th:value="${caseType.id}">
 															</option>
 														</select>
-													</div>
+													</div> -->
 
 													<div class="form-group">
 														<input type="text" class="form-control" id="surname" name="case_type" placeholder="New Case Type" required>
@@ -162,6 +204,27 @@
 													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
 												</form>
 											</div>
+										</div>
+										<div class="col-md-12" id="legalOpinionsList">
+
+											<div class="col-md-12" id="legalList">
+												<div class="row history-header">
+													<div class="history-title col-md-6">Current Case Types</div>
+												</div>
+												<hr>
+												<div class="history-list">
+													<div class="list-item" th:each="caseType : ${caseTypes}">
+														<div class="row">
+															<div class="col-sm-6">
+																<h4 th:utext="'CaseType #'+ ${caseType.id}"></h4>
+															</div>
+														</div>
+														<p th:utext="${caseType.type}"></p>
+
+													</div>
+												</div>
+											</div>
+
 										</div>
 									</div>
 								</div>
@@ -196,18 +259,18 @@
 								</div>
 								<div class="tab-pane" id="tab6">
 									<div class="container">
-										<div class="col-md-5 consultation-form">
+										<div class="col-md-5 consultation-form addInfoForm">
 											<div class="form-area">
 												<form role="form">
 													<h3 class="form-title">New Legal Opinion</h3>
-
+													<!-- 
 													<div class="form-group">
 														<label for="availLegal">Current Legal Opinions</label>
 														<select id="availLegal" class="form-control">
 															<option th:each="legalOpinion : ${legalOpinions}" th:utext="${legalOpinion.id}" th:value="${legalOpinion.id}">
 															</option>
 														</select>
-													</div>
+													</div> -->
 
 													<div class="form-group">
 														<input type="text" class="form-control" id="surname" name="case_type" placeholder="New Legal Opinion" required>
@@ -217,7 +280,29 @@
 												</form>
 											</div>
 										</div>
+										<div class="col-md-12" id="legalOpinionsList">
+
+											<div class="col-md-12" id="legalList">
+												<div class="row history-header">
+													<div class="history-title col-md-6">Current Legal Opinions</div>
+												</div>
+												<hr>
+												<div class="history-list">
+													<div class="list-item" th:each="legalOpinion : ${legalOpinions}">
+														<div class="row">
+															<div class="col-sm-6">
+																<h4 th:utext="'LegalOpinion #'+ ${legalOpinion.id}"></h4>
+															</div>
+														</div>
+														<p th:utext="${legalOpinion.type}"></p>
+
+													</div>
+												</div>
+											</div>
+
+										</div>
 									</div>
+
 								</div>
 							</div>
 						</div>

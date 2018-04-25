@@ -259,10 +259,6 @@ textarea {
     text-decoration: none;
 }
 
-.active {
-    color: orangered !important;
-}
-
 /*Panel tabs*/
 
 .panel-tabs {
@@ -313,4 +309,19 @@ textarea {
 
 .panel-tabs{
   border-bottom: 1px solid #b11b1bd6;
+}
+
+#legalOpinionsList{
+    background-color: lightgrey;
+    margin-top: 50px;
+    height: 390px;
+    overflow: auto;
+}
+
+#legalList{
+    margin:10px;
+}
+
+.addInfoForm{
+    margin-top: 5% !important;
 }
