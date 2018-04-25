@@ -132,13 +132,21 @@ public class MainController extends AllRepositories{
         return "appointments";
     }
     
-    @RequestMapping(value = { "/lega|_appointments" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/legal_appointments" }, method = RequestMethod.GET)
     public String legal_appointments(Model model) {
     	
     	model.addAttribute("appointments", apointmentsRep.findAll());
     	model.addAttribute("appointmentsNumber", apointmentsRep.count());
    
         return "legal_appointments";
+    }
+    
+    @RequestMapping(value = { "/head_office" }, method = RequestMethod.GET)
+    public String head_office(Model model) {
+    	
+    	
+   
+        return "head_office";
     }
 
 	@RequestMapping(value = { "/newAppointment" }, method = RequestMethod.GET)
