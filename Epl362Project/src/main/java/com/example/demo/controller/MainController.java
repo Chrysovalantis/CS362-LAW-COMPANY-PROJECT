@@ -123,13 +123,27 @@ public class MainController extends AllRepositories{
         return "consultation";
     }
     
-    @RequestMapping(value = { "/receptionist" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/appointments" }, method = RequestMethod.GET)
     public String receptionist(Model model) {
     	
     	model.addAttribute("appointments", apointmentsRep.findAll());
     	model.addAttribute("appointmentsNumber", apointmentsRep.count());
    
-        return "receptionist";
+        return "appointments";
+    }
+
+	@RequestMapping(value = { "/newAppointment" }, method = RequestMethod.GET)
+    public String newAppointment(Model model) {
+    	
+        return "newAppointment";
+    }
+
+	@RequestMapping(value = { "/addInfo" }, method = RequestMethod.GET)
+    public String addInfo(Model model) {
+
+    	//model.addAttribute("recommendationss", recomRep.findAll());
+    	
+        return "addInfo";
     }
     
     @RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
@@ -137,19 +151,10 @@ public class MainController extends AllRepositories{
     	
     	model.addAttribute("client", clientRep.findAll());
     	model.addAttribute("clientsNumber", clientRep.count());
-   
+		
         return "clientss";
     }
 
-    @RequestMapping(value = { "/recommendations" }, method = RequestMethod.GET)
-    public String recommendations(Model model) {
-    	
-    	model.addAttribute("recommendationss", recomRep.findAll());
-    	// model.addAttribute("clientsNumber", clientRep.count());
-   
-        return "recommendations";
-    }
- 
     @RequestMapping(value = { "/addPerson" }, method = RequestMethod.GET)
     public String showAddPersonPage(Model model) {
  

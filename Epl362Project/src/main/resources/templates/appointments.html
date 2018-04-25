@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Consultation</title>
+<title>Appointments</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -31,58 +31,13 @@
 						class="fas fa-gavel"></i>
 				</div>
 				<div class="navbar nav">
-					<a class="nav-item tabs active">Home</a> 
+                    <a class="nav-item tabs active">Home</a> 
+                    <a class="nav-item tabs" th:href="@{newAppointment}">New Appointment</a> 
 					<a class="nav-item tabs" th:href="@{clientss}">Clients</a> 
-					<a class="nav-item tabs" th:href="@{recommendations}">Recommendations</a>
+					<a class="nav-item tabs" th:href="@{recommendations}">Add Info</a>
 				</div>
 			</div>
 		</nav>
-	</section>
-	<section id="consultation-form">
-		<div class="container">
-			<div class="col-md-5 consultation-form">
-				<div class="form-area">
-					<form role="form">
-						<h3 class="form-title">Add Appointment Form</h3>
-
-						<div class="form-group">
-							<label for="name">Appointment Date</label> <input type="date"
-								class="form-control" id="name" name="name" required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control" id="staff" name="staff"
-								placeholder="With Who" required>
-						</div>
-
-						<div class="form-group">
-							<input type="text" class="form-control" id="subject"
-								name="subject" placeholder="Subject" required>
-						</div>
-
-						<div class="form-group">
-
-							<select class="form-control" id="legalRecommendation">
-								<option>Select Legal Opinion</option>
-								<option th:each="recommendation : ${recommendations}"
-									th:utext="${recommendation.id}"></option>
-							</select>
-							<div id="pencilRec">
-								<i class="fas fa-pencil-alt"></i>
-							</div>
-
-
-							<textarea id="recDescription" class="form-control"
-								type="textarea" placeholder="Recommendation Description"
-								rows="7"></textarea>
-						</div>
-
-						<button type="button" id="submit" name="submit"
-							class="btn btn-primary pull-right">Submit Form</button>
-					</form>
-				</div>
-			</div>
-		</div>
 	</section>
 	<section id="case-history">
 		<div class="row">

@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<!-- xmlns:th="http://www.thymeleaf.org" -->
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Add Info</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/addInfo/style.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	    crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/sweetalert2@7.17.0/dist/sweetalert2.all.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	    crossorigin="anonymous"></script>
+</head>
+
+<body id="temp">
+	<section id="header">
+		<nav class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">LAW
+						<span>Company</span>
+					</a>
+					<i class="fas fa-gavel"></i>
+				</div>
+				<div class="navbar nav">
+					<a th:href="@{appointments}" class="nav-item tabs">Home</a>
+					<a th:href="@{newAppointment}" class="nav-item tabs">New Appointment</a>
+					<a th:href="@{clientss}" class="nav-item tabs">Clients</a>
+					<a class="nav-item tabs active">Add Info</a>
+				</div>
+			</div>
+		</nav>
+	</section>
+	<section id="consultation-form">
+		<div class="container" id="menu">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<span class="pull-right">
+								<!-- Tabs -->
+								<ul class="nav panel-tabs">
+									<li class="active">
+										<a href="#tab1" data-toggle="tab">Client</a>
+									</li>
+									<li>
+										<a href="#tab2" data-toggle="tab">Recommendation</a>
+									</li>
+									<li>
+										<a href="#tab3" data-toggle="tab">Branch</a>
+									</li>
+									<li>
+										<a href="#tab4" data-toggle="tab">Case Type</a>
+									</li>
+									<li>
+										<a href="#tab5" data-toggle="tab">Disagreement</a>
+									</li>
+									<li>
+										<a href="#tab6" data-toggle="tab">Legal Opinion</a>
+									</li>
+								</ul>
+							</span>
+						</div>
+						<div class="panel-body">
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab1">
+
+									<div class="container">
+										<div class="col-md-5 consultation-form">
+											<div class="form-area">
+												<form role="form">
+													<h3 class="form-title">New Client</h3>
+
+													<div class="form-group">
+														<input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+													</div>
+
+													<div class="form-group">
+														<input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required>
+													</div>
+
+													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab2">
+									<div class="container">
+										<div class="col-md-5 consultation-form">
+											<div class="form-area">
+												<form role="form">
+													<h3 class="form-title">New Recommendation</h3>
+
+													<div class="form-group">
+														<label for="availRecoms">Current Recommendations</label>
+														<select id="availRecoms" class="form-control">
+															<option th:each="recommendation : ${recommendations}" th:value="${recommendation.id}">
+															</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<input type="text" class="form-control" id="surname" name="surname" placeholder="New Recommendation" required>
+													</div>
+
+													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab3">
+									<div class="container">
+										<div class="col-md-5 consultation-form">
+											<div class="form-area">
+												<form role="form">
+													<h3 class="form-title">New Branch</h3>
+
+													<div class="form-group">
+														<label for="availBranch">Current Branches</label>
+														<select id="availBranch" class="form-control">
+															<option th:each="branch : ${branches}" th:value="${branch.name}">
+															</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<input type="text" class="form-control" id="surname" name="branch_name" placeholder="New Branch" required>
+													</div>
+
+													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab4">
+									<div class="container">
+										<div class="col-md-5 consultation-form">
+											<div class="form-area">
+												<form role="form">
+													<h3 class="form-title">New Case Type</h3>
+
+													<div class="form-group">
+														<label for="availBranch">Current Branches</label>
+														<select id="availBranch" class="form-control">
+															<option th:each="branch : ${branches}" th:value="${branch.name}">
+															</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<input type="text" class="form-control" id="surname" name="case_type" placeholder="New Case Type" required>
+													</div>
+
+													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab5">
+									<div class="container">
+										<div class="col-md-5 consultation-form">
+											<div class="form-area">
+												<form role="form">
+													<h3 class="form-title">New Disagreement</h3>
+
+													<div class="form-group">
+														<label for="clients">Select Client</label>
+														<select id="clients" class="form-control">
+															<option th:each="client : ${clients}" th:value="${client.id}" th:utext="${client.name}+' '+${client.surname}">
+															</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<label for="recommendationss">Select Recommendation</label>
+														<select id="recommendationss" class="form-control">
+															<option th:each="recommendation : ${recommendation}" th:value="${recommendation.id}" th:utext="${recommendation.type}">
+															</option>
+														</select>
+													</div>
+
+													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab6">
+									<div class="container">
+										<div class="col-md-5 consultation-form">
+											<div class="form-area">
+												<form role="form">
+													<h3 class="form-title">New Legal Opinion</h3>
+
+													<div class="form-group">
+														<label for="availBranch">Current Legal Opinions</label>
+														<select id="availBranch" class="form-control">
+															<option th:each="branch : ${branches}" th:value="${branch.name}">
+															</option>
+														</select>
+													</div>
+
+													<div class="form-group">
+														<input type="text" class="form-control" id="surname" name="case_type" placeholder="New Legal Opinion" required>
+													</div>
+
+													<button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
