@@ -155,6 +155,49 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
+  $('#lockClient').click(function (e) {
+
+    e.preventDefault();
+
+    // Prevent form submission which refreshes page
+
+    // Serialize data
+    var formData = objectifyForm($('#editClientForm').serializeArray());
+    formData = JSON.stringify(formData);
+
+    console.log(formData);
+
+    // Make AJAX request
+    $.ajax({
+      url: "lockClient",
+      type: "post",
+      data: formData,
+      contentType: "application/json",
+      success: function (result) {
+        swal(
+          'Done!',
+          'Client Locked',
+          'success'
+        ).then(function () {
+          location.reload();
+        });
+
+      },
+      error: function (jqXHR, status, err) {
+        console.log(jqXHR);
+        console.log(status);
+        console.log(err);
+        alert('Failed!');
+      }
+    });
+
+  });
+
+});
+
+
+$(document).ready(function () {
   // Listen to submit event on the <form> itself!
   $('#newAppointmentForm').submit(function (e) {
 
