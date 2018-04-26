@@ -96,6 +96,13 @@ public class ChangeRequest extends MyModel {
 	public void setNewPotentialMoneyLaundring(boolean newPotentialMoneyLaundring) {
 		this.newPotentialMoneyLaundring = newPotentialMoneyLaundring;
 	}
+
+	@Override
+	public String toString() {
+		return "ChangeRequest [id=" + id + ", deleted=" + deleted + ", clientId=" + clientId + ", newName=" + newName
+				+ ", newSurname=" + newSurname + ", newPotentialMoneyLaundring=" + newPotentialMoneyLaundring
+				+ ", description=" + description + ", state=" + state + "]";
+	}
     
 	
 }

@@ -58,6 +58,12 @@ public class Client extends MyModel {
 	public void setPotentialMoneyLaundring(boolean potentialMoneyLaundring) {
 		this.potentialMoneyLaundring = potentialMoneyLaundring;
 	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", name=" + name + ", surname=" + surname + ", locked=" + locked
+				+ ", potentialMoneyLaundring=" + potentialMoneyLaundring + "]";
+	}
    
 	
 

@@ -75,6 +75,12 @@ public class Staff extends MyModel {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Staff [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", surname="
+				+ surname + ", role=" + role + "]";
+	}
+
 	
 	
 }

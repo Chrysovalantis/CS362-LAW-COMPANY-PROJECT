@@ -29,6 +29,11 @@ public class Branch extends MyModel {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Branch [id=" + id + ", name=" + name + "]";
+	}
+
 	
     
 }

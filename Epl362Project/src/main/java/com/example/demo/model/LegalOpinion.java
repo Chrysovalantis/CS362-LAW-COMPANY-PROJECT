@@ -28,6 +28,11 @@ public class LegalOpinion extends MyModel {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		return "LegalOpinion [id=" + id + ", type=" + type + "]";
+	}
     
     
 }

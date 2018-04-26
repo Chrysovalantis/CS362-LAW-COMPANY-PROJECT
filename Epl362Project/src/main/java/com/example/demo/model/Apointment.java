@@ -38,6 +38,13 @@ public class Apointment extends MyModel {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return "Apointment [id=" + id + ", dateCreated=" + dateCreated + ", attented=" + attented + ", date=" + date
+				+ ", withWhoStaffId=" + withWhoStaffId + ", branchID=" + branchID + ", caseId=" + caseId + ", dropin="
+				+ dropin + "]";
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

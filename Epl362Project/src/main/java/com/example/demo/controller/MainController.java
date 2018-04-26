@@ -182,7 +182,7 @@ public class MainController extends AllRepositories {
 	public String addInfo(Model model) {
 
 		model.addAttribute("recommendations", recomRep.findAll());
-		model.addAttribute("branches", recomRep.findAll());
+		model.addAttribute("branches", branchRep.findAll());
 		model.addAttribute("caseTypes", caseTypeRep.findAll());
 		model.addAttribute("clients", clientRep.findAll());
 		model.addAttribute("legalOpinions", legalRep.findAll());
@@ -286,16 +286,18 @@ public class MainController extends AllRepositories {
 		}
 		Optional<ChangeRequest> temp = changeRequestRepository.findById(Long.parseLong(paramMap.get("id").get(0)));
 		ChangeRequest chr = temp.get();
-
-		if (paramMap.get("button").toString().equals("Aprove")) {
+		System.out.println(paramMap.get("button").toString());
+		if (paramMap.get("button").toString().equals("[Aprove]")) {
+			System.out.println("Aprove");
 			Client updatedClient = clientRep.findById(chr.getClientId()).get();
 			if (chr.isDeleted()) {
 				updatedClient.setLocked(true);
+			} else {
+				updatedClient.setName(chr.getNewName());
+				updatedClient.setPotentialMoneyLaundring(chr.isNewPotentialMoneyLaundring());
+				updatedClient.setSurname(chr.getNewSurname());
+				clientRep.save(updatedClient);
 			}
-			updatedClient.setName(chr.getNewName());
-			updatedClient.setPotentialMoneyLaundring(chr.isNewPotentialMoneyLaundring());
-			updatedClient.setSurname(chr.getNewSurname());
-			clientRep.save(updatedClient);
 		}
 
 		chr.setState(ChangeRequest.PROSESED);

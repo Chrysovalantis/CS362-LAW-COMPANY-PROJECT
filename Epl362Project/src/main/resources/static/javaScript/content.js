@@ -53,7 +53,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addClient")
+    addRecord(formData, "clients/add")
 
   });
 });
@@ -69,7 +69,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addRecommendation")
+    addRecord(formData, "recomentations/add")
 
   });
 });
@@ -85,7 +85,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addBranch")
+    addRecord(formData, "branches/add")
 
   });
 });
@@ -101,7 +101,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addCaseType")
+    addRecord(formData, "caseTypes/add")
 
   });
 });
@@ -117,7 +117,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addDisagreement")
+    addRecord(formData, "desagrements/add")
 
   });
 });
@@ -133,7 +133,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addLegalOpinion")
+    addRecord(formData, "legalOpinions/add")
 
   });
 });
@@ -149,7 +149,7 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "editClient")
+    addRecord(formData, "changeRequests/add")
 
   });
 });

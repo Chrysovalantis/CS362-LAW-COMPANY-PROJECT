@@ -38,5 +38,10 @@ public class ClientCase extends MyModel{
 	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
+
+	@Override
+	public String toString() {
+		return "ClientCase [id=" + id + ", caseTypeId=" + caseTypeId + ", clientId=" + clientId + "]";
+	}
 	
 }

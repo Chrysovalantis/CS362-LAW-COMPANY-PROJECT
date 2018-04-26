@@ -102,4 +102,14 @@ public class CaseHistory extends MyModel{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		return "CaseHistory [id=" + id + ", staffId=" + staffId + ", apointmentId=" + apointmentId + ", caseId="
+				+ caseId + ", recomandationId=" + recomandationId + ", recomantationDetails=" + recomantationDetails
+				+ ", legalOpinionId=" + legalOpinionId + ", legalOpinionDetails=" + legalOpinionDetails + ", date="
+				+ date + "]";
+	}
+	
+	
 }

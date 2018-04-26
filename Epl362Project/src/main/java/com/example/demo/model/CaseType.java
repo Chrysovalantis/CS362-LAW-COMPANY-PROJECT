@@ -28,5 +28,12 @@ public class CaseType extends MyModel{
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		return "CaseType [id=" + id + ", type=" + type + "]";
+	}
+	
+	
 	
 }

@@ -57,7 +57,14 @@ public class Desagrement extends MyModel{
 
 	public void setOverruled(Boolean overruled) {
 		this.overruled = overruled;
+	}
+
+	@Override
+	public String toString() {
+		return "Desagrement [id=" + id + ", clientId=" + clientId + ", recomandationId=" + recomandationId
+				+ ", overruledByStaffId=" + overruledByStaffId + ", overruled=" + overruled + "]";
 	} 
+	
 	
     
 }
