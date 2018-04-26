@@ -175,6 +175,10 @@ public class MainController extends AllRepositories {
 	@RequestMapping(value = { "/newAppointment" }, method = RequestMethod.GET)
 	public String newAppointment(Model model) {
 
+		model.addAttribute("staffs", staffRep.findAll());
+		model.addAttribute("branches", branchRep.findAll());
+		model.addAttribute("cases", caseHistoryRep.findAll());
+
 		return "newAppointment";
 	}
 

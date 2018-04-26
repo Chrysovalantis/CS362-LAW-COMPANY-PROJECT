@@ -154,6 +154,24 @@ $(document).ready(function () {
   });
 });
 
+$(document).ready(function () {
+  // Listen to submit event on the <form> itself!
+  $('#newAppointmentForm').submit(function (e) {
+
+    alert("aaa");
+
+    // Prevent form submission which refreshes page
+    e.preventDefault();
+
+    // Serialize data
+    var formData = objectifyForm($(this).serializeArray());
+    formData = JSON.stringify(formData);
+
+    addRecord(formData, "newAppointmen/add")
+
+  });
+});
+
 function addRecord(data, path) {
 
   // Make AJAX request
