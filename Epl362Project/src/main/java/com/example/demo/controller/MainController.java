@@ -97,21 +97,15 @@ public class MainController extends AllRepositories {
 		for (CaseHistory ch : caseHistoryRep.findAll()) {
 			if (ch != null && ch.getCaseId() != null && ch.getCaseId().equals(caseId)) {
 				Staff s = staffRep.findById(ch.getStaffId()).get();
-				caseH.add(new CaseHistoryForm(ch, s));
+				CaseHistoryForm chform = new CaseHistoryForm(ch, s);
+				chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType()+": "+chform.legalOpinionDetails; 
+				chform.recomantationDetails = recomRep.findById(chform.recomandationId).get().getType()+": "+chform.recomantationDetails; 
+
+				caseH.add(chform);
 			}
 		}
 
-		model.addAttribute("staffName", st.getName());
-		model.addAttribute("staffId", staffId);
-		model.addAttribute("caseHistory", caseH);
-		model.addAttribute("caseHistoryNumber", caseH.size());
-		model.addAttribute("caseId", caseId);
-		model.addAttribute("apoiDateCreated", apoi.getDateCreated());
-		model.addAttribute("apoiDate", apoi.getDate());
-		model.addAttribute("branchName", br.getName());
-		model.addAttribute("apoiDate", apoi.getDate());
-		model.addAttribute("legalOpinions", legalRep.findAll());
-		model.addAttribute("apointmentId", apointmentId);
+		
 		ArrayList<Recommendation> recoms = new ArrayList<>();
 		for (Recommendation r : recomRep.findAll()) {
 			boolean desagr = false;
@@ -138,11 +132,24 @@ public class MainController extends AllRepositories {
 			r.setType(r.getType() + add);
 			recoms.add(r);
 		}
-		model.addAttribute("recommendations", recoms);
 		String dangerous = "";
 		if (cl.isPotentialMoneyLaundring()) {
 			dangerous += " (DANGEROUS)";
 		}
+		
+		
+		model.addAttribute("recommendations", recoms);
+		model.addAttribute("staffName", st.getName());
+		model.addAttribute("staffId", staffId);
+		model.addAttribute("caseHistory", caseH);
+		model.addAttribute("caseHistoryNumber", caseH.size());
+		model.addAttribute("caseId", caseId);
+		model.addAttribute("apoiDateCreated", apoi.getDateCreated());
+		model.addAttribute("apoiDate", apoi.getDate());
+		model.addAttribute("branchName", br.getName());
+		model.addAttribute("apoiDate", apoi.getDate());
+		model.addAttribute("legalOpinions", legalRep.findAll());
+		model.addAttribute("apointmentId", apointmentId);
 		model.addAttribute("clientName", cl.getName() + " " + cl.getSurname() + dangerous);
 
 		return "consultation";

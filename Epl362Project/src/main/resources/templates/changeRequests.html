@@ -34,9 +34,7 @@
 			
 		
 		<div class="navbar nav">
-					<a th:href="@{changeRequestLO}" class="nav-item tabs">Home</a> <a
-						href="#" class="nav-item tabs active">Change Requests</a> 
-						<a th:href="@{reports}" class="nav-item tabs">Reports</a>
+						<a href="#" class="nav-item tabs active">Change Requests</a> 
 		</div>
 		</div>
 		</nav>
@@ -46,10 +44,7 @@
 		<section id="change-requests">
 			<div class="row">
 				<div class="case-history col-md-7">
-					<div class="row history-header">
-						<div class="history-title col-md-8">Change Requests</div>
-
-					</div>
+					
 					<hr>
 					<div class="history-list">
 						<div th:each="changeRequest : ${changeRequests}">
@@ -83,7 +78,6 @@
 		</section>
 	</div>
 
-	<div class="tabcontent" id="Reports"></div>
 
 </body>
 

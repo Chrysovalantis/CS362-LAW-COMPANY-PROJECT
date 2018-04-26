@@ -195,7 +195,7 @@ $(document).ready(function() {
 		var formData = objectifyForm($(this).serializeArray());
 		formData = JSON.stringify(formData);
 
-		addRecord(formData, "addConsultation");
+		addRecord(formData, "/casesHistorys/addConsultation");
 	
 
 	});
