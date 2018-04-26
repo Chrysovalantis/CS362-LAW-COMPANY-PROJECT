@@ -383,12 +383,12 @@ reports >.row{
   padding: 20px;
   text-align: center;
 }
-.col-md-3{
-  max-width: 80%!important;
+.col-md-4{
+  margin-top: 30px;
 }
 .report-header{
   text-align: center;
   color: #b11b1b;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 /*head_office---------------------------------------------------------------------------*/

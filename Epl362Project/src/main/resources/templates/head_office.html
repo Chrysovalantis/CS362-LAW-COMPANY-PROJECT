@@ -37,55 +37,142 @@
 		<div class="container">
       <div class="row buttons">
         <div class="report-header col-md-12">
-          <h3>Options</h3>
+          <h3 style="margin:30px">Options</h3>
           <hr>
         </div>
-        <div class="col-md-3">
-          <button type="button" class="btn btn-info col-md-3">Weekly Report</button>
+        <div class="col-md-4">
+          <button id="clientBranch" type="button" class="btn btn-info">Month Client per Branch Statement</button>
         </div>
-        <div class="col-md-3">
-          <button type="button" class="btn btn-info col-md-3">Report Report</button>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-info">Monthly Legal Opinion Statement</button>
         </div>
-        <div class="col-md-3">
-          <button type="button" class="btn btn-info col-md-3">Report Report</button>
-        </div>
-        <div class="col-md-3">
-          <button type="button" class="btn btn-info col-md-3">Report </button>
-        </div>
+				<div class="col-md-4">
+					<button type="button" class="btn btn-info">Client Involve In Each Case</button>
+				</div>
+
+				<div class="col-md-4">
+					<button type="button" class="btn btn-info">Weekly Client per Branch per Day Statement</button>
+				</div>
+				<div class="col-md-4">
+
+				</div>
+				<div class="col-md-4">
+					<button type="button" class="btn btn-info">Monthly Recommentation Statement</button>
+				</div>
+
       </div>
       <div class="row">
         <div class="report-header col-md-12">
           <h3>Reports table</h3>
           <hr>
         </div>
-        <div class="table-responsive">
+        <div id="branch-report" class="table-responsive">
           <div class="panel panel-primary filterable">
               <table class="table table-bordred table-striped">
                   <thead>
                       <tr class="filters">
                           <th><input type="text" class="searchInput form-control" placeholder="#"></th>
-                          <th><input type="text" class="searchInput form-control" placeholder="Title" ></th>
-                          <th><input type="text" class="searchInput form-control" placeholder="Author" ></th>
-                          <th><input type="text" class="searchInput form-control" placeholder="Genre" ></th>
-                          <th><input type="text" class="searchInput form-control" placeholder="Year" ></th>
-                          <th><input type="text" class="searchInput form-control" placeholder="Language" ></th>
-                          <th><input type="text" class="searchInput form-control" placeholder="Average Rating" ></th>
+                          <th><input type="text" class="searchInput form-control" placeholder="Branch ID" ></th>
+													<th><input type="text" class="searchInput form-control" placeholder="Branch Name" ></th>
+                          <th><input type="text" class="searchInput form-control" placeholder="Total Number Of Appointments" ></th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr th:each ="book : ${books}" >
-                          <td th:utext="${book.bookId.id}"></td>
-                          <td class="title"  th:title="${book.bookId.summary}" th:utext="${book.bookId.title}"></td>
-                          <td class="italic" th:utext="${book.bookId.author}"></td>
-                          <td class="center" th:utext="${book.bookId.genre}"></td>
-                          <td class="center" th:utext="${book.bookId.year}"></td>
-                          <td class="center" th:utext="${book.bookId.language}"></td>
-                          <td class="center" th:utext="${book.bookId.avgRating}"></td>
-                          <td ><p th:name="${book.bookId.id}" class="glyphicon glyphicon-remove" data-placement="top" data-toggle="tooltip" title="Delete"></p></td>
+                      <tr th:each ="branch : ${branches}" >
+                          <td th:utext="${branch.id}"></td>
+                          <td th:title="${branch.name}" th:utext="${branch.name}"></td>
+                          <td th:utext="${branch.totalAppointments}"></td>
                       </tr>
                   </tbody>
               </table>
           </div>
+					<div id="legalOpinionReport" class="">
+						<div class="panel panel-primary filterable">
+								<table class="table table-bordred table-striped">
+										<thead>
+												<tr class="filters">
+														<th><input type="text" class="searchInput form-control" placeholder="#"></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Legal Opinion ID" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Legal Opinion Type"></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Monthly usage"></th>
+												</tr>
+										</thead>
+										<tbody>
+												<tr th:each ="legalOpinion : ${legalOpinions}" >
+														<td th:utext="${legalOpinion.id}"></td>
+														<td th:title="${legalOpinion.name}" th:utext="${legalOpinion.name}"></td>
+														<td th:utext="${legalOpinion.totalLegals}"></td>
+												</tr>
+										</tbody>
+								</table>
+						</div>
+					</div>
+					<div id="recommendationReport" class="">
+						<div class="panel panel-primary filterable">
+								<table class="table table-bordred table-striped">
+										<thead>
+												<tr class="filters">
+														<th><input type="text" class="searchInput form-control" placeholder="#"></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Recommendation ID" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Recommendation Type"></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Monthly usage"></th>
+												</tr>
+										</thead>
+										<tbody>
+												<tr th:each ="recommendation : ${recommendations}">
+														<td th:utext="${recommendation.id}"></td>
+														<td th:title="${recommendation.name}" th:utext="${recommendation.name}"></td>
+														<td th:utext="${recommendation.totalRecom}"></td>
+												</tr>
+										</tbody>
+								</table>
+						</div>
+					</div>
+					<div id="clientsPerDay" class="table-responsive">
+						<div class="panel panel-primary filterable">
+								<table class="table table-bordred table-striped">
+										<thead>
+												<tr class="filters">
+														<th><input type="text" class="searchInput form-control" placeholder="#"></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Branch ID" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Branch Name" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Day" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Total Number Of Appointments" ></th>
+												</tr>
+										</thead>
+										<tbody>
+												<tr th:each ="branchD : ${branchesD}" >
+														<td th:utext="${branchD.id}"></td>
+														<td th:title="${branchD.name}" th:utext="${branchD.name}"></td>
+														<td th:title="${branchD.day}" th:utext="${branchD.day}"></td>
+														<td th:utext="${branchD.totalAppointments}"></td>
+												</tr>
+										</tbody>
+								</table>
+						</div>
+					</div>
+					<div id="clientsCons" class="table-responsive">
+						<div class="panel panel-primary filterable">
+								<table class="table table-bordred table-striped">
+										<thead>
+												<tr class="filters">
+														<th><input type="text" class="searchInput form-control" placeholder="#"></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Consultation ID" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Consultation Name" ></th>
+														<th><input type="text" class="searchInput form-control" placeholder="Total Number Of Clients" ></th>
+												</tr>
+										</thead>
+										<tbody>
+												<tr th:each ="consultation : ${consultations}" >
+														<td th:utext="${consultation.id}"></td>
+														<td th:title="${consultation.name}" th:utext="${consultation.name}"></td>
+														<td th:utext="${consultation.totalClients}"></td>
+												</tr>
+										</tbody>
+								</table>
+						</div>
+					</div>
+
         </div>
   		</div>
       </div>
