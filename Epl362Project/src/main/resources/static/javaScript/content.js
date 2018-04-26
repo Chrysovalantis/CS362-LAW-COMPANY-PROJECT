@@ -296,7 +296,7 @@ $(document).ready(function () {
     $.ajax({
       url: path,
       type: "post",
-      data: formData,
+      data: data,
       contentType: "application/json",
       success: function (result) {
         swal(
