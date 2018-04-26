@@ -154,63 +154,107 @@ $(document).ready(function () {
   });
 });
 
-$(document).ready(function () {
-  // Listen to submit event on the <form> itself!
-  $('#editClientForm').submit(function (e) {
+function editClient() {
 
-    // Prevent form submission which refreshes page
-    e.preventDefault();
+  // Serialize data
+  var formData = objectifyForm($(this).serializeArray());
+  formData = JSON.stringify(formData);
 
-    // Serialize data
-    var formData = objectifyForm($(this).serializeArray());
-    formData = JSON.stringify(formData);
+  addRecord(formData, "changeRequests/add")
 
-    addRecord(formData, "changeRequests/add")
+}
 
-  });
-});
+function lockClient() {
 
-$(document).ready(function () {
+  // Serialize data
+  var formData = objectifyForm($('#editClientForm').serializeArray());
+  formData = JSON.stringify(formData);
 
-  $('#lockClient').click(function (e) {
+  console.log(formData);
 
-    e.preventDefault();
+  // Make AJAX request
+  $.ajax({
+    url: "lockClient",
+    type: "post",
+    data: formData,
+    contentType: "application/json",
+    success: function (result) {
+      swal(
+        'Done!',
+        'Client Locked',
+        'success'
+      ).then(function () {
+        location.reload();
+      });
 
-    // Prevent form submission which refreshes page
-
-    // Serialize data
-    var formData = objectifyForm($('#editClientForm').serializeArray());
-    formData = JSON.stringify(formData);
-
-    console.log(formData);
-
-    // Make AJAX request
-    $.ajax({
-      url: "lockClient",
-      type: "post",
-      data: formData,
-      contentType: "application/json",
-      success: function (result) {
-        swal(
-          'Done!',
-          'Client Locked',
-          'success'
-        ).then(function () {
-          location.reload();
-        });
-
-      },
-      error: function (jqXHR, status, err) {
-        console.log(jqXHR);
-        console.log(status);
-        console.log(err);
-        alert('Failed!');
-      }
-    });
-
+    },
+    error: function (jqXHR, status, err) {
+      console.log(jqXHR);
+      console.log(status);
+      console.log(err);
+      alert('Failed!');
+    }
   });
 
-});
+}
+
+// $(document).ready(function () {
+//   // Listen to submit event on the <form> itself!
+//   $('#editClientForm').submit(function (e) {
+
+//     // Prevent form submission which refreshes page
+//     e.preventDefault();
+
+//     // Serialize data
+//     var formData = objectifyForm($(this).serializeArray());
+//     formData = JSON.stringify(formData);
+
+//     addRecord(formData, "changeRequests/add")
+
+//   });
+// });
+
+// $(document).ready(function () {
+
+//   $('#lockClient').click(function (e) {
+
+//     e.preventDefault();
+
+//     // Prevent form submission which refreshes page
+
+//     // Serialize data
+//     var formData = objectifyForm($('#editClientForm').serializeArray());
+//     formData = JSON.stringify(formData);
+
+//     console.log(formData);
+
+//     // Make AJAX request
+//     $.ajax({
+//       url: "lockClient",
+//       type: "post",
+//       data: formData,
+//       contentType: "application/json",
+//       success: function (result) {
+//         swal(
+//           'Done!',
+//           'Client Locked',
+//           'success'
+//         ).then(function () {
+//           location.reload();
+//         });
+
+//       },
+//       error: function (jqXHR, status, err) {
+//         console.log(jqXHR);
+//         console.log(status);
+//         console.log(err);
+//         alert('Failed!');
+//       }
+//     });
+
+//   });
+
+// });
 
 
 $(document).ready(function () {
