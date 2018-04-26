@@ -76,22 +76,6 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   // Listen to submit event on the <form> itself!
-  $('#createCaseForm').submit(function (e) {
-
-    // Prevent form submission which refreshes page
-    e.preventDefault();
-
-    // Serialize data
-    var formData = objectifyForm($(this).serializeArray());
-    formData = JSON.stringify(formData);
-
-    addRecord(formData, "createCase/add")
-
-  });
-});
-
-$(document).ready(function () {
-  // Listen to submit event on the <form> itself!
   $('#branchForm').submit(function (e) {
 
     // Prevent form submission which refreshes page
@@ -196,66 +180,8 @@ function lockClient() {
     }
   });
 
+
 }
-
-// $(document).ready(function () {
-//   // Listen to submit event on the <form> itself!
-//   $('#editClientForm').submit(function (e) {
-
-//     // Prevent form submission which refreshes page
-//     e.preventDefault();
-
-//     // Serialize data
-//     var formData = objectifyForm($(this).serializeArray());
-//     formData = JSON.stringify(formData);
-
-//     addRecord(formData, "changeRequests/add")
-
-//   });
-// });
-
-// $(document).ready(function () {
-
-//   $('#lockClient').click(function (e) {
-
-//     e.preventDefault();
-
-//     // Prevent form submission which refreshes page
-
-//     // Serialize data
-//     var formData = objectifyForm($('#editClientForm').serializeArray());
-//     formData = JSON.stringify(formData);
-
-//     console.log(formData);
-
-//     // Make AJAX request
-//     $.ajax({
-//       url: "lockClient",
-//       type: "post",
-//       data: formData,
-//       contentType: "application/json",
-//       success: function (result) {
-//         swal(
-//           'Done!',
-//           'Client Locked',
-//           'success'
-//         ).then(function () {
-//           location.reload();
-//         });
-
-//       },
-//       error: function (jqXHR, status, err) {
-//         console.log(jqXHR);
-//         console.log(status);
-//         console.log(err);
-//         alert('Failed!');
-//       }
-//     });
-
-//   });
-
-// });
-
 
 $(document).ready(function () {
   // Listen to submit event on the <form> itself!
@@ -325,43 +251,24 @@ function addRecord(data, path) {
 
 
 //consultation----------------------------------------------------------
-$(document).ready(function () {
-  // Listen to submit event on the <form> itself!
-  $('#consultationForm').submit(function (e) {
+$(document).ready(function() {
+	// Listen to submit event on the <form> itself!
+	$('#consultationForm').submit(function(e) {
 
-    // Prevent form submission which refreshes page
-    e.preventDefault();
+		// Prevent form submission which refreshes page
+		e.preventDefault();
 
-    // Serialize data
-    var formData = objectifyForm($(this).serializeArray());
-    formData = JSON.stringify(formData);
+		// Serialize data
+		var formData = objectifyForm($(this).serializeArray());
+		formData = JSON.stringify(formData);
 
-    // Make AJAX request
-    $.ajax({
-      url: path,
-      type: "post",
-      data: data,
-      contentType: "application/json",
-      success: function (result) {
-        swal(
-          'Done!',
-          'Record Added',
-          'success'
-        ).then(function () {
-          location.href = "consultation";
-        });
+		addRecord(formData, "/casesHistorys/addConsultation");
+	
 
-      },
-      error: function (jqXHR, status, err) {
-        console.log(jqXHR);
-        console.log(status);
-        console.log(err);
-        alert('Failed!');
-      }
-    });
-
-  });
+	});
 });
 
 
 // consultation----------------------------------------------------------
+
+
