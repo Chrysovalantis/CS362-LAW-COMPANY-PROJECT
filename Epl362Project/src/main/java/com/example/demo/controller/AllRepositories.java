@@ -12,6 +12,7 @@ import com.example.demo.model.CaseHistory;
 import com.example.demo.model.CaseType;
 import com.example.demo.model.Client;
 import com.example.demo.model.ClientCase;
+import com.example.demo.model.Desagrement;
 import com.example.demo.model.LegalOpinion;
 import com.example.demo.model.Recommendation;
 import com.example.demo.model.Staff;
@@ -59,7 +60,7 @@ public class AllRepositories {
     	Client cl = new Client();
     	cl.setLocked(false);
     	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(false);
+    	cl.setPotentialMoneyLaundring(true);
     	cl.setSurname("Client test surname");
     	cl=clientRep.save(cl);
     	
@@ -103,6 +104,14 @@ public class AllRepositories {
     	ch.setStaffId(st.getId());
     	ch = caseHistoryRep.save(ch);
     	
+    	Desagrement d = new Desagrement();
+    	d.setClientId(cl.getId());
+    	d.setOverruled(true);
+    	d.setOverruledByStaffId(st.getId());
+    	d.setRecomandationId(rc.getId());
+    	desagrementRep.save(d);
+    	
+    	
     	ArrayList<String> ret = new ArrayList<>();
     	ret.add("Branch id:" + br.getId()+"\n");
     	ret.add("Case Type id:" + ct.getId()+"\n");
@@ -113,10 +122,14 @@ public class AllRepositories {
     	ret.add("Recomendation id:" + rc.getId()+"\n");
     	ret.add("Legal Opinion id:" + lo.getId()+"\n");
     	ret.add("Case History id:" + ch.getId()+"\n");
+    	ret.add("Desagriment id:" + d.getId()+"\n");
 
     	
     	return ret;
     	
     }
     
+    public Staff StaffIdToStaff(Long id) {
+		return null;
+    }
 }
