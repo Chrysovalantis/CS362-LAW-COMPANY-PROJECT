@@ -76,6 +76,22 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   // Listen to submit event on the <form> itself!
+  $('#createCaseForm').submit(function (e) {
+
+    // Prevent form submission which refreshes page
+    e.preventDefault();
+
+    // Serialize data
+    var formData = objectifyForm($(this).serializeArray());
+    formData = JSON.stringify(formData);
+
+    addRecord(formData, "createCase/add")
+
+  });
+});
+
+$(document).ready(function () {
+  // Listen to submit event on the <form> itself!
   $('#branchForm').submit(function (e) {
 
     // Prevent form submission which refreshes page
