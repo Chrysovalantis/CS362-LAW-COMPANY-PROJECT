@@ -292,8 +292,29 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "addConsultation");
+    // Make AJAX request
+    $.ajax({
+      url: path,
+      type: "post",
+      data: formData,
+      contentType: "application/json",
+      success: function (result) {
+        swal(
+          'Done!',
+          'Record Added',
+          'success'
+        ).then(function () {
+          location.href = "consultation";
+        });
 
+      },
+      error: function (jqXHR, status, err) {
+        console.log(jqXHR);
+        console.log(status);
+        console.log(err);
+        alert('Failed!');
+      }
+    });
 
   });
 });
