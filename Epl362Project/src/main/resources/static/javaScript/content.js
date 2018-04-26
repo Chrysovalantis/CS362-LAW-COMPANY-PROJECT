@@ -158,8 +158,6 @@ $(document).ready(function () {
   // Listen to submit event on the <form> itself!
   $('#newAppointmentForm').submit(function (e) {
 
-    alert("aaa");
-
     // Prevent form submission which refreshes page
     e.preventDefault();
 
@@ -167,7 +165,29 @@ $(document).ready(function () {
     var formData = objectifyForm($(this).serializeArray());
     formData = JSON.stringify(formData);
 
-    addRecord(formData, "newAppointmen/add")
+    // Make AJAX request
+    $.ajax({
+      url: "newAppointment",
+      type: "post",
+      data: formData,
+      contentType: "application/json",
+      success: function (result) {
+        swal(
+          'Done!',
+          'Record Added',
+          'success'
+        ).then(function () {
+          location.reload();
+        });
+
+      },
+      error: function (jqXHR, status, err) {
+        console.log(jqXHR);
+        console.log(status);
+        console.log(err);
+        alert('Failed!');
+      }
+    });
 
   });
 });
@@ -202,24 +222,22 @@ function addRecord(data, path) {
 
 
 //consultation----------------------------------------------------------
-$(document).ready(function() {
-	// Listen to submit event on the <form> itself!
-	$('#consultationForm').submit(function(e) {
+$(document).ready(function () {
+  // Listen to submit event on the <form> itself!
+  $('#consultationForm').submit(function (e) {
 
-		// Prevent form submission which refreshes page
-		e.preventDefault();
+    // Prevent form submission which refreshes page
+    e.preventDefault();
 
-		// Serialize data
-		var formData = objectifyForm($(this).serializeArray());
-		formData = JSON.stringify(formData);
+    // Serialize data
+    var formData = objectifyForm($(this).serializeArray());
+    formData = JSON.stringify(formData);
 
-		addRecord(formData, "addConsultation");
-	
+    addRecord(formData, "addConsultation");
 
-	});
+
+  });
 });
 
 
 // consultation----------------------------------------------------------
-
-
