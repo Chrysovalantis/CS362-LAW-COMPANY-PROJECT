@@ -181,3 +181,27 @@ function addRecord(data, path) {
   });
 
 }
+
+
+//consultation----------------------------------------------------------
+$(document).ready(function() {
+	// Listen to submit event on the <form> itself!
+	$('#consultationForm').submit(function(e) {
+
+		// Prevent form submission which refreshes page
+		e.preventDefault();
+
+		// Serialize data
+		var formData = objectifyForm($(this).serializeArray());
+		formData = JSON.stringify(formData);
+
+		addRecord(formData, "addConsultation");
+	
+
+	});
+});
+
+
+// consultation----------------------------------------------------------
+
+
