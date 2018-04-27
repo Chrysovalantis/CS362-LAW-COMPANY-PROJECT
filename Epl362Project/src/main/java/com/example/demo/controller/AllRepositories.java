@@ -102,7 +102,7 @@ public class AllRepositories {
     	
     	cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(Calendar.DATE, -11);
+		cal.add(Calendar.DATE, -1);
 		Date yestarday = cal.getTime();
 		
     	ap2.setDate(yestarday);
