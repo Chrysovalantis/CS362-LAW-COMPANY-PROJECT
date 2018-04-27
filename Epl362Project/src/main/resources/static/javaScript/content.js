@@ -274,7 +274,7 @@ $(document).ready(function() {
 // head-office -----------------------------------------------------------
 
 $(document).ready(function() {
-  $('.table-responsive').hide();
+  $('.table-head').hide();
 
   $("#clientBranch").on('click',function(){
   	$('.table-responsive').hide();
@@ -283,25 +283,25 @@ $(document).ready(function() {
   });
 
   $("#legalOpinions").on('click',function(){
-  	$('.table-responsive').hide();
+  	$('.table-head').hide();
     console.log("#"+$(this).attr('name'));
   	$("#"+$(this).attr('name')).show();
   });
 
   $("#clientCase").on('click',function(){
-  	$('.table-responsive').hide();
+  	$('.table-head').hide();
     console.log("#"+$(this).attr('name'));
   	$("#"+$(this).attr('name')).show();
   });
 
   $("#clientDay").on('click',function(){
-  	$('.table-responsive').hide();
+  	$('.table-head').hide();
     console.log("#"+$(this).attr('name'));
   	$("#"+$(this).attr('name')).show();
   });
 
   $("#recommentation").on('click',function(){
-  	$('.table-responsive').hide();
+  	$('.table-head').hide();
     console.log("#"+$(this).attr('name'));
   	$("#"+$(this).attr('name')).show();
   });
