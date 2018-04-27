@@ -158,7 +158,27 @@ function editClient() {
 	var formData = objectifyForm($('#editClientForm').serializeArray());
 	formData = JSON.stringify(formData);
 
-	addRecord(formData, "changeRequests/add")
+	// Make AJAX request
+	$.ajax({
+		url : "changeRequests/editClient",
+		type : "put",
+		data : formData,
+		contentType : "application/json",
+		success : function(result) {
+			swal('Done!', 'Client Request Submited', 'success').then(function() {
+				location.href = "addInfo";
+			});
+
+		},
+		error : function(jqXHR, status, err) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(err);
+			alert('Failed!');
+		}
+	});
+
+	//addRecord(formData, "changeRequests/editClient")
 
 }
 
