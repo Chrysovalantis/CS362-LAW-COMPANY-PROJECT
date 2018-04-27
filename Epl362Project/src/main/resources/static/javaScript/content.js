@@ -263,7 +263,7 @@ $(document).ready(function() {
 		formData = JSON.stringify(formData);
 
 		addRecord(formData, "/casesHistorys/addConsultation");
-	
+
 
 	});
 });
@@ -271,4 +271,41 @@ $(document).ready(function() {
 
 // consultation----------------------------------------------------------
 
+// head-office -----------------------------------------------------------
 
+$(document).ready(function() {
+  $('.table-responsive').hide();
+
+  $("#clientBranch").on('click',function(){
+  	$('.table-responsive').hide();
+    console.log("#"+$(this).attr('name'));
+  	$("#"+$(this).attr('name')).show();
+  });
+
+  $("#legalOpinions").on('click',function(){
+  	$('.table-responsive').hide();
+    console.log("#"+$(this).attr('name'));
+  	$("#"+$(this).attr('name')).show();
+  });
+
+  $("#clientCase").on('click',function(){
+  	$('.table-responsive').hide();
+    console.log("#"+$(this).attr('name'));
+  	$("#"+$(this).attr('name')).show();
+  });
+
+  $("#clientDay").on('click',function(){
+  	$('.table-responsive').hide();
+    console.log("#"+$(this).attr('name'));
+  	$("#"+$(this).attr('name')).show();
+  });
+
+  $("#recommentation").on('click',function(){
+  	$('.table-responsive').hide();
+    console.log("#"+$(this).attr('name'));
+  	$("#"+$(this).attr('name')).show();
+  });
+
+});
+
+// head-office -----------------------------------------------------------
