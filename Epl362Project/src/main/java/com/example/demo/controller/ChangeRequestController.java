@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,5 +36,13 @@ public class ChangeRequestController extends CoreController<ChangeRequest, CrudR
 		changeR.setState(ChangeRequest.UNPROSESED);
 		chreq.save(changeR);
 		return changeR.getId()+"";
+	}
+	
+	
+	@PutMapping(path="/editClient")
+	public @ResponseBody String editClient (@Valid @RequestBody ChangeRequest t) {
+		t.setId(null);
+		chreq.save(t);
+		return t.getId()+"";
 	}
 }

@@ -22,21 +22,13 @@ public class CoreController<T extends MyModel,W extends CrudRepository<T, Long>>
 
 	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
 	public @ResponseBody String addNewT (@Valid @RequestBody T t) {
-		System.out.println(t.toString());
+		//System.out.println(t.toString());
 		t.setId(null);
 		repository.save(t);
 		return t.getId()+"";
 	}
 
-	@PutMapping(path="/editClient")
-	public @ResponseBody String editClient (@Valid @RequestBody T t) {
-		System.out.println(t.toString());
-		t.setId(null);
-		repository.save(t);
-		return t.getId()+"";
-	}
 	
-
 	@GetMapping(path="")
 	public @ResponseBody Iterable<T> getAllTs() {
 		return repository.findAll();

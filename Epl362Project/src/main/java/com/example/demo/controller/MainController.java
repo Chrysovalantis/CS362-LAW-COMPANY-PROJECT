@@ -72,18 +72,18 @@ public class MainController extends AllRepositories {
 
 	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
 	public String caseHistory(Model model) {
-		
+
 		ArrayList<ClientCaseReport> clientCases = new ArrayList<>();
-		
-		for(ClientCase c : clientCaseRep.findAll()) {
+
+		for (ClientCase c : clientCaseRep.findAll()) {
 			ClientCaseReport r = new ClientCaseReport();
 			r.id = c.getClientId();
 			Client clien = clientRep.findById(c.getClientId()).get();
-			r.name = clien.getName()+" "+clien.getSurname();
+			r.name = clien.getName() + " " + clien.getSurname();
 			r.type = caseTypeRep.findById(c.getCaseTypeId()).get().getType();
 			clientCases.add(r);
 		}
-		
+
 		model.addAttribute("casesT", clientCases);
 
 		return "case_history";
@@ -252,7 +252,7 @@ public class MainController extends AllRepositories {
 			if (temp == null) {
 				temp = new HashMap<>();
 
-			} 
+			}
 			ClientCase ccc = clientCaseRep.findById(a.getCaseId()).get();
 			temp.put(ccc.getClientId(), "");
 			casePerBranch.put(a.getBranchID(), temp);
@@ -303,7 +303,7 @@ public class MainController extends AllRepositories {
 			if (temp == null) {
 				temp = new HashMap<>();
 
-			} 
+			}
 			ClientCase ccc = clientCaseRep.findById(a.getCaseId()).get();
 			temp.put(ccc.getClientId(), "");
 			casePerBranchPerDay.put(key, temp);
@@ -319,8 +319,6 @@ public class MainController extends AllRepositories {
 			brD.add(b);
 		}
 		model.addAttribute("branchesD", brD);
-		
-			
 
 		HashMap<Long, Integer> recommendationPerBranch = new HashMap<>();
 
@@ -496,12 +494,13 @@ public class MainController extends AllRepositories {
 	@RequestMapping(value = {
 			"/processRequest" }, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public RedirectView processRequest(@RequestParam MultiValueMap<String, String> paramMap) {
-		for (String val : paramMap.keySet()) {
-			System.out.println("Key: " + val + " Value: " + paramMap.get(val));
-		}
+		/*
+		 * for (String val : paramMap.keySet()) { System.out.println("Key: " + val +
+		 * " Value: " + paramMap.get(val)); }
+		 */
 		Optional<ChangeRequest> temp = changeRequestRepository.findById(Long.parseLong(paramMap.get("id").get(0)));
 		ChangeRequest chr = temp.get();
-		System.out.println(paramMap.get("button").toString());
+		//System.out.println(paramMap.get("button").toString());
 		if (paramMap.get("button").toString().equals("[Aprove]")) {
 			System.out.println("Aprove");
 			Client updatedClient = clientRep.findById(chr.getClientId()).get();
