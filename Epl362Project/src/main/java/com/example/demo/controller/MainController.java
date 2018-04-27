@@ -48,13 +48,7 @@ import com.example.demo.model.repositorys.CaseTypeRepository;
 @Controller
 public class MainController extends AllRepositories {
 
-	private static List<Person> persons = new ArrayList<Person>();
-
-	static {
-		persons.add(new Person("Bill", "Gates"));
-		persons.add(new Person("Steve", "Jobs"));
-	}
-
+	
 	// Inject via application.properties
 	@Value("${welcome.message}")
 	private String message;
@@ -62,6 +56,11 @@ public class MainController extends AllRepositories {
 	@Value("${error.message}")
 	private String errorMessage;
 
+	/**
+	 * Main login form
+	 * @param model the model
+	 * @return the index template
+	 */
 	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
 	public String index(Model model) {
 
@@ -69,7 +68,11 @@ public class MainController extends AllRepositories {
 
 		return "index";
 	}
-
+	/**
+	 * The case history view for similar cases
+	 * @param model the model
+	 * @return the case historyy template
+	 */
 	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
 	public String caseHistory(Model model) {
 
@@ -89,18 +92,23 @@ public class MainController extends AllRepositories {
 		return "case_history";
 	}
 
-	@RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
-	public String personList(Model model) {
-
-		return "personList";
-	}
-
+	/**
+	 * Generate default testing data in database
+	 * @param model the model
+	 * @return the ok template with the info of ids created
+	 */
 	@GetMapping(value = { "/loadDefaults" })
 	public String loadDefaults(Model model) {
 		model.addAttribute("prints", loadDef());
 		return "ok";
 	}
-
+	
+	/**
+	 * Show the consultation view base on an appointment id
+	 * @param model the model
+	 * @param apointmentId the appointment id
+	 * @return the consultation template
+	 */
 	@RequestMapping(value = { "/consultation/{apointmentId}" }, method = RequestMethod.GET)
 	public String consultation(Model model, @PathVariable(value = "apointmentId") Long apointmentId) {
 		Apointment apoi = null;
@@ -181,6 +189,11 @@ public class MainController extends AllRepositories {
 		return "consultation";
 	}
 
+	/**
+	 * List all the appointments coming
+	 * @param model the model
+	 * @return the appointments template
+	 */
 	@RequestMapping(value = { "/appointments" }, method = RequestMethod.GET)
 	public String receptionist(Model model) {
 
@@ -199,6 +212,11 @@ public class MainController extends AllRepositories {
 		return "appointments";
 	}
 
+	/**
+	 * The appointments of a particular legal staff
+	 * @param model the model
+	 * @return legal appointments template
+	 */
 	@RequestMapping(value = { "/legal_appointments" }, method = RequestMethod.GET)
 	public String legal_appointments(Model model) {
 
@@ -228,6 +246,11 @@ public class MainController extends AllRepositories {
 		return "legal_appointments";
 	}
 
+	/**
+	 * The head office view
+	 * @param model the model
+	 * @return the head office template
+	 */
 	@RequestMapping(value = { "/head_office" }, method = RequestMethod.GET)
 	public String head_office(Model model) {
 		Calendar cal = Calendar.getInstance();
@@ -371,7 +394,11 @@ public class MainController extends AllRepositories {
 
 		return "head_office";
 	}
-
+	/**
+	 * Show the new appointment view
+	 * @param model the model
+	 * @return new appointment template
+	 */
 	@RequestMapping(value = { "/newAppointment" }, method = RequestMethod.GET)
 	public String newAppointment(Model model) {
 
@@ -382,6 +409,11 @@ public class MainController extends AllRepositories {
 		return "newAppointment";
 	}
 
+	/**
+	 * Show the add info view
+	 * @param model the model
+	 * @return add info template
+	 */
 	@RequestMapping(value = { "/addInfo" }, method = RequestMethod.GET)
 	public String addInfo(Model model) {
 
@@ -402,7 +434,12 @@ public class MainController extends AllRepositories {
 
 		return "addInfo";
 	}
-
+	
+	/**
+	 * Show all the clients in the database
+	 * @param model the model
+	 * @return the clients template
+	 */
 	@RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
 	public String clientss(Model model) {
 
@@ -412,6 +449,11 @@ public class MainController extends AllRepositories {
 		return "clientss";
 	}
 
+	/**
+	 * Show the add person template
+	 * @param model the model
+	 * @return the add person template
+	 */
 	@RequestMapping(value = { "/addPerson" }, method = RequestMethod.GET)
 	public String showAddPersonPage(Model model) {
 
@@ -420,26 +462,13 @@ public class MainController extends AllRepositories {
 
 		return "addPerson";
 	}
-
-	@RequestMapping(value = { "/addPerson" }, method = RequestMethod.POST)
-	public String savePerson(Model model, //
-			@ModelAttribute("personForm") PersonForm personForm) {
-
-		String firstName = personForm.getFirstName();
-		String lastName = personForm.getLastName();
-
-		if (firstName != null && firstName.length() > 0 //
-				&& lastName != null && lastName.length() > 0) {
-			Person newPerson = new Person(firstName, lastName);
-			persons.add(newPerson);
-
-			return "redirect:/personList";
-		}
-
-		model.addAttribute("errorMessage", errorMessage);
-		return "addPerson";
-	}
-
+	
+	/**
+	 * The login controller
+	 * @param username the user to be logged in
+	 * @param password its corresponding password
+	 * @return the correct template based on role or if not exist at the login view
+	 */
 	@RequestMapping(value = { "/login" }, method = RequestMethod.POST)
 	public RedirectView login(String username, String password) {
 		Iterable<Staff> users = staffRep.findAll();
@@ -469,12 +498,15 @@ public class MainController extends AllRepositories {
 				}
 			}
 		}
-
-		// TODO add error
 		return new RedirectView("");
 
 	}
-
+	
+	/**
+	 * Show the view of the legal office
+	 * @param model the model
+	 * @return the change requests template
+	 */
 	@RequestMapping(value = { "/changeRequestLO" }, method = RequestMethod.GET)
 	public String changeRequest(Model model) {
 		Iterable<ChangeRequest> chrs = changeRequestRepository.findAll();
@@ -491,6 +523,11 @@ public class MainController extends AllRepositories {
 		return "changeRequests";
 	}
 
+	/**
+	 * Accept or decline a change request
+	 * @param paramMap the input form
+	 * @return the change requests template
+	 */
 	@RequestMapping(value = {
 			"/processRequest" }, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public RedirectView processRequest(@RequestParam MultiValueMap<String, String> paramMap) {
@@ -518,7 +555,11 @@ public class MainController extends AllRepositories {
 		changeRequestRepository.save(chr);
 		return new RedirectView("/changeRequestLO");
 	}
-
+	/**
+	 * Show the reports to the head office
+	 * @param model the model
+	 * @return the reports template
+	 */
 	@RequestMapping(value = { "/reports" }, method = RequestMethod.GET)
 	public String reports(Model model) {
 

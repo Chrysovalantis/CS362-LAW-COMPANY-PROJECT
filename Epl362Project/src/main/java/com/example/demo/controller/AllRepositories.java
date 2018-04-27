@@ -49,6 +49,10 @@ public class AllRepositories {
     @Autowired
     public StaffRepository staffRep;  
     
+    /**
+     * Testing purposes
+     * @return string with the created id
+     */
     public ArrayList<String> loadDef() {
     	Branch br = new Branch();
     	br.setName("testbranch");

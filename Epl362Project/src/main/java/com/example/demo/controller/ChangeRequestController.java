@@ -22,6 +22,10 @@ public class ChangeRequestController extends CoreController<ChangeRequest, CrudR
 	private CrudRepository<ChangeRequest, Long> chreq;
 	@Autowired
 	private CrudRepository<Client, Long> clients;
+	
+	/**
+	 * 
+	 */
 	@PostMapping(path="/addLock") 
 	public @ResponseBody String addNewT (@Valid @RequestBody ChangeRequest changeR) {
 		//System.out.println(changeR.toString());
@@ -38,7 +42,11 @@ public class ChangeRequestController extends CoreController<ChangeRequest, CrudR
 		return changeR.getId()+"";
 	}
 	
-	
+	/**
+	 * Add a change request to the database to be approved
+	 * @param t the request to be approved
+	 * @return the id of the change request added
+	 */
 	@PutMapping(path="/editClient")
 	public @ResponseBody String editClient (@Valid @RequestBody ChangeRequest t) {
 		t.setId(null);

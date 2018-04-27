@@ -32,6 +32,11 @@ public class CaseHistoryController extends CoreController<CaseHistory, CrudRepos
 	private  CrudRepository<ChangeRequest, Long> repositoryChangeRequest;
 	@Autowired
 	private  CrudRepository<Client, Long> repositoryClients;
+	/**
+	 * Add case history from consultation form
+	 * @param caseHistory the object with recommendation and legal opinions
+	 * @return empty json
+	 */
 	@PostMapping(path = "/addConsultation")
 	public @ResponseBody String AddCaseHistoryForm(@Valid @RequestBody AddCaseHistoryForm caseHistory) {
 		CaseHistory ch = new CaseHistory();
