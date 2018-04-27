@@ -3,6 +3,7 @@
  */
 package com.example.demo.controller;
 
+import java.security.KeyStore.Entry;
 /**
  * @author Chrysovalantis
  *
@@ -10,6 +11,7 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.demo.form.BranchReport;
 import com.example.demo.form.CaseHistoryForm;
 import com.example.demo.form.ChangeRequestForm;
 import com.example.demo.form.PersonForm;
@@ -64,14 +67,13 @@ public class MainController extends AllRepositories {
 
 		return "index";
 	}
-	
-	
+
 	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
 	public String caseHistory(Model model) {
 
 		return "case_history";
 	}
-	
+
 	@RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
 	public String personList(Model model) {
 
@@ -107,14 +109,15 @@ public class MainController extends AllRepositories {
 			if (ch != null && ch.getCaseId() != null && ch.getCaseId().equals(caseId)) {
 				Staff s = staffRep.findById(ch.getStaffId()).get();
 				CaseHistoryForm chform = new CaseHistoryForm(ch, s);
-				chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType()+": "+chform.legalOpinionDetails; 
-				chform.recomantationDetails = recomRep.findById(chform.recomandationId).get().getType()+": "+chform.recomantationDetails; 
+				chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType() + ": "
+						+ chform.legalOpinionDetails;
+				chform.recomantationDetails = recomRep.findById(chform.recomandationId).get().getType() + ": "
+						+ chform.recomantationDetails;
 
 				caseH.add(chform);
 			}
 		}
 
-		
 		ArrayList<Recommendation> recoms = new ArrayList<>();
 		for (Recommendation r : recomRep.findAll()) {
 			boolean desagr = false;
@@ -145,8 +148,7 @@ public class MainController extends AllRepositories {
 		if (cl.isPotentialMoneyLaundring()) {
 			dangerous += " (DANGEROUS)";
 		}
-		
-		
+
 		model.addAttribute("recommendations", recoms);
 		model.addAttribute("staffName", st.getName());
 		model.addAttribute("staffId", staffId);
@@ -166,21 +168,18 @@ public class MainController extends AllRepositories {
 
 	@RequestMapping(value = { "/appointments" }, method = RequestMethod.GET)
 	public String receptionist(Model model) {
-		
+
 		ArrayList<Apointment> apos = new ArrayList<>();
-		
-		for(Apointment a : apointmentsRep.findAll()) {
-			
-			if(!a.isAttented() && a.getDate().after(new Date())) {
+
+		for (Apointment a : apointmentsRep.findAll()) {
+
+			if (!a.isAttented() && a.getDate().after(new Date())) {
 				apos.add(a);
 			}
-						
-			
-			
+
 		}
 		model.addAttribute("appointments", apos);
 		model.addAttribute("appointmentsNumber", apos.size());
-		
 
 		return "appointments";
 	}
@@ -194,21 +193,21 @@ public class MainController extends AllRepositories {
 		cal.setTime(new Date());
 		cal.add(Calendar.DATE, -2);
 		Date lastTwoDays = cal.getTime();
-		
-		for(Apointment a : apointmentsRep.findAll()) {
-			
-			if(!a.isAttented() && a.getDate().after(new Date())) {
+
+		for (Apointment a : apointmentsRep.findAll()) {
+
+			if (!a.isAttented() && a.getDate().after(new Date())) {
 				apos.add(a);
 			}
-						
-			if(!a.isAttented() && a.getDate().before(new Date())&& a.getDate().after(lastTwoDays)) {
+
+			if (!a.isAttented() && a.getDate().before(new Date()) && a.getDate().after(lastTwoDays)) {
 				mised.add(a);
 			}
-			
+
 		}
 		model.addAttribute("appointments", apos);
 		model.addAttribute("appointmentsNumber", apos.size());
-		
+
 		model.addAttribute("missed", mised);
 		model.addAttribute("missedNum", mised.size());
 
@@ -217,7 +216,34 @@ public class MainController extends AllRepositories {
 
 	@RequestMapping(value = { "/head_office" }, method = RequestMethod.GET)
 	public String head_office(Model model) {
-
+		HashMap<Long, Integer> casePerBranch = new HashMap<>();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, -2);
+		Date lastMonth = cal.getTime();
+		
+		for (Apointment a : apointmentsRep.findAll()) {
+			if(a.getDate().before(lastMonth)) {
+				continue;
+			}
+			Integer temp = casePerBranch.get(a.getBranchID());
+			if (temp == null) {
+				temp = new Integer(1);
+			} else {
+				temp = new Integer(temp + 1);
+			}
+			casePerBranch.put(a.getBranchID(), temp);
+		}
+		System.out.println(casePerBranch.toString());
+		ArrayList<BranchReport> br = new ArrayList<>();
+		for(java.util.Map.Entry<Long, Integer> e : casePerBranch.entrySet()) {
+			BranchReport b = new BranchReport();
+			b.id = e.getKey();
+			b.name = branchRep.findById(e.getKey()).get().getName();
+			b.totalAppointments = e.getValue();
+			br.add(b);
+		}
+		model.addAttribute("branches",br);
 		return "head_office";
 	}
 
@@ -363,4 +389,5 @@ public class MainController extends AllRepositories {
 
 		return "reports";
 	}
+
 }
