@@ -15,16 +15,15 @@ import com.example.demo.model.Client;
 
 @RestController
 @RequestMapping(path = "/changeRequests")
+
 public class ChangeRequestController extends CoreController<ChangeRequest, CrudRepository<ChangeRequest, Long>> {
 	@Autowired
 	private CrudRepository<ChangeRequest, Long> chreq;
-
 	@Autowired
 	private CrudRepository<Client, Long> clients;
-	
 	@PostMapping(path="/addLock") 
 	public @ResponseBody String addNewT (@Valid @RequestBody ChangeRequest changeR) {
-		System.out.println(changeR.toString());
+		//System.out.println(changeR.toString());
 		Long clientId = changeR.getClientId();
 		Client c = clients.findById(clientId).get();
 	
