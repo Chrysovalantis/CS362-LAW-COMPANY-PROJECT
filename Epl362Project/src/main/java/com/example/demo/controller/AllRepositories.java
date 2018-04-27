@@ -150,6 +150,40 @@ public class AllRepositories {
     	ret.add("Case History id:" + ch.getId()+"\n");
     	ret.add("Desagriment id:" + d.getId()+"\n");
 
+    	Staff u =new Staff();
+    	u.setName("HEAD");
+    	u.setSurname("OFFICE");
+    	u.setPassword("ho");
+    	u.setUsername("ho");
+    	u.setRole(Staff.HEAD_OFFICE);
+    	staffRep.save(u);
+    	
+    	u =new Staff();
+    	u.setName("LEGAL");
+    	u.setSurname("OFFICE");
+    	u.setPassword("lo");
+    	u.setUsername("lo");
+    	u.setRole(Staff.LEGAL_OFFICE);
+    	staffRep.save(u);
+    	
+    	
+    	u =new Staff();
+    	u.setName("LEGAL");
+    	u.setSurname("STAFF");
+    	u.setPassword("ls");
+    	u.setUsername("ls");
+    	u.setRole(Staff.LEGAL_STAFF);
+    	staffRep.save(u);
+    	
+    	
+    	u =new Staff();
+    	u.setName("RECEPTIONIST");
+    	u.setSurname("RECEPTIONIST");
+    	u.setPassword("re");
+    	u.setUsername("re");
+    	u.setRole(Staff.RECEPTIONIST);
+    	staffRep.save(u);
+    	
     	
     	return ret;
     	

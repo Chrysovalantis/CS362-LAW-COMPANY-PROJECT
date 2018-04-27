@@ -218,35 +218,36 @@ public class MainController extends AllRepositories {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		cal.add(Calendar.DATE, -30);
-		
+
 		Date lastMonth = cal.getTime();
-		
+
 		cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		cal.add(Calendar.DATE, -7);
-		
+
 		Date lastWeek = cal.getTime();
 
-		HashMap<Long, Integer> casePerBranch = new HashMap<>();
+		HashMap<Long, HashMap<Long, String>> casePerBranch = new HashMap<>();
 
 		for (Apointment a : apointmentsRep.findAll()) {
 			if (a.getDate().before(lastMonth)) {
 				continue;
 			}
-			Integer temp = casePerBranch.get(a.getBranchID());
+			HashMap<Long, String> temp = casePerBranch.get(a.getBranchID());
 			if (temp == null) {
-				temp = new Integer(1);
-			} else {
-				temp = new Integer(temp + 1);
-			}
+				temp = new HashMap<>();
+
+			} 
+			ClientCase ccc = clientCaseRep.findById(a.getCaseId()).get();
+			temp.put(ccc.getClientId(), "");
 			casePerBranch.put(a.getBranchID(), temp);
 		}
 		ArrayList<BranchReport> br = new ArrayList<>();
-		for (java.util.Map.Entry<Long, Integer> e : casePerBranch.entrySet()) {
+		for (java.util.Map.Entry<Long, HashMap<Long, String>> e : casePerBranch.entrySet()) {
 			BranchReport b = new BranchReport();
 			b.id = e.getKey();
 			b.name = branchRep.findById(e.getKey()).get().getName();
-			b.total = e.getValue();
+			b.total = e.getValue().size();
 			br.add(b);
 		}
 		model.addAttribute("branches", br);
@@ -275,38 +276,86 @@ public class MainController extends AllRepositories {
 		}
 		model.addAttribute("legalOpinions", legalOpinions);
 
-		
-		
-		
-		HashMap<String, Integer> casePerBranchPerDay = new HashMap<>();
+		HashMap<String, HashMap<Long, String>> casePerBranchPerDay = new HashMap<>();
 
 		for (Apointment a : apointmentsRep.findAll()) {
 			if (a.getDate().before(lastWeek)) {
 				continue;
 			}
-			String key= a.getBranchID()+"@"+a.getDate().getDate()+"/"+(a.getDate().getMonth()+1)+"/"+a.getDate().getYear();
-			Integer temp = casePerBranchPerDay.get(key);
+			String key = a.getBranchID() + "@" + a.getDate().getDate() + "/" + (a.getDate().getMonth() + 1) + "/"
+					+ a.getDate().getYear();
+			HashMap<Long, String> temp = casePerBranchPerDay.get(key);
 			if (temp == null) {
-				temp = new Integer(1);
-			} else {
-				temp = new Integer(temp + 1);
-			}
+				temp = new HashMap<>();
+
+			} 
+			ClientCase ccc = clientCaseRep.findById(a.getCaseId()).get();
+			temp.put(ccc.getClientId(), "");
 			casePerBranchPerDay.put(key, temp);
 		}
 		ArrayList<BranchReport> brD = new ArrayList<>();
-		for (java.util.Map.Entry<String, Integer> e : casePerBranchPerDay.entrySet()) {
+		for (java.util.Map.Entry<String, HashMap<Long, String>> e : casePerBranchPerDay.entrySet()) {
 			BranchReport b = new BranchReport();
-			String[] temp =e.getKey().split("@");
+			String[] temp = e.getKey().split("@");
 			b.id = Long.parseLong(temp[0]);
 			b.name = branchRep.findById(Long.parseLong(temp[0])).get().getName();
-			b.total = e.getValue();
+			b.total = e.getValue().size();
 			b.day = temp[1];
 			brD.add(b);
 		}
 		model.addAttribute("branchesD", brD);
 		
-		
-		
+			
+
+		HashMap<Long, Integer> recommendationPerBranch = new HashMap<>();
+
+		for (CaseHistory c : caseHistoryRep.findAll()) {
+			if (c.getRecomandationId() == null || c.getDate().before(lastMonth)) {
+				continue;
+			}
+			Integer temp = recommendationPerBranch.get(c.getRecomandationId());
+			if (temp == null) {
+				temp = new Integer(1);
+			} else {
+				temp = new Integer(temp + 1);
+			}
+			recommendationPerBranch.put(c.getRecomandationId(), temp);
+		}
+		ArrayList<BranchReport> recommendation = new ArrayList<>();
+		for (java.util.Map.Entry<Long, Integer> e : recommendationPerBranch.entrySet()) {
+			BranchReport b = new BranchReport();
+			b.id = e.getKey();
+			b.name = recomRep.findById(e.getKey()).get().getType();
+			b.total = e.getValue();
+			recommendation.add(b);
+		}
+		model.addAttribute("recommendations", recommendation);
+
+		HashMap<Long, Integer> casesPerBranch = new HashMap<>();
+
+		for (CaseHistory c : caseHistoryRep.findAll()) {
+			ClientCase clC = clientCaseRep.findById(c.getCaseId()).get();
+			if (clC.getCaseTypeId() == null || c.getDate().before(lastMonth)) {
+				continue;
+			}
+			Integer temp = casesPerBranch.get(clC.getCaseTypeId());
+			if (temp == null) {
+				temp = new Integer(1);
+			} else {
+				temp = new Integer(temp + 1);
+			}
+			casesPerBranch.put(clC.getCaseTypeId(), temp);
+		}
+		ArrayList<BranchReport> consultations = new ArrayList<>();
+		for (java.util.Map.Entry<Long, Integer> e : casesPerBranch.entrySet()) {
+			BranchReport b = new BranchReport();
+			b.id = e.getKey();
+			b.name = caseTypeRep.findById(e.getKey()).get().getType();
+			b.total = e.getValue();
+			consultations.add(b);
+		}
+		model.addAttribute("consultations", consultations);
+
 		return "head_office";
 	}
 
@@ -327,8 +376,8 @@ public class MainController extends AllRepositories {
 		model.addAttribute("branches", branchRep.findAll());
 		model.addAttribute("caseTypes", caseTypeRep.findAll());
 		ArrayList<Client> cl = new ArrayList<>();
-		for(Client c : clientRep.findAll()) {
-			if(c.isLocked()) {
+		for (Client c : clientRep.findAll()) {
+			if (c.isLocked()) {
 				continue;
 			}
 			cl.add(c);
@@ -394,16 +443,16 @@ public class MainController extends AllRepositories {
 					continue;
 				}
 				if (role.compareTo(Staff.LEGAL_OFFICE) == 0) {
-					return new RedirectView("consultation");
+					return new RedirectView("changeRequestLO");
 				}
 				if (role.compareTo(Staff.LEGAL_STAFF) == 0) {
-					return new RedirectView("consultation");
+					return new RedirectView("legal_appointments");
 				}
 				if (role.compareTo(Staff.RECEPTIONIST) == 0) {
-					return new RedirectView("consultation");
+					return new RedirectView("appointments");
 				}
 				if (role.compareTo(Staff.HEAD_OFFICE) == 0) {
-					return new RedirectView("consultation");
+					return new RedirectView("head_office");
 				}
 			}
 		}
