@@ -8,6 +8,8 @@ package com.example.demo.controller;
  *
  */
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +64,14 @@ public class MainController extends AllRepositories {
 
 		return "index";
 	}
+	
+	
+	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
+	public String caseHistory(Model model) {
 
+		return "case_history";
+	}
+	
 	@RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
 	public String personList(Model model) {
 
@@ -157,9 +166,21 @@ public class MainController extends AllRepositories {
 
 	@RequestMapping(value = { "/appointments" }, method = RequestMethod.GET)
 	public String receptionist(Model model) {
-
-		model.addAttribute("appointments", apointmentsRep.findAll());
-		model.addAttribute("appointmentsNumber", apointmentsRep.count());
+		
+		ArrayList<Apointment> apos = new ArrayList<>();
+		
+		for(Apointment a : apointmentsRep.findAll()) {
+			
+			if(!a.isAttented() && a.getDate().after(new Date())) {
+				apos.add(a);
+			}
+						
+			
+			
+		}
+		model.addAttribute("appointments", apos);
+		model.addAttribute("appointmentsNumber", apos.size());
+		
 
 		return "appointments";
 	}
@@ -167,8 +188,29 @@ public class MainController extends AllRepositories {
 	@RequestMapping(value = { "/legal_appointments" }, method = RequestMethod.GET)
 	public String legal_appointments(Model model) {
 
-		model.addAttribute("appointments", apointmentsRep.findAll());
-		model.addAttribute("appointmentsNumber", apointmentsRep.count());
+		ArrayList<Apointment> apos = new ArrayList<>();
+		ArrayList<Apointment> mised = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, -2);
+		Date lastTwoDays = cal.getTime();
+		
+		for(Apointment a : apointmentsRep.findAll()) {
+			
+			if(!a.isAttented() && a.getDate().after(new Date())) {
+				apos.add(a);
+			}
+						
+			if(!a.isAttented() && a.getDate().before(new Date())&& a.getDate().after(lastTwoDays)) {
+				mised.add(a);
+			}
+			
+		}
+		model.addAttribute("appointments", apos);
+		model.addAttribute("appointmentsNumber", apos.size());
+		
+		model.addAttribute("missed", mised);
+		model.addAttribute("missedNum", mised.size());
 
 		return "legal_appointments";
 	}

@@ -67,6 +67,38 @@
 					</div>
 
 				</div>
+				
+				
+				<hr>
+								
+				<div class="row history-header">
+					<div class="history-title col-md-6">Missed Appointments</div>
+					<div class="history-number col-md-6"
+						th:utext="'Total Appointments : ' + ${missedNum==null ? '0': missedNum}"></div>
+				</div>
+				<hr>
+				<div class="history-list">
+					<div class="list-item" th:each="miss : ${missed}">
+						<div class="head row">
+							<div class="col-sm-6">
+								<h4 th:utext="'Appointment #'+ ${miss.id}"></h4>
+							</div>
+							<div class="col-sm-6 date"
+								th:utext="'Date : ' + ${miss.date}"></div>
+
+						</div>
+						<p
+							th:utext="'Created οn : ' + ${miss.dateCreated == null ? 'No Summary Available' : miss.dateCreated}">...</p>
+
+						<p th:utext="'Attended : '+ ${miss.attented}"></p>
+
+						<p th:utext="'Drop in  : '+ ${miss.dropin}"></p>
+
+					</div>
+
+				</div>
+				
+				
 			</div>
 		</div>
 	</section>

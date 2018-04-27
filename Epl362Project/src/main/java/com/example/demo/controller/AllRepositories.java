@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,10 +83,32 @@ public class AllRepositories {
     	ap.setAttented(false);
     	ap.setBranchID(br.getId());
     	ap.setCaseId(cs.getId());
-    	ap.setDate(new Date());
+    	
+    	Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, 1);
+		Date tomorow = cal.getTime();
+		
+    	ap.setDate(tomorow);
     	ap.setDropin(false);
     	ap.setWithWhoStaffId(st.getId());
     	ap = apointmentsRep.save(ap);
+    	
+    	
+    	Apointment ap2 = new Apointment();
+    	ap2.setAttented(false);
+    	ap2.setBranchID(br.getId());
+    	ap2.setCaseId(cs.getId());
+    	
+    	cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, -11);
+		Date yestarday = cal.getTime();
+		
+    	ap2.setDate(yestarday);
+    	ap2.setDropin(false);
+    	ap2.setWithWhoStaffId(st.getId());
+    	ap2 = apointmentsRep.save(ap2);
     	
     	LegalOpinion lo = new LegalOpinion();
     	lo.setType("Legal Opinion Test");
