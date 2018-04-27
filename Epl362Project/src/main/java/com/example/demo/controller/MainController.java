@@ -3,7 +3,6 @@
  */
 package com.example.demo.controller;
 
-import java.security.KeyStore.Entry;
 /**
  * @author Chrysovalantis
  *
@@ -31,10 +30,12 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.example.demo.form.BranchReport;
 import com.example.demo.form.CaseHistoryForm;
 import com.example.demo.form.ChangeRequestForm;
+import com.example.demo.form.ClientCaseReport;
 import com.example.demo.form.PersonForm;
 import com.example.demo.model.Apointment;
 import com.example.demo.model.Branch;
 import com.example.demo.model.CaseHistory;
+import com.example.demo.model.CaseType;
 import com.example.demo.model.ChangeRequest;
 import com.example.demo.model.Client;
 import com.example.demo.model.ClientCase;
@@ -42,6 +43,7 @@ import com.example.demo.model.Desagrement;
 import com.example.demo.model.Person;
 import com.example.demo.model.Recommendation;
 import com.example.demo.model.Staff;
+import com.example.demo.model.repositorys.CaseTypeRepository;
 
 @Controller
 public class MainController extends AllRepositories {
@@ -70,6 +72,19 @@ public class MainController extends AllRepositories {
 
 	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
 	public String caseHistory(Model model) {
+		
+		ArrayList<ClientCaseReport> clientCases = new ArrayList<>();
+		
+		for(ClientCase c : clientCaseRep.findAll()) {
+			ClientCaseReport r = new ClientCaseReport();
+			r.id = c.getClientId();
+			Client clien = clientRep.findById(c.getClientId()).get();
+			r.name = clien.getName()+" "+clien.getSurname();
+			r.type = caseTypeRep.findById(c.getCaseTypeId()).get().getType();
+			clientCases.add(r);
+		}
+		
+		model.addAttribute("casesT", clientCases);
 
 		return "case_history";
 	}
