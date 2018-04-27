@@ -81,7 +81,7 @@
                       <tr th:each ="branch : ${branches}" >
                           <td th:utext="${branch.id}"></td>
                           <td th:title="${branch.name}" th:utext="${branch.name}"></td>
-                          <td th:utext="${branch.totalAppointments}"></td>
+                          <td th:utext="${branch.total}"></td>
                       </tr>
                   </tbody>
               </table>
@@ -102,7 +102,7 @@
 												<tr th:each ="legalOpinion : ${legalOpinions}" >
 														<td th:utext="${legalOpinion.id}"></td>
 														<td th:title="${legalOpinion.name}" th:utext="${legalOpinion.name}"></td>
-														<td th:utext="${legalOpinion.totalLegals}"></td>
+														<td th:utext="${legalOpinion.total}"></td>
 												</tr>
 										</tbody>
 								</table>
@@ -123,7 +123,7 @@
 												<tr th:each ="recommendation : ${recommendations}">
 														<td th:utext="${recommendation.id}"></td>
 														<td th:title="${recommendation.name}" th:utext="${recommendation.name}"></td>
-														<td th:utext="${recommendation.totalRecom}"></td>
+														<td th:utext="${recommendation.total}"></td>
 												</tr>
 										</tbody>
 								</table>
@@ -146,7 +146,7 @@
 														<td th:utext="${branchD.id}"></td>
 														<td th:title="${branchD.name}" th:utext="${branchD.name}"></td>
 														<td th:title="${branchD.day}" th:utext="${branchD.day}"></td>
-														<td th:utext="${branchD.totalAppointments}"></td>
+														<td th:utext="${branchD.total}"></td>
 												</tr>
 										</tbody>
 								</table>
@@ -167,7 +167,7 @@
 												<tr th:each ="consultation : ${consultations}" >
 														<td th:utext="${consultation.id}"></td>
 														<td th:title="${consultation.name}" th:utext="${consultation.name}"></td>
-														<td th:utext="${consultation.totalClients}"></td>
+														<td th:utext="${consultation.total}"></td>
 												</tr>
 										</tbody>
 								</table>

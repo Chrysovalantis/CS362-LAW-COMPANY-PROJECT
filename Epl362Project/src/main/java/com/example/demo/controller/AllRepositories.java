@@ -87,6 +87,8 @@ public class AllRepositories {
     	Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		cal.add(Calendar.DATE, 1);
+		cal.add(Calendar.HOUR_OF_DAY, +6);
+		
 		Date tomorow = cal.getTime();
 		
     	ap.setDate(tomorow);
@@ -125,6 +127,7 @@ public class AllRepositories {
     	ch.setRecomandationId(rc.getId());
     	ch.setRecomantationDetails("Recommensation Details");
     	ch.setStaffId(st.getId());
+    	ch.setApointmentId(ap.getId());
     	ch = caseHistoryRep.save(ch);
     	
     	Desagrement d = new Desagrement();

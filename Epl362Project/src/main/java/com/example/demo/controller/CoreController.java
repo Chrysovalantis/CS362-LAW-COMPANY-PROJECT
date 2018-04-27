@@ -22,6 +22,7 @@ public class CoreController<T extends MyModel,W extends CrudRepository<T, Long>>
 
 	@PostMapping(path="/add") 
 	public @ResponseBody String addNewT (@Valid @RequestBody T t) {
+		System.out.println(t.toString());
 		t.setId(null);
 		repository.save(t);
 		return t.getId()+"";

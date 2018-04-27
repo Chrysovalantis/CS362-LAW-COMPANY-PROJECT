@@ -337,7 +337,7 @@
 
 													<div class="form-group">
 														<label for="caseType">Select Case Type</label>
-														<select required name="case_type" id="caseType" class="form-control">
+														<select required name="caseTypeId" id="caseTypeId" class="form-control">
 															<option></option>
 															<option th:each="caseType : ${caseTypes}" th:utext="${caseType.type}" th:value="${caseType.id}">
 															</option>

@@ -193,7 +193,6 @@ public class MainController extends AllRepositories {
 		cal.setTime(new Date());
 		cal.add(Calendar.DATE, -2);
 		Date lastTwoDays = cal.getTime();
-
 		for (Apointment a : apointmentsRep.findAll()) {
 
 			if (!a.isAttented() && a.getDate().after(new Date())) {
@@ -216,14 +215,22 @@ public class MainController extends AllRepositories {
 
 	@RequestMapping(value = { "/head_office" }, method = RequestMethod.GET)
 	public String head_office(Model model) {
-		HashMap<Long, Integer> casePerBranch = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(Calendar.DATE, -2);
+		cal.add(Calendar.DATE, -30);
+		
 		Date lastMonth = cal.getTime();
 		
+		cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, -7);
+		
+		Date lastWeek = cal.getTime();
+
+		HashMap<Long, Integer> casePerBranch = new HashMap<>();
+
 		for (Apointment a : apointmentsRep.findAll()) {
-			if(a.getDate().before(lastMonth)) {
+			if (a.getDate().before(lastMonth)) {
 				continue;
 			}
 			Integer temp = casePerBranch.get(a.getBranchID());
@@ -234,16 +241,72 @@ public class MainController extends AllRepositories {
 			}
 			casePerBranch.put(a.getBranchID(), temp);
 		}
-		System.out.println(casePerBranch.toString());
 		ArrayList<BranchReport> br = new ArrayList<>();
-		for(java.util.Map.Entry<Long, Integer> e : casePerBranch.entrySet()) {
+		for (java.util.Map.Entry<Long, Integer> e : casePerBranch.entrySet()) {
 			BranchReport b = new BranchReport();
 			b.id = e.getKey();
 			b.name = branchRep.findById(e.getKey()).get().getName();
-			b.totalAppointments = e.getValue();
+			b.total = e.getValue();
 			br.add(b);
 		}
-		model.addAttribute("branches",br);
+		model.addAttribute("branches", br);
+
+		HashMap<Long, Integer> legalOpinionPerBranch = new HashMap<>();
+
+		for (CaseHistory c : caseHistoryRep.findAll()) {
+			if (c.getLegalOpinionId() == null || c.getDate().before(lastMonth)) {
+				continue;
+			}
+			Integer temp = legalOpinionPerBranch.get(c.getLegalOpinionId());
+			if (temp == null) {
+				temp = new Integer(1);
+			} else {
+				temp = new Integer(temp + 1);
+			}
+			legalOpinionPerBranch.put(c.getLegalOpinionId(), temp);
+		}
+		ArrayList<BranchReport> legalOpinions = new ArrayList<>();
+		for (java.util.Map.Entry<Long, Integer> e : legalOpinionPerBranch.entrySet()) {
+			BranchReport b = new BranchReport();
+			b.id = e.getKey();
+			b.name = legalRep.findById(e.getKey()).get().getType();
+			b.total = e.getValue();
+			legalOpinions.add(b);
+		}
+		model.addAttribute("legalOpinions", legalOpinions);
+
+		
+		
+		
+		HashMap<String, Integer> casePerBranchPerDay = new HashMap<>();
+
+		for (Apointment a : apointmentsRep.findAll()) {
+			if (a.getDate().before(lastWeek)) {
+				continue;
+			}
+			String key= a.getBranchID()+"@"+a.getDate().getDate()+"/"+(a.getDate().getMonth()+1)+"/"+a.getDate().getYear();
+			Integer temp = casePerBranchPerDay.get(key);
+			if (temp == null) {
+				temp = new Integer(1);
+			} else {
+				temp = new Integer(temp + 1);
+			}
+			casePerBranchPerDay.put(key, temp);
+		}
+		ArrayList<BranchReport> brD = new ArrayList<>();
+		for (java.util.Map.Entry<String, Integer> e : casePerBranchPerDay.entrySet()) {
+			BranchReport b = new BranchReport();
+			String[] temp =e.getKey().split("@");
+			b.id = Long.parseLong(temp[0]);
+			b.name = branchRep.findById(Long.parseLong(temp[0])).get().getName();
+			b.total = e.getValue();
+			b.day = temp[1];
+			brD.add(b);
+		}
+		model.addAttribute("branchesD", brD);
+		
+		
+		
 		return "head_office";
 	}
 
@@ -263,7 +326,16 @@ public class MainController extends AllRepositories {
 		model.addAttribute("recommendations", recomRep.findAll());
 		model.addAttribute("branches", branchRep.findAll());
 		model.addAttribute("caseTypes", caseTypeRep.findAll());
-		model.addAttribute("clients", clientRep.findAll());
+		ArrayList<Client> cl = new ArrayList<>();
+		for(Client c : clientRep.findAll()) {
+			if(c.isLocked()) {
+				continue;
+			}
+			cl.add(c);
+		}
+		model.addAttribute("clientsAll", clientRep.findAll());
+
+		model.addAttribute("clients", cl);
 		model.addAttribute("legalOpinions", legalRep.findAll());
 
 		return "addInfo";

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -70,7 +71,10 @@ public class Apointment extends MyModel {
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.HOUR_OF_DAY, -3);
+		this.date = cal.getTime();
 	}
 
 	public Long getWithWhoStaffId() {
