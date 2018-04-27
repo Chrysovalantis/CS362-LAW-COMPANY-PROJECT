@@ -155,7 +155,7 @@ $(document).ready(function() {
 function editClient() {
 
 	// Serialize data
-	var formData = objectifyForm($(this).serializeArray());
+	var formData = objectifyForm($('#editClientForm').serializeArray());
 	formData = JSON.stringify(formData);
 
 	addRecord(formData, "changeRequests/add")
