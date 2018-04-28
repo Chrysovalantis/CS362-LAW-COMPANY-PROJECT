@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,56 +17,51 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.CaseTypeController;
+import com.example.demo.model.CaseType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class CaseTypeControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private CaseTypeController caseTypeController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+    	CaseType ct = new CaseType();
+    	ct.setType("Case type test");
+    	ct=caseTypeRep.save(ct);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  caseTypeController.addNewT(ct);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long caseTypeId = Long.parseLong(result);
+		ct.setId(caseTypeId);
 		
-		Client c = clientRep.findById(clientId).get();
+		CaseType ct1 = caseTypeRep.findById(caseTypeId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(ct);
+		System.out.println(caseTypeRep.findById(caseTypeId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(ct, Map.class);
+	    Map<String, Object> mapDatabse = oMapper.convertValue(ct1, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    caseTypeController.deleteT(caseTypeId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(caseTypeRep.findById(caseTypeId).isPresent());
 	
 	}
-	
-	
 
 }

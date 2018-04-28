@@ -15,56 +15,52 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.RecommendationController;
+import com.example.demo.model.Recommendation;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class RecommendationControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private RecommendationController recommendationController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
-        
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
 
-    	String result =  clientController.addNewT(cl);
+    	Recommendation rc = new Recommendation();
+    	rc.setType("Recommendation Test");
+    	rc=recomRep.save(rc); ;
+
+    	String result =  recommendationController.addNewT(rc);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long recomId = Long.parseLong(result);
+		rc.setId(recomId);
 		
-		Client c = clientRep.findById(clientId).get();
+		Recommendation r = recomRep.findById(recomId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(rc);
+		System.out.println(recomRep.findById(recomId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(rc, Map.class);
+	    Map<String, Object> mapDatabse = oMapper.convertValue(r, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    recommendationController.deleteT(recomId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(recomRep.findById(recomId).isPresent());
 	
 	}
-	
-	
+
 
 }

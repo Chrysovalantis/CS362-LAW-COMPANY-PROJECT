@@ -15,7 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
+import com.example.demo.controller.CaseHistoryController;
+import com.example.demo.model.CaseHistory;
 import com.example.demo.model.Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,47 +25,47 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class CaseHistoryControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private CaseHistoryController caseHistoryController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+        CaseHistory ch = new CaseHistory();
+    	ch.setCaseId((long) 1);
+    	ch.setLegalOpinionDetails("Legal opinion Details");
+    	ch.setLegalOpinionId((long) 1);
+    	ch.setRecomandationId((long) 1);
+    	ch.setRecomantationDetails("Recommensation Details");
+    	ch.setStaffId((long) 1);
+    	ch.setApointmentId((long) 1);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  caseHistoryController.addNewT(ch);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long caseId = Long.parseLong(result);
+		ch.setId(caseId);
 		
-		Client c = clientRep.findById(clientId).get();
+		CaseHistory c = caseHistoryRep.findById(caseId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(ch);
+		System.out.println(caseHistoryRep.findById(caseId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(ch, Map.class);
 	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    caseHistoryController.deleteT(caseId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(clientRep.findById(caseId).isPresent());
 	
 	}
-	
-	
 
 }

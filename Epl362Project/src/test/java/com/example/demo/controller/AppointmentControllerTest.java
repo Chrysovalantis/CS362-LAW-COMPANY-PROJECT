@@ -15,56 +15,51 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.ApointmentController;
+import com.example.demo.model.Apointment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 import java.util.Map;
-
 import static org.junit.Assert.*;
 
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class AppointmentControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private ApointmentController appointmentController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+      	Apointment ap = new Apointment();
+    	ap.setAttented(false);
+    	ap.setBranchID((long) 2);
+    	ap.setCaseId((long) 3);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  appointmentController.addNewT(ap);
 		assertNotNull(result);
-
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
 		
-		Client c = clientRep.findById(clientId).get();
+		long appID = Long.parseLong(result);
+	
+		ap.setId(appID);
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		Apointment ap1 = apointmentsRep.findById(appID).get();
+		System.out.println(ap);
+		System.out.println(apointmentsRep.findById(appID).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(ap, Map.class);
+		Map<String, Object> mapDatabse = oMapper.convertValue(ap1, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    appointmentController.deleteT(appID);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(clientRep.findById(appID).isPresent());
 	
 	}
-	
-	
-
 }

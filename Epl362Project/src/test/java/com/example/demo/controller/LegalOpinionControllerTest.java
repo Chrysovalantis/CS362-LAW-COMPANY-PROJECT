@@ -15,56 +15,50 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.LegalOpinionController;
+import com.example.demo.model.LegalOpinion;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class LegalOpinionControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private LegalOpinionController legalOpinionController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+        LegalOpinion lo = new LegalOpinion();
+    	lo.setType("Legal Opinion Test");
+    	lo=legalRep.save(lo);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  legalOpinionController.addNewT(lo);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long legalId = Long.parseLong(result);
+		lo.setId(legalId);
 		
-		Client c = clientRep.findById(clientId).get();
+		LegalOpinion lo1 = legalRep.findById(legalId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(lo);
+		System.out.println(legalRep.findById(legalId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(lo, Map.class);
+	    Map<String, Object> mapDatabse = oMapper.convertValue(lo1, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    legalOpinionController.deleteT(legalId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(clientRep.findById(legalId).isPresent());
 	
 	}
-	
-	
-
 }

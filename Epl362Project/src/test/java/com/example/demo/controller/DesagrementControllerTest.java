@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,56 +17,54 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.DesagrementController;
+import com.example.demo.model.Desagrement;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class DesagrementControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private DesagrementController desagrementController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+      	Desagrement d = new Desagrement();
+    	d.setClientId((long)1);
+    	d.setOverruled(true);
+    	d.setOverruledByStaffId((long)1);
+    	d.setRecomandationId((long)1);
+    	desagrementRep.save(d);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  desagrementController.addNewT(d);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long desagrementId = Long.parseLong(result);
+		d.setId(desagrementId);
 		
-		Client c = clientRep.findById(clientId).get();
+		Desagrement b = desagrementRep.findById(desagrementId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(d);
+		System.out.println(desagrementRep.findById(desagrementId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(d, Map.class);
+	    Map<String, Object> mapDatabse = oMapper.convertValue(b, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    desagrementController.deleteT(desagrementId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(desagrementRep.findById(desagrementId).isPresent());
 	
 	}
-	
-	
 
 }

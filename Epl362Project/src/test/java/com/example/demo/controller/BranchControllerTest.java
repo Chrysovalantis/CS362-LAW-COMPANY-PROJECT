@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,56 +17,51 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.BranchController;
+import com.example.demo.model.Branch;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class BranchControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private BranchController branchController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+       	Branch br = new Branch();
+    	br.setName("testbranch");
+    	br=branchRep.save(br);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  branchController.addNewT(br);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long branchId = Long.parseLong(result);
+		br.setId(branchId);
 		
-		Client c = clientRep.findById(clientId).get();
+		Branch b = branchRep.findById(branchId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(br);
+		System.out.println(branchRep.findById(branchId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(br, Map.class);
+	    Map<String, Object> mapDatabse = oMapper.convertValue(b, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    branchController.deleteT(branchId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(clientRep.findById(branchId).isPresent());
 	
 	}
-	
-	
 
 }

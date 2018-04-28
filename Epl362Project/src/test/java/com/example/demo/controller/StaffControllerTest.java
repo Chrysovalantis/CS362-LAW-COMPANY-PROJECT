@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,56 +17,55 @@ import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.controller.AllRepositories;
-import com.example.demo.controller.ClientController;
-import com.example.demo.model.Client;
+import com.example.demo.controller.StaffController;
+import com.example.demo.model.Staff;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
+import org.junit.Test;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientControllerTest extends AllRepositories{
-	
+public class StaffControllerTest extends AllRepositories {
+
 	@Autowired
-    private ClientController clientController;
+    private StaffController staffController;
 
 	@Test
-	public void addAndDeleteClient() {
+	public void addAndDeleteCaseHistory() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
         
-        Client cl = new Client();
-    	cl.setLocked(false);
-    	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
-    	cl.setSurname("Client test surname");
+        Staff u =new Staff();
+    	u.setName("HEAD");
+    	u.setSurname("OFFICE");
+    	u.setPassword("ho");
+    	u.setUsername("ho");
+    	u.setRole(Staff.HEAD_OFFICE);
+    	staffRep.save(u);
 
-    	String result =  clientController.addNewT(cl);
+    	String result =  staffController.addNewT(u);
 		assertNotNull(result);
 
-		long clientId = Long.parseLong(result);
-		cl.setId(clientId);
+		long staffId = Long.parseLong(result);
+		u.setId(staffId);
 		
-		Client c = clientRep.findById(clientId).get();
+		Staff b = staffRep.findById(staffId).get();
 		
-		System.out.println(cl);
-		System.out.println(clientRep.findById(clientId).get());
+		System.out.println(u);
+		System.out.println(staffRep.findById(staffId).get());
 	    
-		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
-	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+		Map<String, Object> mapSent = oMapper.convertValue(u, Map.class);
+	    Map<String, Object> mapDatabse = oMapper.convertValue(b, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
-	    clientController.deleteT(clientId);
+	    staffController.deleteT(staffId);
 	    
-	    assertFalse(clientRep.findById(clientId).isPresent());
+	    assertFalse(staffRep.findById(staffId).isPresent());
 	
 	}
-	
-	
 
 }
