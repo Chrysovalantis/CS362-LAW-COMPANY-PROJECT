@@ -116,6 +116,57 @@ form.login a:hover {
 
 /*index-login-----------------------------------------------------------------*/
 
+/*header----------------------------------------------------------------------*/
+.navbar{
+  background-color: rgb(98, 130, 165);
+  border-radius: 0px!important;
+  padding: .1rem 1rem !important;
+}
+
+#myNavbar{
+  width: 1220px;
+  margin: auto;
+}
+
+#header li a {
+  color: rgba(255, 250, 250, 0.68);
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 15px 35px;
+}
+
+#header li a:hover {
+  color: white;
+  /*background-color: rgb(221, 190, 162);*/
+}
+#header li a:active {
+  color: white;
+  /*background-color: rgb(221, 190, 162);*/
+}
+#header li a:focus {
+  color: white;
+    /*background-color: rgb(221, 190, 162);*/
+}
+
+.navbar-brand{
+    color: rgb(146, 32, 13);
+    font-weight: 700;
+}
+.navbar-brand span{
+  color: rgb(26, 27, 27);
+  font-weight: 700;
+}
+
+.navbar-toggle .icon-bar{
+    background-color: black;
+}
+
+.active{
+  color: white !important;
+}
+
+/*header-----------------------------------------------------------------------*/
+
 /*consultation page-----------------------------------------------------------*/
 
 .consultation-form {
@@ -135,54 +186,6 @@ form.login a:hover {
     margin-bottom: 30px;
     color: #b11b1b;
     text-transform: uppercase;
-}
-
-.navbar {
-    background-color: rgb(98, 130, 165);
-    border-radius: 0px !important;
-}
-
-.navbar .navbar-nav {
-    display: inline-block;
-    float: none;
-    vertical-align: top;
-}
-
-#myNavbar {
-    width: 1220px;
-    margin: auto;
-}
-
-#header li a {
-    color: rgb(76, 57, 35);
-    font-size: 1.1em;
-    font-weight: bold;
-    padding: 15px 35px;
-}
-
-#header li a:hover {
-    color: rgb(144, 50, 13);
-    background-color: rgb(221, 190, 162);
-}
-
-#header li a:active {
-    color: rgb(144, 50, 13);
-    background-color: rgb(221, 190, 162);
-}
-
-#header li a:focus {
-    color: rgb(144, 50, 13);
-    background-color: rgb(221, 190, 162);
-}
-
-.navbar-brand {
-    color: rgb(146, 32, 13);
-    font-weight: 700;
-}
-
-.navbar-brand span {
-    color: rgb(26, 27, 27);
-    font-weight: 700;
 }
 
 .fa-gavel {
