@@ -86,7 +86,8 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr th:each ="branch : ${branches}" >
+                      <tr th:each ="branch,iter : ${branches}" >
+													<td th:utext="${iter.index + 1}"></td>
                           <td th:utext="${branch.id}"></td>
                           <td th:title="${branch.name}" th:utext="${branch.name}"></td>
                           <td th:utext="${branch.total}"></td>
@@ -107,7 +108,8 @@
 												</tr>
 										</thead>
 										<tbody>
-												<tr th:each ="legalOpinion : ${legalOpinions}" >
+												<tr th:each ="legalOpinion,iter : ${legalOpinions}" >
+														<td th:utext="${iter.index + 1}"></td>
 														<td th:utext="${legalOpinion.id}"></td>
 														<td th:title="${legalOpinion.name}" th:utext="${legalOpinion.name}"></td>
 														<td th:utext="${legalOpinion.total}"></td>
@@ -128,7 +130,8 @@
 												</tr>
 										</thead>
 										<tbody>
-												<tr th:each ="recommendation : ${recommendations}">
+												<tr th:each ="recommendation,iter : ${recommendations}">
+														<td th:utext="${iter.index + 1}"></td>
 														<td th:utext="${recommendation.id}"></td>
 														<td th:title="${recommendation.name}" th:utext="${recommendation.name}"></td>
 														<td th:utext="${recommendation.total}"></td>
@@ -150,7 +153,8 @@
 												</tr>
 										</thead>
 										<tbody>
-												<tr th:each ="branchD : ${branchesD}" >
+												<tr th:each ="branchD,iter : ${branchesD}" >
+														<td th:utext="${iter.index + 1}"></td>
 														<td th:utext="${branchD.id}"></td>
 														<td th:title="${branchD.name}" th:utext="${branchD.name}"></td>
 														<td th:title="${branchD.day}" th:utext="${branchD.day}"></td>
@@ -172,7 +176,8 @@
 												</tr>
 										</thead>
 										<tbody>
-												<tr th:each ="consultation : ${consultations}" >
+												<tr th:each ="consultation,iter : ${consultations}" >
+														<td th:utext="${iter.index + 1}"></td>
 														<td th:utext="${consultation.id}"></td>
 														<td th:title="${consultation.name}" th:utext="${consultation.name}"></td>
 														<td th:utext="${consultation.total}"></td>

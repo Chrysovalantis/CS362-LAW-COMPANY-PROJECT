@@ -149,7 +149,7 @@ form.login a:hover {
 }
 
 .navbar-brand{
-    color: rgb(146, 32, 13);
+    color: rgb(146, 32, 13) !important;
     font-weight: 700;
 }
 .navbar-brand span{
