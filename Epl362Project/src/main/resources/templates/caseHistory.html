@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="case-history col-md-7">
+    <div class="row history-header">
+      <div class="history-title col-md-5">Case History</div>
+      <div class="history-number col-md-7"
+        th:utext="${caseHistoryNumber}+' consultations'"></div>
+    </div>
+    <hr>
+    <div class="history-list">
+      <div th:each="case : ${caseHistory}" class="list-item">
+        <div class="head row">
+          <div class="col-sm-6">
+            <h4
+              th:utext="${case.name}+' '+${case.surname}+' staffId: '+${case.staffId}"></h4>
+          </div>
+          <div class="col-sm-6 date" th:utext="${case.date}"></div>
+
+        </div>
+        <p>
+          <strong>Recommendation:</strong>
+        <p th:utext="${case.recomantationDetails}"></p>
+
+        <p>
+          <strong>Legal Opinion:</strong>
+        </p>
+        <p th:utext="${case.legalOpinionDetails}"></p>
+      </div>
+      <!-- <div class="row history-list">
+
+       </div> -->
+
+    </div>
+  </div>
