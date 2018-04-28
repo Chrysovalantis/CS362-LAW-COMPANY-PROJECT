@@ -73,14 +73,14 @@ public class MainController extends AllRepositories {
 	 * @param model the model
 	 * @return the case history template
 	 */
-	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
-	public String caseHistory(Model model) {
+	@RequestMapping(value = { "/case_history/{staffId}" }, method = RequestMethod.GET)
+	public String caseHistory(Model model,@PathVariable(value = "staffId") Long staffId) {
 
 		ArrayList<ClientCaseReport> clientCases = new ArrayList<>();
 
 		for (ClientCase c : clientCaseRep.findAll()) {
 			ClientCaseReport r = new ClientCaseReport();
-			r.id = c.getClientId();
+			r.id = c.getId();
 			Client clien = clientRep.findById(c.getClientId()).get();
 			r.name = clien.getName() + " " + clien.getSurname();
 			r.type = caseTypeRep.findById(c.getCaseTypeId()).get().getType();
@@ -88,6 +88,7 @@ public class MainController extends AllRepositories {
 		}
 
 		model.addAttribute("casesT", clientCases);
+		model.addAttribute("staffId", staffId);
 
 		return "case_history";
 	}
@@ -120,7 +121,6 @@ public class MainController extends AllRepositories {
 		Long caseId = apoi.getCaseId();
 		Long branchId = apoi.getBranchID();
 		Long staffId = apoi.getWithWhoStaffId();
-
 		ClientCase cs = clientCaseRep.findById(caseId).get();
 		Client cl = clientRep.findById(cs.getClientId()).get();
 
@@ -242,6 +242,8 @@ public class MainController extends AllRepositories {
 		}
 		model.addAttribute("appointments", apos);
 		model.addAttribute("appointmentsNumber", apos.size());
+		
+		model.addAttribute("staffId", staffId);
 
 		model.addAttribute("missed", mised);
 		model.addAttribute("missedNum", mised.size());
@@ -567,6 +569,30 @@ public class MainController extends AllRepositories {
 	public String reports(Model model) {
 
 		return "reports";
+	}
+	
+	
+	@RequestMapping(value = { "/case-history/{caseId}" }, method = RequestMethod.GET)
+	public String caseHistoryById(Model model,@PathVariable(value = "caseId") Long caseId) {
+		ArrayList<CaseHistoryForm> caseHistory = new ArrayList<>();
+		for (CaseHistory ch : caseHistoryRep.findAll()) {
+			System.out.println(ch.getCaseId()+" "+caseId);
+			if (ch != null && ch.getCaseId() != null  && ch.getCaseId().equals(caseId) ) {
+				Staff s = staffRep.findById(ch.getStaffId()).get();
+				CaseHistoryForm chform = new CaseHistoryForm(ch, s);
+				chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType() + ": "
+						+ chform.legalOpinionDetails;
+				chform.recomantationDetails = recomRep.findById(chform.recomandationId).get().getType() + ": "
+						+ chform.recomantationDetails;
+
+				caseHistory.add(chform);
+			}
+		}
+		
+		model.addAttribute("caseHistory", caseHistory);
+		model.addAttribute("caseHistoryNumber", caseHistory.size());
+
+		return "caseHistory";
 	}
 
 }
