@@ -71,7 +71,7 @@ public class MainController extends AllRepositories {
 	/**
 	 * The case history view for similar cases
 	 * @param model the model
-	 * @return the case historyy template
+	 * @return the case history template
 	 */
 	@RequestMapping(value = { "/case_history" }, method = RequestMethod.GET)
 	public String caseHistory(Model model) {
@@ -217,8 +217,8 @@ public class MainController extends AllRepositories {
 	 * @param model the model
 	 * @return legal appointments template
 	 */
-	@RequestMapping(value = { "/legal_appointments" }, method = RequestMethod.GET)
-	public String legal_appointments(Model model) {
+	@RequestMapping(value = { "/legal_appointments/{staffId}" }, method = RequestMethod.GET)
+	public String legal_appointments(Model model, @PathVariable(value = "staffId") Long staffId) {
 
 		ArrayList<Apointment> apos = new ArrayList<>();
 		ArrayList<Apointment> mised = new ArrayList<>();
@@ -227,6 +227,9 @@ public class MainController extends AllRepositories {
 		cal.add(Calendar.DATE, -2);
 		Date lastTwoDays = cal.getTime();
 		for (Apointment a : apointmentsRep.findAll()) {
+			if(a.getWithWhoStaffId()!=staffId) {
+				continue;
+			}
 
 			if (!a.isAttented() && a.getDate().after(new Date())) {
 				apos.add(a);
@@ -488,7 +491,7 @@ public class MainController extends AllRepositories {
 					return new RedirectView("changeRequestLO");
 				}
 				if (role.compareTo(Staff.LEGAL_STAFF) == 0) {
-					return new RedirectView("legal_appointments");
+					return new RedirectView("legal_appointments/"+user.getId());
 				}
 				if (role.compareTo(Staff.RECEPTIONIST) == 0) {
 					return new RedirectView("appointments");
