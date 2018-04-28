@@ -33,7 +33,7 @@ public class ClientControllerTest extends AllRepositories{
     private ClientController clientController;
 
 	@Test
-	public void addClient() {
+	public void addAndDeleteClient() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();
@@ -43,7 +43,6 @@ public class ClientControllerTest extends AllRepositories{
     	cl.setName("Client test name");
     	cl.setPotentialMoneyLaundring(true);
     	cl.setSurname("Client test surname");
-    	System.out.println(clientController);
 
     	String result =  clientController.addNewT(cl);
 		assertNotNull(result);
@@ -56,6 +55,10 @@ public class ClientControllerTest extends AllRepositories{
 		Map<String, Object> mapSent = oMapper.convertValue(cl, Map.class);
 	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
+	    
+	    clientController.deleteT(clientId);
+	    
+	    assertFalse(clientRep.findById(clientId).isPresent());
 	
 	}
 	
