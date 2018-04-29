@@ -16,6 +16,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -219,21 +220,26 @@ public class MainController extends AllRepositories {
 		ArrayList<Apointment> mised = new ArrayList<>();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
+		Date now = cal.getTime();
 		cal.add(Calendar.DATE, -2);
 		Date lastTwoDays = cal.getTime();
+		
 		for (Apointment a : apointmentsRep.findAll()) {
 			if(a.getWithWhoStaffId()!=staffId) {
 				continue;
 			}
-
-			if (!a.isAttented() && a.getDate().after(new Date())) {
+			cal.setTime(a.getDate());
+			if (!a.isAttented() && cal.getTime().after(now)) {
 				apos.add(a);
 			}
 
-			if (!a.isAttented() && a.getDate().before(new Date()) && a.getDate().after(lastTwoDays)) {
+			if (!a.isAttented() && cal.getTime().before(now) && cal.getTime().after(lastTwoDays)) {
 				mised.add(a);
+				System.out.println("Mised");
 			}
-
+			System.out.println("Apo: "+cal.getTime());
+			System.out.println("NOW: "+now);
+			//System.out.println(a.getDate().before(new Date()));
 		}
 		model.addAttribute("appointments", apos);
 		model.addAttribute("appointmentsNumber", apos.size());
