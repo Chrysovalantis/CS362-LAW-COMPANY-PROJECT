@@ -34,7 +34,7 @@ public class ClientCaseControllerTest extends AllRepositories {
     private ClientCaseController clientCaseController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteClientCase() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

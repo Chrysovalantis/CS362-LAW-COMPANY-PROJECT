@@ -34,7 +34,7 @@ public class DesagrementControllerTest extends AllRepositories {
     private DesagrementController desagrementController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteDesagrement() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

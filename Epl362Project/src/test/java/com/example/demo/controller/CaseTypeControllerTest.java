@@ -34,7 +34,7 @@ public class CaseTypeControllerTest extends AllRepositories {
     private CaseTypeController caseTypeController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteCaseType() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

@@ -32,7 +32,7 @@ public class RecommendationControllerTest extends AllRepositories {
     private RecommendationController recommendationController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteRecommendation() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

@@ -65,7 +65,7 @@ public class AllRepositories {
     	Client cl = new Client();
     	cl.setLocked(false);
     	cl.setName("Client test name");
-    	cl.setPotentialMoneyLaundring(true);
+    	cl.setPotentialMoneyLaundring(false);
     	cl.setSurname("Client test surname");
     	cl=clientRep.save(cl);
     	
@@ -76,11 +76,11 @@ public class AllRepositories {
     	cs=clientCaseRep.save(cs);
     	
     	Staff st = new Staff();
-    	st.setName("Staff test name");
-    	st.setPassword("test");
+    	st.setName("LEGAL");
+    	st.setPassword("ls");
     	st.setRole(Staff.LEGAL_STAFF);
-    	st.setSurname("Staff test surname");
-    	st.setUsername("test");
+    	st.setSurname("STAFF");
+    	st.setUsername("ls");
     	st = staffRep.save(st);
     	
     	Apointment ap = new Apointment();
@@ -168,17 +168,7 @@ public class AllRepositories {
     	u.setPassword("lo");
     	u.setUsername("lo");
     	u.setRole(Staff.LEGAL_OFFICE);
-    	staffRep.save(u);
-    	
-    	
-    	u =new Staff();
-    	u.setName("LEGAL");
-    	u.setSurname("STAFF");
-    	u.setPassword("ls");
-    	u.setUsername("ls");
-    	u.setRole(Staff.LEGAL_STAFF);
-    	staffRep.save(u);
-    	
+    	staffRep.save(u); 	
     	
     	u =new Staff();
     	u.setName("RECEPTIONIST");

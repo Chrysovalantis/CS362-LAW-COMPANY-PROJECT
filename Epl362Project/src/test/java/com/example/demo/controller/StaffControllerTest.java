@@ -34,7 +34,7 @@ public class StaffControllerTest extends AllRepositories {
     private StaffController staffController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteStaff() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

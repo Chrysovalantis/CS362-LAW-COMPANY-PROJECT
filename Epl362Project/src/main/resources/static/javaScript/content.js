@@ -271,6 +271,7 @@ function addRecord(data, path) {
 }
 
 // consultation----------------------------------------------------------
+var staffId=0;
 $(document).ready(function() {
 	// Listen to submit event on the <form> itself!
 	$('#consultationForm').submit(function(e) {
@@ -282,10 +283,35 @@ $(document).ready(function() {
 		var formData = objectifyForm($(this).serializeArray());
 		formData = JSON.stringify(formData);
 
-		addRecord(formData, "/casesHistorys/addConsultation");
+		addConsultation(formData, "/casesHistorys/addConsultation");
 
 	});
 });
+
+
+function addConsultation(data, path) {
+
+	// Make AJAX request
+	$.ajax({
+		url : path,
+		type : "post",
+		data : data,
+		contentType : "application/json",
+		success : function(result) {
+			swal('Done!', 'Record Added', 'success').then(function() {
+				location.href = "../legal_appointments/"+staffId;
+			});
+
+		},
+		error : function(jqXHR, status, err) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(err);
+			alert('Failed!');
+		}
+	});
+
+}
 // consultation----------------------------------------------------------
 //search-table------------------------------------------------------------------
 
@@ -377,13 +403,10 @@ $(document).ready(function() {
 
 
 // case-history -----------------------------------------------------------
-
-$(".caseLine").on('click',function(){
-
-	$.ajax({url: "case-history", success: function(result){
+function showCaseHistory(obj){
+	$.ajax({url: "../case-history/"+obj.getAttribute("data-id"), success: function(result){
         $("#case-history").html(result);
-    }});
-
-});
+    }});	
+}
 
 // case-history -----------------------------------------------------------

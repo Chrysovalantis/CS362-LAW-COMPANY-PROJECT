@@ -32,7 +32,7 @@ public class LegalOpinionControllerTest extends AllRepositories {
     private LegalOpinionController legalOpinionController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteLegalOpinion() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

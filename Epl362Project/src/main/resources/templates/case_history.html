@@ -69,12 +69,14 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr class = "caseLine" th:each ="caseT,iter : ${casesT}">
-													<td th:utext="${iter.index + 1}"></td>
-                          <td th:utext="${caseT.id}"></td>
-                          <td th:title="${caseT.name}" th:utext="${caseT.name}"></td>
-                          <td th:utext="${caseT.type}"></td>
-                      </tr>
+	                  <div th:each ="caseT,iter : ${casesT}" >
+	                      <tr class = "caseLine" th:attr="data-id=${caseT.id}" onclick="showCaseHistory(this);" >
+														<td th:utext="${iter.index + 1}"></td>
+	                          <td th:utext="${caseT.id}"></td>
+	                          <td th:title="${caseT.name}" th:utext="${caseT.name}"></td>
+	                          <td th:utext="${caseT.type}"></td>
+	                      </tr>
+	                  </div>
                   </tbody>
               </table>
           </div>

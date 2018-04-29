@@ -34,7 +34,7 @@ public class BranchControllerTest extends AllRepositories {
     private BranchController branchController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteBranch() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

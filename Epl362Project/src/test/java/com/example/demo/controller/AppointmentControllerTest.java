@@ -32,7 +32,7 @@ public class AppointmentControllerTest extends AllRepositories {
     private ApointmentController appointmentController;
 
 	@Test
-	public void addAndDeleteCaseHistory() {
+	public void addAndDeleteAppointment() {
 	    assertTrue(true);
 
         ObjectMapper oMapper = new ObjectMapper();

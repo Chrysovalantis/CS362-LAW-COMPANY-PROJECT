@@ -21,6 +21,8 @@
 	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
 	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
 	crossorigin="anonymous"></script>
+	
+
 </head>
 <body id="temp">
 	<section id="header">
@@ -200,6 +202,12 @@
 
 	<!-- <a th:href="@{/personList}">Person List</a> -->
 	<script type="text/javascript" th:src="@{/javaScript/content.js}"></script>
+	<script th:inline="javascript">
+/*<![CDATA[*/
+    staffId = /*[[${staffId}]]*/;
+
+/*]]>*/
+</script>
 </body>
 
 </html>

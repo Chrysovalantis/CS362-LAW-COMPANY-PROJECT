@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,15 +33,12 @@ import com.example.demo.form.PersonForm;
 import com.example.demo.model.Apointment;
 import com.example.demo.model.Branch;
 import com.example.demo.model.CaseHistory;
-import com.example.demo.model.CaseType;
 import com.example.demo.model.ChangeRequest;
 import com.example.demo.model.Client;
 import com.example.demo.model.ClientCase;
 import com.example.demo.model.Desagrement;
-import com.example.demo.model.Person;
 import com.example.demo.model.Recommendation;
 import com.example.demo.model.Staff;
-import com.example.demo.model.repositorys.CaseTypeRepository;
 
 @Controller
 public class MainController extends AllRepositories {
@@ -325,6 +320,7 @@ public class MainController extends AllRepositories {
 			if (a.getDate().before(lastWeek)) {
 				continue;
 			}
+			@SuppressWarnings("deprecation")
 			String key = a.getBranchID() + "@" + a.getDate().getDate() + "/" + (a.getDate().getMonth() + 1) + "/"
 					+ a.getDate().getYear();
 			HashMap<Long, String> temp = casePerBranchPerDay.get(key);
@@ -406,8 +402,12 @@ public class MainController extends AllRepositories {
 	 */
 	@RequestMapping(value = { "/newAppointment" }, method = RequestMethod.GET)
 	public String newAppointment(Model model) {
-
-		model.addAttribute("staffs", staffRep.findAll());
+		ArrayList<Staff> st = new ArrayList<>();
+		for(Staff s : staffRep.findAll()) {
+			if(s.getRole().equals(Staff.LEGAL_STAFF))
+				st.add(s);
+		}
+		model.addAttribute("staffs", st);
 		model.addAttribute("branches", branchRep.findAll());
 		model.addAttribute("cases", caseHistoryRep.findAll());
 
@@ -490,7 +490,7 @@ public class MainController extends AllRepositories {
 					continue;
 				}
 				if (role.compareTo(Staff.LEGAL_OFFICE) == 0) {
-					return new RedirectView("changeRequestLO");
+					return new RedirectView("legalOffice");
 				}
 				if (role.compareTo(Staff.LEGAL_STAFF) == 0) {
 					return new RedirectView("legal_appointments/"+user.getId());
@@ -512,7 +512,7 @@ public class MainController extends AllRepositories {
 	 * @param model the model
 	 * @return the change requests template
 	 */
-	@RequestMapping(value = { "/changeRequestLO" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/legalOffice" }, method = RequestMethod.GET)
 	public String changeRequest(Model model) {
 		Iterable<ChangeRequest> chrs = changeRequestRepository.findAll();
 		ArrayList<ChangeRequestForm> chReqs = new ArrayList<>();
@@ -525,7 +525,7 @@ public class MainController extends AllRepositories {
 			}
 		}
 		model.addAttribute("changeRequests", chReqs);
-		return "changeRequests";
+		return "legalOffice";
 	}
 
 	/**
@@ -558,7 +558,7 @@ public class MainController extends AllRepositories {
 
 		chr.setState(ChangeRequest.PROSESED);
 		changeRequestRepository.save(chr);
-		return new RedirectView("/changeRequestLO");
+		return new RedirectView("/legalOffice");
 	}
 	/**
 	 * Show the reports to the head office
