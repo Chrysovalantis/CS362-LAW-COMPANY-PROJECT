@@ -58,29 +58,35 @@ public class AllRepositories {
 		ArrayList<Long> staffId = new ArrayList<>();
 		ArrayList<Long> loIds = new ArrayList<>();
 		ArrayList<Long> rcIds = new ArrayList<>();
-
-		Branch br = new Branch();
-		br.setName("testbranch");
-		br = branchRep.save(br);
-
-		CaseType ct = new CaseType();
-		ct.setType("Case type test");
-		ct = caseTypeRep.save(ct);
-
-		Client cl = new Client();
-		cl.setLocked(false);
-		cl.setName("Client test name");
-		cl.setPotentialMoneyLaundring(false);
-		cl.setSurname("Client test surname");
-		cl = clientRep.save(cl);
-
-		ClientCase cs = new ClientCase();
-		cs.setCaseTypeId(ct.getId());
-		cs.setClientId(cl.getId());
-
-		cs = clientCaseRep.save(cs);
+		ArrayList<Long> caseTypeIds = new ArrayList<>();
+		ArrayList<Long> clientCaseIds = new ArrayList<>();
+		ArrayList<Long> branchIds = new ArrayList<>();
+		ArrayList<Long> clientIds = new ArrayList<>();
 
 		for (int i = 0; i < 5; i++) {
+			Branch br = new Branch();
+			br.setName("Branch " + i);
+			br = branchRep.save(br);
+			branchIds.add(br.getId());
+			CaseType ct = new CaseType();
+			ct.setType("Case type " + i);
+			ct = caseTypeRep.save(ct);
+			caseTypeIds.add(ct.getId());
+
+			Client cl = new Client();
+			cl.setLocked(false);
+			cl.setName("Name");
+			cl.setPotentialMoneyLaundring(false);
+			cl.setSurname("Surname "+i);
+			cl = clientRep.save(cl);
+			clientIds.add(cl.getId());
+		
+			ClientCase cs = new ClientCase();
+			cs.setCaseTypeId(caseTypeIds.get(i));
+			cs.setClientId(clientIds.get(i));
+			cs = clientCaseRep.save(cs);
+			clientCaseIds.add(cs.getId());
+		
 			Staff st = new Staff();
 			st.setName("LEGAL");
 			st.setPassword("ls" + i);
@@ -98,8 +104,8 @@ public class AllRepositories {
 		for (int i = 0; i < 5; i++) {
 			Apointment ap = new Apointment();
 			ap.setAttented(false);
-			ap.setBranchID(br.getId());
-			ap.setCaseId(cs.getId());
+			ap.setBranchID(branchIds.get(i));
+			ap.setCaseId(clientCaseIds.get(i));
 			ap.setDate(cal.getTime());
 			ap.setDropin(false);
 			ap.setWithWhoStaffId(staffId.get(0));
@@ -112,8 +118,8 @@ public class AllRepositories {
 		for (int i = 0; i < 3; i++) {
 			Apointment ap = new Apointment();
 			ap.setAttented(false);
-			ap.setBranchID(br.getId());
-			ap.setCaseId(cs.getId());
+			ap.setBranchID(branchIds.get(i));
+			ap.setCaseId(clientCaseIds.get(i));
 			ap.setDate(cal.getTime());
 			ap.setDropin(false);
 			ap.setWithWhoStaffId(staffId.get(0));
@@ -124,8 +130,8 @@ public class AllRepositories {
 		for (int i = 0; i < 5; i++) {
 			Apointment ap = new Apointment();
 			ap.setAttented(true);
-			ap.setBranchID(br.getId());
-			ap.setCaseId(cs.getId());
+			ap.setBranchID(branchIds.get(i));
+			ap.setCaseId(clientCaseIds.get(i));
 			ap.setDate(cal.getTime());
 			ap.setDropin(false);
 			ap.setWithWhoStaffId(staffId.get(i));
@@ -153,21 +159,28 @@ public class AllRepositories {
 
 		for (Long l : apIds) {
 			CaseHistory ch = new CaseHistory();
-			ch.setCaseId(cs.getId());
+			ch.setCaseId(clientCaseIds.get(k));
 			ch.setLegalOpinionDetails("Legal opinion Details");
 			ch.setLegalOpinionId(loIds.get(k));
 			ch.setRecomandationId(rcIds.get(k));
-			ch.setRecomantationDetails("Recommensation Details");
+			ch.setRecomantationDetails("Recommendation Details");
 			ch.setStaffId(staffId.get(k));
 			ch.setApointmentId(l);
 			ch = caseHistoryRep.save(ch);
 			k++;
 		}
 		Desagrement d = new Desagrement();
-		d.setClientId(cl.getId());
+		d.setClientId(clientIds.get(0));
 		d.setOverruled(true);
 		d.setOverruledByStaffId(staffId.get(0));
 		d.setRecomandationId(rcIds.get(0));
+		desagrementRep.save(d);
+
+		d = new Desagrement();
+		d.setClientId(clientIds.get(0));
+		d.setOverruled(false);
+		d.setOverruledByStaffId(null);
+		d.setRecomandationId(rcIds.get(1));
 		desagrementRep.save(d);
 
 		ArrayList<String> ret = new ArrayList<>();

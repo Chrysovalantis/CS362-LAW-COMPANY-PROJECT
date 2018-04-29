@@ -16,6 +16,7 @@ import com.example.demo.model.CaseHistory;
 import com.example.demo.model.ChangeRequest;
 import com.example.demo.model.Client;
 import com.example.demo.model.ClientCase;
+import com.example.demo.model.Desagrement;
 
 @RestController
 @RequestMapping(path = "/casesHistorys")
@@ -31,6 +32,9 @@ public class CaseHistoryController extends CoreController<CaseHistory, CrudRepos
 	@Autowired
 	private CrudRepository<Client, Long> repositoryClients;
 
+	@Autowired
+	private CrudRepository<Desagrement, Long> desagrement;
+
 	/**
 	 * Add case history from consultation form
 	 * 
@@ -41,24 +45,39 @@ public class CaseHistoryController extends CoreController<CaseHistory, CrudRepos
 	@PostMapping(path = "/addConsultation")
 	public @ResponseBody String AddCaseHistoryForm(@Valid @RequestBody AddCaseHistoryForm caseHistory) {
 		CaseHistory ch = new CaseHistory();
+		
+		ClientCase c = repositoryCases.findById(caseHistory.caseId).get();
 		ch.setApointmentId(caseHistory.apointmentId);
 		ch.setCaseId(caseHistory.caseId);
 		ch.setDate(caseHistory.date);
-		if (caseHistory.legalOpinionId != 0) {
+		if (!caseHistory.legalOpinionId.equals(0)) {
 			ch.setLegalOpinionId(caseHistory.legalOpinionId);
 			ch.setLegalOpinionDetails(caseHistory.legalOpinionDetails);
 		} else {
 			ch.setLegalOpinionId(null);
 		}
-		if (caseHistory.recomandationId != 0) {
+		if (!caseHistory.recomandationId.equals(0)) {
 			ch.setRecomandationId(caseHistory.recomandationId);
 			ch.setRecomantationDetails(caseHistory.recomantationDetails);
 		} else {
 			ch.setRecomandationId(null);
 		}
+		if (!caseHistory.recomandationId.equals(0)) {
+			for (Desagrement d : desagrement.findAll()) {
+				if (d.getClientId().equals(c.getClientId())
+						&& d.getRecomandationId().equals(caseHistory.recomandationId)) {
+					d.setOverruled(true);
+					d.setOverruledByStaffId(caseHistory.staffId);
+					break;
+
+				}
+			}
+		}
 		ch.setStaffId(caseHistory.staffId);
 		if ((caseHistory.recomantationDetails == null || caseHistory.recomantationDetails.equals(""))
-				&& (caseHistory.legalOpinionDetails == null || caseHistory.legalOpinionDetails.equals(""))) {
+				&& (caseHistory.legalOpinionDetails == null || caseHistory.legalOpinionDetails.equals("")))
+
+		{
 			caseHistory.moneyLayndring = true;
 		}
 		try {
@@ -66,7 +85,6 @@ public class CaseHistoryController extends CoreController<CaseHistory, CrudRepos
 
 				ChangeRequest chr = new ChangeRequest();
 				chr.setNewPotentialMoneyLaundring(true);
-				ClientCase c = repositoryCases.findById(ch.getCaseId()).get();
 				chr.setClientId(c.getClientId());
 				Client client = repositoryClients.findById(c.getClientId()).get();
 				chr.setDeleted(false);

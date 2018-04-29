@@ -16,7 +16,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +43,6 @@ import com.example.demo.model.Staff;
 @Controller
 public class MainController extends AllRepositories {
 
-	
 	// Inject via application.properties
 	@Value("${welcome.message}")
 	private String message;
@@ -54,7 +52,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * Main login form
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the index template
 	 */
 	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
@@ -64,13 +64,16 @@ public class MainController extends AllRepositories {
 
 		return "index";
 	}
+
 	/**
 	 * The case history view for similar cases
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the case history template
 	 */
 	@RequestMapping(value = { "/case_history/{staffId}" }, method = RequestMethod.GET)
-	public String caseHistory(Model model,@PathVariable(value = "staffId") Long staffId) {
+	public String caseHistory(Model model, @PathVariable(value = "staffId") Long staffId) {
 
 		ArrayList<ClientCaseReport> clientCases = new ArrayList<>();
 
@@ -91,7 +94,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * Generate default testing data in database
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the ok template with the info of ids created
 	 */
 	@GetMapping(value = { "/loadDefaults" })
@@ -99,11 +104,14 @@ public class MainController extends AllRepositories {
 		model.addAttribute("prints", loadDef());
 		return "ok";
 	}
-	
+
 	/**
 	 * Show the consultation view base on an appointment id
-	 * @param model the model
-	 * @param apointmentId the appointment id
+	 * 
+	 * @param model
+	 *            the model
+	 * @param apointmentId
+	 *            the appointment id
 	 * @return the consultation template
 	 */
 	@RequestMapping(value = { "/consultation/{apointmentId}" }, method = RequestMethod.GET)
@@ -128,15 +136,17 @@ public class MainController extends AllRepositories {
 			if (ch != null && ch.getCaseId() != null && ch.getCaseId().equals(caseId)) {
 				Staff s = staffRep.findById(ch.getStaffId()).get();
 				CaseHistoryForm chform = new CaseHistoryForm(ch, s);
-				chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType() + ": "
-						+ chform.legalOpinionDetails;
-				chform.recomantationDetails = recomRep.findById(chform.recomandationId).get().getType() + ": "
-						+ chform.recomantationDetails;
-
-				caseH.add(chform);
+				if (chform.legalOpinionId != 0) {
+					chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType() + ": "
+							+ chform.legalOpinionDetails;
+				}
+				if (chform.recomandationId != 0) {
+					chform.recomantationDetails = recomRep.findById(chform.recomandationId).get().getType() + ": "
+							+ chform.recomantationDetails;
+					caseH.add(chform);
+				}
 			}
 		}
-
 		ArrayList<Recommendation> recoms = new ArrayList<>();
 		for (Recommendation r : recomRep.findAll()) {
 			boolean desagr = false;
@@ -187,7 +197,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * List all the appointments coming
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the appointments template
 	 */
 	@RequestMapping(value = { "/appointments" }, method = RequestMethod.GET)
@@ -210,7 +222,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * The appointments of a particular legal staff
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return legal appointments template
 	 */
 	@RequestMapping(value = { "/legal_appointments/{staffId}" }, method = RequestMethod.GET)
@@ -223,9 +237,9 @@ public class MainController extends AllRepositories {
 		Date now = cal.getTime();
 		cal.add(Calendar.DATE, -2);
 		Date lastTwoDays = cal.getTime();
-		
+
 		for (Apointment a : apointmentsRep.findAll()) {
-			if(a.getWithWhoStaffId()!=staffId) {
+			if (a.getWithWhoStaffId() != staffId) {
 				continue;
 			}
 			cal.setTime(a.getDate());
@@ -235,15 +249,12 @@ public class MainController extends AllRepositories {
 
 			if (!a.isAttented() && cal.getTime().before(now) && cal.getTime().after(lastTwoDays)) {
 				mised.add(a);
-				System.out.println("Mised");
 			}
-			System.out.println("Apo: "+cal.getTime());
-			System.out.println("NOW: "+now);
-			//System.out.println(a.getDate().before(new Date()));
+
 		}
 		model.addAttribute("appointments", apos);
 		model.addAttribute("appointmentsNumber", apos.size());
-		
+
 		model.addAttribute("staffId", staffId);
 
 		model.addAttribute("missed", mised);
@@ -254,7 +265,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * The head office view
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the head office template
 	 */
 	@RequestMapping(value = { "/head_office" }, method = RequestMethod.GET)
@@ -328,7 +341,7 @@ public class MainController extends AllRepositories {
 			}
 			@SuppressWarnings("deprecation")
 			String key = a.getBranchID() + "@" + a.getDate().getDate() + "/" + (a.getDate().getMonth() + 1) + "/"
-					+ a.getDate().getYear();
+					+ (a.getDate().getYear()+1900);
 			HashMap<Long, String> temp = casePerBranchPerDay.get(key);
 			if (temp == null) {
 				temp = new HashMap<>();
@@ -401,16 +414,19 @@ public class MainController extends AllRepositories {
 
 		return "head_office";
 	}
+
 	/**
 	 * Show the new appointment view
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return new appointment template
 	 */
 	@RequestMapping(value = { "/newAppointment" }, method = RequestMethod.GET)
 	public String newAppointment(Model model) {
 		ArrayList<Staff> st = new ArrayList<>();
-		for(Staff s : staffRep.findAll()) {
-			if(s.getRole().equals(Staff.LEGAL_STAFF))
+		for (Staff s : staffRep.findAll()) {
+			if (s.getRole().equals(Staff.LEGAL_STAFF))
 				st.add(s);
 		}
 		model.addAttribute("staffs", st);
@@ -422,7 +438,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * Show the add info view
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return add info template
 	 */
 	@RequestMapping(value = { "/addInfo" }, method = RequestMethod.GET)
@@ -445,10 +463,12 @@ public class MainController extends AllRepositories {
 
 		return "addInfo";
 	}
-	
+
 	/**
 	 * Show all the clients in the database
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the clients template
 	 */
 	@RequestMapping(value = { "/clientss" }, method = RequestMethod.GET)
@@ -462,7 +482,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * Show the add person template
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the add person template
 	 */
 	@RequestMapping(value = { "/addPerson" }, method = RequestMethod.GET)
@@ -473,11 +495,14 @@ public class MainController extends AllRepositories {
 
 		return "addPerson";
 	}
-	
+
 	/**
 	 * The login controller
-	 * @param username the user to be logged in
-	 * @param password its corresponding password
+	 * 
+	 * @param username
+	 *            the user to be logged in
+	 * @param password
+	 *            its corresponding password
 	 * @return the correct template based on role or if not exist at the login view
 	 */
 	@RequestMapping(value = { "/login" }, method = RequestMethod.POST)
@@ -499,7 +524,7 @@ public class MainController extends AllRepositories {
 					return new RedirectView("legalOffice");
 				}
 				if (role.compareTo(Staff.LEGAL_STAFF) == 0) {
-					return new RedirectView("legal_appointments/"+user.getId());
+					return new RedirectView("legal_appointments/" + user.getId());
 				}
 				if (role.compareTo(Staff.RECEPTIONIST) == 0) {
 					return new RedirectView("appointments");
@@ -512,10 +537,12 @@ public class MainController extends AllRepositories {
 		return new RedirectView("");
 
 	}
-	
+
 	/**
 	 * Show the view of the legal office
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the change requests template
 	 */
 	@RequestMapping(value = { "/legalOffice" }, method = RequestMethod.GET)
@@ -536,7 +563,9 @@ public class MainController extends AllRepositories {
 
 	/**
 	 * Accept or decline a change request
-	 * @param paramMap the input form
+	 * 
+	 * @param paramMap
+	 *            the input form
 	 * @return the change requests template
 	 */
 	@RequestMapping(value = {
@@ -548,7 +577,7 @@ public class MainController extends AllRepositories {
 		 */
 		Optional<ChangeRequest> temp = changeRequestRepository.findById(Long.parseLong(paramMap.get("id").get(0)));
 		ChangeRequest chr = temp.get();
-		//System.out.println(paramMap.get("button").toString());
+		// System.out.println(paramMap.get("button").toString());
 		if (paramMap.get("button").toString().equals("[Aprove]")) {
 			System.out.println("Aprove");
 			Client updatedClient = clientRep.findById(chr.getClientId()).get();
@@ -566,9 +595,12 @@ public class MainController extends AllRepositories {
 		changeRequestRepository.save(chr);
 		return new RedirectView("/legalOffice");
 	}
+
 	/**
 	 * Show the reports to the head office
-	 * @param model the model
+	 * 
+	 * @param model
+	 *            the model
 	 * @return the reports template
 	 */
 	@RequestMapping(value = { "/reports" }, method = RequestMethod.GET)
@@ -576,14 +608,12 @@ public class MainController extends AllRepositories {
 
 		return "reports";
 	}
-	
-	
+
 	@RequestMapping(value = { "/case-history/{caseId}" }, method = RequestMethod.GET)
-	public String caseHistoryById(Model model,@PathVariable(value = "caseId") Long caseId) {
+	public String caseHistoryById(Model model, @PathVariable(value = "caseId") Long caseId) {
 		ArrayList<CaseHistoryForm> caseHistory = new ArrayList<>();
 		for (CaseHistory ch : caseHistoryRep.findAll()) {
-			System.out.println(ch.getCaseId()+" "+caseId);
-			if (ch != null && ch.getCaseId() != null  && ch.getCaseId().equals(caseId) ) {
+			if (ch != null && ch.getCaseId() != null && ch.getCaseId().equals(caseId)) {
 				Staff s = staffRep.findById(ch.getStaffId()).get();
 				CaseHistoryForm chform = new CaseHistoryForm(ch, s);
 				chform.legalOpinionDetails = legalRep.findById(chform.legalOpinionId).get().getType() + ": "
@@ -594,7 +624,7 @@ public class MainController extends AllRepositories {
 				caseHistory.add(chform);
 			}
 		}
-		
+
 		model.addAttribute("caseHistory", caseHistory);
 		model.addAttribute("caseHistoryNumber", caseHistory.size());
 
