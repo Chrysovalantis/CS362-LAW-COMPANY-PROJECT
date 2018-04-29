@@ -54,12 +54,14 @@ public class CaseHistoryControllerTest extends AllRepositories {
 		ch.setId(caseId);
 		
 		CaseHistory c = caseHistoryRep.findById(caseId).get();
-		
+		c.setDate(null);
+		ch.setDate(null);
 		System.out.println(ch);
 		System.out.println(caseHistoryRep.findById(caseId).get());
 	    
 		Map<String, Object> mapSent = oMapper.convertValue(ch, Map.class);
 	    Map<String, Object> mapDatabse = oMapper.convertValue(c, Map.class);
+	    
 	    assertTrue(mapSent.equals(mapDatabse));
 	    
 	    caseHistoryController.deleteT(caseId);

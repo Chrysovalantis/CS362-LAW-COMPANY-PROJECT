@@ -52,7 +52,8 @@ public class AppointmentControllerTest extends AllRepositories {
 		Apointment ap1 = apointmentsRep.findById(appID).get();
 		System.out.println(ap);
 		System.out.println(apointmentsRep.findById(appID).get());
-	    
+	    ap.setDateCreated(null);
+	    ap1.setDateCreated(null);
 		Map<String, Object> mapSent = oMapper.convertValue(ap, Map.class);
 		Map<String, Object> mapDatabse = oMapper.convertValue(ap1, Map.class);
 	    assertTrue(mapSent.equals(mapDatabse));
