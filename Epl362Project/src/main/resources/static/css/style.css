@@ -234,6 +234,9 @@ textarea{
 	margin-top:10px !important;
 }
 
+#overflowApp{
+  overflow: auto;
+}
 
 
 /*consultation page-------------------------------------------------------------------*/
@@ -335,6 +338,10 @@ textarea{
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
+}
+
+label{
+  color:black;
 }
 
 /*receptionist_-------------------------------------------------------------------------*/

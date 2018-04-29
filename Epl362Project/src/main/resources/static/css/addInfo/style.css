@@ -332,3 +332,7 @@ textarea {
 a.tabs.active{
 	color:orangered !important;
 }
+
+label{
+  color:black;
+}
