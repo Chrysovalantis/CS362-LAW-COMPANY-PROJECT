@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 2. You have to create MySql database in your localhost (port 3306) ([XAMPP](https://www.apachefriends.org/index.html) recommended)
  
 ```
-Database Name: spring, Username: spring. 
+Database Name: spring, Username: spring, Password: password
 ```
 The user has to have all the previleges 
 
@@ -56,7 +56,21 @@ http://localhost:8080/
 5. Login and Enjoy!
 
 ```
-http://localhost:8080/staffs (All possible Logins)
+Legal staff:
+username: ls
+password: ls
+
+Legal office:
+username: lo0
+password: lo0
+
+Receptionist:
+username: re
+password: re
+
+Head office:
+username: ho
+password: ho
 ```
 
 
