@@ -431,7 +431,7 @@ public class MainController extends AllRepositories {
 		}
 		model.addAttribute("staffs", st);
 		model.addAttribute("branches", branchRep.findAll());
-		model.addAttribute("cases", caseHistoryRep.findAll());
+		model.addAttribute("cases", clientCaseRep.findAll());
 
 		return "newAppointment";
 	}
