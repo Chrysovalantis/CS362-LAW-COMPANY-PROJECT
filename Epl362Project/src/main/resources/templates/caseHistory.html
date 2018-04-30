@@ -11,7 +11,9 @@
         <div class="head row">
           <div class="col-sm-6">
             <h4
-              th:utext="${case.name}+' '+${case.surname}+' staffId: '+${case.staffId}"></h4>
+              th:utext="${case.name}+' '+${case.surname}"></h4>
+              <h5
+              th:utext="'Staff Id: '+${case.staffId}"></h5>
           </div>
           <div class="col-sm-6 date" th:utext="${case.date}"></div>
 

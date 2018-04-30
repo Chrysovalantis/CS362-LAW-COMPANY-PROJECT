@@ -250,7 +250,7 @@ public class MainController extends AllRepositories {
 			if (!a.isAttented() && cal.getTime().before(now) && cal.getTime().after(lastTwoDays)) {
 				mised.add(a);
 			}
-
+		
 		}
 		model.addAttribute("appointments", apos);
 		model.addAttribute("appointmentsNumber", apos.size());

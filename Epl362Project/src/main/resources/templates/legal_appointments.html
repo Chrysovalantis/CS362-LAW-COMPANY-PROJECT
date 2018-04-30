@@ -66,14 +66,16 @@
 							<div class="col-sm-6">
 								<h4 th:utext="'Appointment #'+ ${appointment.id}"></h4>
 								<p
-									th:utext="'Date : ' + ${appointment.date == null ? 'No Summary Available' : appointment.date}">...</p>
+									th:utext="'Created on : ' + ${appointment.dateCreated == null ? 'No Summary Available' : appointment.dateCreated}">...</p>
 
+								<p th:utext="'Case Id : '+ ${appointment.caseId}"></p>
+								
 								<p th:utext="'Attended : '+ ${appointment.attented}"></p>
 
 								<p th:utext="'Drop in  : '+ ${appointment.dropin}"></p>
 							</div>
 							<div class="col-sm-6 ">
-								<div th:utext="'Created on : ' + ${appointment.dateCreated}"
+								<div th:utext="'Date : ' + ${appointment.date}"
 									class="date"></div>
 								<div class="app-btn">
 									<button th:name="${appointment.id}" type="button"
@@ -111,6 +113,8 @@
 						</div>
 						<p
 							th:utext="'Created οn : ' + ${miss.dateCreated == null ? 'No Summary Available' : miss.dateCreated}">...</p>
+						
+						<p th:utext="'Case Id : '+ ${miss.caseId}"></p>
 
 						<p th:utext="'Attended : '+ ${miss.attented}"></p>
 
