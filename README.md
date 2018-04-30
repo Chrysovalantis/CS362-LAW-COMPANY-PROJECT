@@ -57,12 +57,12 @@ http://localhost:8080/
 
 ```
 Legal staff:
-username: ls
-password: ls
+username: ls0
+password: ls0
 
 Legal office:
-username: lo0
-password: lo0
+username: lo
+password: lo
 
 Receptionist:
 username: re
