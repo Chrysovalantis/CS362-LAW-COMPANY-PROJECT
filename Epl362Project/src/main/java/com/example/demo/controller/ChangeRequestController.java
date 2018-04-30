@@ -28,7 +28,6 @@ public class ChangeRequestController extends CoreController<ChangeRequest, CrudR
 	 */
 	@PostMapping(path="/addLock") 
 	public @ResponseBody String addNewT (@Valid @RequestBody ChangeRequest changeR) {
-		//System.out.println(changeR.toString());
 		Long clientId = changeR.getClientId();
 		Client c = clients.findById(clientId).get();
 	

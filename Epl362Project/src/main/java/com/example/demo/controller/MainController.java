@@ -509,7 +509,6 @@ public class MainController extends AllRepositories {
 	public RedirectView login(String username, String password) {
 		Iterable<Staff> users = staffRep.findAll();
 		for (Staff user : users) {
-			System.out.println(user);
 			String uUsername = user.getUsername();
 			String uPassword = user.getPassword();
 			if (uUsername == null || uPassword == null) {
@@ -571,15 +570,10 @@ public class MainController extends AllRepositories {
 	@RequestMapping(value = {
 			"/processRequest" }, method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public RedirectView processRequest(@RequestParam MultiValueMap<String, String> paramMap) {
-		/*
-		 * for (String val : paramMap.keySet()) { System.out.println("Key: " + val +
-		 * " Value: " + paramMap.get(val)); }
-		 */
+	
 		Optional<ChangeRequest> temp = changeRequestRepository.findById(Long.parseLong(paramMap.get("id").get(0)));
 		ChangeRequest chr = temp.get();
-		// System.out.println(paramMap.get("button").toString());
 		if (paramMap.get("button").toString().equals("[Aprove]")) {
-			System.out.println("Aprove");
 			Client updatedClient = clientRep.findById(chr.getClientId()).get();
 			if (chr.isDeleted()) {
 				updatedClient.setLocked(true);
