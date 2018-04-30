@@ -211,8 +211,7 @@ form.login a:hover{
 }
 
 .history-list{
-	height: 600px;
-    margin: 0px !important;
+  margin: 0px !important;
 }
 .date{
 	text-align:right;

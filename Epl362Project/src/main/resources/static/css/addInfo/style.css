@@ -223,7 +223,7 @@ form.login a:hover {
 }
 
 .history-list {
-    height: 600px;
+    color: black;
     margin: 0px !important;
 }
 
@@ -315,7 +315,6 @@ textarea {
 }
 
 #legalOpinionsList{
-    background-color: lightgrey;
     margin-top: 50px;
     height: 390px;
     overflow: auto;
