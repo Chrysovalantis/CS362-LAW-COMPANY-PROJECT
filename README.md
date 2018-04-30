@@ -31,11 +31,6 @@ git clone https://github.com/Chrysovalantis/CS362-LAW-COMPANY-PROJECT
 File -> Open Project from File System -> Directory
 ```
 
-2. Open STS and then open the project
-
-```
-File -> Open Project from File System -> Directory
-```
 
 ## Built With
 
