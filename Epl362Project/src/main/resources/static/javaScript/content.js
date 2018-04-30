@@ -364,36 +364,52 @@ $(document).ready(function(){
 
 // head-office -----------------------------------------------------------
 
+var flagHO=0;
 $(document).ready(function() {
 	$('.table-head').hide();
 
 	$("#clientBranch").on('click', function() {
 		$('.table-responsive').hide();
-		console.log("#" + $(this).attr('name'));
+		if (flagHO ==0){
+			$("#" + $(this).attr('name')).toggle(1500);
+			flagHO++;
+		}
 		$("#" + $(this).attr('name')).show();
 	});
 
 	$("#legalOpinions").on('click', function() {
 		$('.table-head').hide();
-		console.log("#" + $(this).attr('name'));
+		if (flagHO ==0){
+			$("#" + $(this).attr('name')).toggle(1500);
+			flagHO++;
+		}
 		$("#" + $(this).attr('name')).show();
 	});
 
 	$("#clientCase").on('click', function() {
 		$('.table-head').hide();
-		console.log("#" + $(this).attr('name'));
+		if (flagHO ==0){
+			$("#" + $(this).attr('name')).toggle(1500);
+			flagHO++;
+		}
 		$("#" + $(this).attr('name')).show();
 	});
 
 	$("#clientDay").on('click', function() {
 		$('.table-head').hide();
-		console.log("#" + $(this).attr('name'));
+		if (flagHO ==0){
+			$("#" + $(this).attr('name')).toggle(1500);
+			flagHO++;
+		}
 		$("#" + $(this).attr('name')).show();
 	});
 
 	$("#recommentation").on('click', function() {
 		$('.table-head').hide();
-		console.log("#" + $(this).attr('name'));
+		if (flagHO ==0){
+			$("#" + $(this).attr('name')).toggle(1500);
+			flagHO++;
+		}
 		$("#" + $(this).attr('name')).show();
 	});
 
@@ -403,10 +419,17 @@ $(document).ready(function() {
 
 
 // case-history -----------------------------------------------------------
+var flag=0;
 function showCaseHistory(obj){
 	$.ajax({url: "../case-history/"+obj.getAttribute("data-id"), success: function(result){
-        $("#case-history").html(result);
-    }});	
+			if(flag==0){
+				$("#case-history").hide().html(result).toggle(1500);
+				flag++;
+			}else{
+				$("#case-history").html(result);
+			}
+
+    }});
 }
 
 // case-history -----------------------------------------------------------

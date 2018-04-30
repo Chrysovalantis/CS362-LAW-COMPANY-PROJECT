@@ -211,8 +211,7 @@ form.login a:hover{
 }
 
 .history-list{
-	height: 600px;
-    margin: 0px !important;
+  margin: 0px !important;
 }
 .date{
 	text-align:right;
@@ -234,6 +233,9 @@ textarea{
 	margin-top:10px !important;
 }
 
+#overflowApp{
+  overflow: auto;
+}
 
 
 /*consultation page-------------------------------------------------------------------*/
@@ -336,6 +338,8 @@ textarea{
   -o-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
+
+
 
 /*receptionist_-------------------------------------------------------------------------*/
 
